@@ -1,7 +1,4 @@
-# Reto_Grupo_3
-Repositorio para el Reto 
-
-**BASE DE DATOS**
+# BASE DE DATOS
 
 **Profesores**
 | Nombre de columna | Tipo de dato | Descripcion |
