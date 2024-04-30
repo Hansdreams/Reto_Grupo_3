@@ -1,13 +1,10 @@
-# Reto_Grupo_3
-Repositorio para el Reto 
+# BASE DE DATOS
 
-**BASE DE DATOS**
-
-**Profesores**
 | Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
+**Profesores**
 | --- | --- | --- |
-| ID_Prof | INT |Identificador único para cada profesor |
+| ID_Prof | INT |Identificador de profesor |
 | Nombre | VARCHAR(25) | Nombre |
 | Apellidos | VARCHAR(45) | Apellidos |
 | DNI | INT | DNI del profesor |
@@ -15,102 +12,110 @@ Repositorio para el Reto
 | Estado | TINYINT | Estado del profesor (activo/inactivo) |
 | Departamento | INT | Departamento del profesor (foreign key) |
 | Perfil | ENUM('superusuario', 'equipo_directivo', 'administrador', 'profesor') | Tipo de perfil |
-DESCRIPCION | |
+DESCRIPCION | Informacion personal de profesor, *Email* para el acceso a la aplicacion y *departamento* al que pertenece |
 **Departamentos**
 | --- | --- | --- |
-| Nombre de columna | Tipo de dato | Descripcion |
 | idDepartamentos | INT | Identificador del departamento |
 | COD_DE | CHAR(3) | Codigo de departamento |
-| Nombre | VARCHAR(25) | Nombre |
-| JEFE | INT | Jefe de departamento (foreign key) |
+| Nombre | VARCHAR(50) | Nombre |
+|DESCRIPCION|Informacion del departamento|
+**Jefes**
+| --- | --- | --- |
+| idDepartamentos | INT | Identificador del departamento |
+| ID_Prof | INT |Identificador de profesor |
+|DESCRIPCION|Informacion sobre el *jefe* de cada *departamento*|
 **Cursos**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| COD_CUR | VARCHAR(5) | Course code |
-| descripCur | VARCHAR(145) | Course description |
-| etapa | ENUM('ESO', 'BACHILLERATO', 'FPGS', 'FPGM', 'FPB', 'FBCE') | Course stage |
-| estadoCur | TINYINT(1) | Course status (active/inactive) |
-| AlumnosTotales | INT | Total number of students |
+| COD_CUR | VARCHAR(5) | Codigo de curso |
+| descripCur | VARCHAR(145) | Descripcion de curso |
+| etapa | ENUM('ESO', 'BACHILLERATO', 'FPGS', 'FPGM', 'FPB', 'FBCE') | Estapa del curso |
+| estadoCur | TINYINT(1) | Estado del curso (activo/inactivo) |
+| AlumnosTotales | INT | Nº total de estudiantes |
+|DESCRIPCION|Informacion del curso y el numero total de alumnos por curso|
 **Grupos**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| COD_GRUP | VARCHAR(8) | Group code |
-| COD_CUR | VARCHAR(5) | Course code (foreign key) |
-| alumnos | INT | Number of students in the group |
-| estadoGrup | TINYINT(1) | Group status (active/inactive) |
+| COD_GRUP | VARCHAR(8) | Codigo de grupo |
+| COD_CUR | VARCHAR(5) | Codigo de curso (foreign key) |
+| alumnos | INT | Nº de estudiantes |
+| estadoGrup | TINYINT(1) | Estado de grupo (activo/inactivo) |
+|DESCRIPCION|Informacion del grupo, el *codigo de curso* al que pertenece, y el numero de alumnos por grupo|
 **Usuarios**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| idUsuarios | INT | Unique identifier for each user |
-| Email | VARCHAR(50) | User email address |
-| PWD | VARCHAR(20) | User password |
+| idUsuarios | INT | Identificador de usuario |
+| Email | VARCHAR(50) | Email de usuario |
+| PWD | VARCHAR(20) | Contraseña de usuario |
+|DESCRIPCION|Tabala para el acceso a la aplicacion, el *Email* del profesor junto a *Password* encrypt|
 **Solicitud**
-| Nombre de columna | Tipo de dato | Descripcion |
-| --- | --- | --- |
-| idSolicitud | INT | Unique identifier for each request |
-| Solicitante | INT | Requester ID (foreign key) |
-| nombreAct | VARCHAR(45) | Activity name |
-| tipoActividad | ENUM('Extraordinaria', 'Complementaria') | Activity type |
-| Departamento | INT | Department ID (foreign key) |
-| Prevista | TINYINT(1) | Is the activity planned? |
-| Transporte | TINYINT(1) | Does the activity require transportation? |
-| FechaInicial | DATE | Start date of the activity |
-| FechaFinal | DATE | End date of the activity |
-| HoraInicial | DATETIME | Start time of the activity |
-| HoraFinal | DATETIME | End time of the activity |
-| Alojamiento | TINYINT(1) | Does the activity require accommodation? |
-| comentarioAdicional | VARCHAR(200) | Additional comments |
-| Estado | ENUM('Solicitada', 'Realizada', 'Denegada', 'Aprobada') | Request status |
-| ConsultaEstado | VARCHAR(300) | Status comment |
+| --- | -   -- | --- |
+| idSolicitud | INT | Identificador de solicitud |
+| Solicitante | INT | ID de solicitante (foreign key) |
+| nombreAct | VARCHAR(45) | Nombre de actividad |
+| tipoActividad | ENUM('Extraordinaria', 'Complementaria') | TIpo de actividad |
+| Departamento | INT | ID de departamento (foreign key) |
+| Prevista | TINYINT(1) | Actividad prevista (S/N)|
+| Transporte | TINYINT(1) | Requiere de transporte (S/N) |
+| FechaInicial | DATE | Fecha inicial de la activdad |
+| FechaFinal | DATE | Fecha final de la activdad |
+| HoraInicial | DATETIME | Hora inicial |
+| HoraFinal | DATETIME | Hora final |
+| Alojamiento | TINYINT(1) | Requiere de alojamiento (S/N) |
+| AlumnosMAX| INT | Numero de alumnos maximos |
+| comentarioAdicional | VARCHAR(200) | Comentario adicional sobre la activadad |
+| Estado | ENUM('Solicitada', 'Realizada', 'Denegada', 'Aprobada') | Estado de la actividad |
+| ConsultaEstado | VARCHAR(300) | Comentario sobre estado de la actividad |
+|DESCRIPCION|Informacion de la solicitud de la actividad propuesta, mantiene relacion con *profesores*, *departamentos*,*grupos* y *cursos*, dentro de esta tabla aparece el estado de la solicitud, donde se indica con un comentario el "Por que" de su estado|
 **Transportes**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| idTransportes | INT | Unique identifier for each transport type |
-| TipoTransporte | VARCHAR(45) | Transport type name |
+| idTransportes | INT | Identificador de transportes |
+| TipoTransporte | VARCHAR(45) | Tipo de transporte |
+|DESCRIPCION|Informacion de los tipos de transporte|
 **TransporteAct**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| IdActividad | INT | Unique identifier for each activity transportation |
-| tipoTransporte | INT | Transport type ID (foreign key) |
+| IdActividad | INT | Identificador de la actividad |
+| tipoTransporte | INT | Tipo de transporte (ID) (foreign key) |
+|DESCRIPCION|Tabla sobre los transportes involucrados en la actividad|
 **ActividadProgramada**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| IdSolicitud | INT | Request ID (foreign key) |
-| TransporteContrato | TINYINT(1) | Is transportation contracted? |
-| Alojamiento | TINYINT(1) | Is accommodation required? |
-| Presupuesto | DECIMAL(6,2) | Budget for the activity |
-| AlumnosParticipantes | INT | Number of participating students |
+| IdSolicitud | INT | Identificacion de solicitud (foreign key) |
+| Solicitante | INT | ID de solicitante (foreign key) |
+| nombreAct | VARCHAR(45) | Nombre de actividad |
+| tipoActividad | ENUM('Extraordinaria', 'Complementaria') | TIpo de actividad |
+| Departamento | INT | ID de departamento (foreign key) |
+| Prevista | TINYINT(1) | Actividad prevista (S/N)|
+| Transporte | TINYINT(1) | Requiere de transporte (S/N) |
+| FechaInicial | DATE | Fecha inicial de la activdad |
+| FechaFinal | DATE | Fecha final de la activdad |
+| HoraInicial | DATETIME | Hora inicial |
+| HoraFinal | DATETIME | Hora final |
+| Alojamiento | TINYINT(1) | Requiere de alojamiento (S/N) |
+| comentarioAdicional | VARCHAR(200) | Comentario adicional sobre la activadad |
+| TransporteContrato | TINYINT(1) | Transporte Contratado (S/N) |
+| AlojamientoContratado | TINYINT(1) | Alojamiento Contratado (S/N) |
+| Presupuesto | DECIMAL(6,2) | Presupuesto total de la actividad (4 cifras maximo, +2 deciamles) |
+| AlumnosMAX| INT | Numero de alumnos maximos |
+| AlumnosParticipantes | INT | Numero de alumnos que participan |
 | Comentario | TEXT | Additional comments |
+|DESCRIPCION| Copia de la tabla *SOLICITUD* con algunos campos adicionales; cantidad de alumnos, transporte contradado, *presupuesto*, y comentario extenso sobre toda la actividad|
 **ProfesorParticipante**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| Actividad | INT | Activity ID (foreign key) |
-| IdProfesor | INT | Professor ID (foreign key) |
-| Rol | ENUM('Responsable', 'Participante') | Professor's role in the activity |
+| Actividad | INT | Identificacion de actividad (foreign key) |
+| IdProfesor | INT | Identificacion de profesor (foreign key) |
+| Rol | ENUM('Responsable', 'Participante') | Rol del profesor en la actividad |
+|DESCRIPCION|Informacion sobre profesores participantes en la actividad y sobre el *rol* que mantiene|
 **Fotos**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| idFotos | INT | Unique identifier for each photo |
-| url | VARCHAR(225) | Photo URL |
-| descripcion | TEXT | Photo description |
-| id_actividad | INT | Activity ID (foreign key) |
+| idFotos | INT | Identificador de la foto |
+| url | VARCHAR(225) | URL de la imagen |
+| descripcion | TEXT | Descripcion de la foto |
+| id_actividad | INT | Identificacion de la actividad (foreign key) |
+|DESCRIPCION|Informacion sobre la foto realizada en segun que actividad|
 **GruposAct**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| IdAct | INT | Activity ID (foreign key) |
-| CodGrupo | VARCHAR(8) | Group code (foreign key) |
+| IdAct | INT | Identificacion de la actividad (foreign key) |
+| CodGrupo | VARCHAR(8) | Codigo de grupo (foreign key) |
+|DESCRIPCION|Grupos participantes en una actividad|
 **CursosAct**
-| Nombre de columna | Tipo de dato | Descripcion |
 | --- | --- | --- |
-| IdAct | INT | Activity ID (foreign key) |
-| CodCur | VARCHAR(5) | Course code (foreign key) |
-**Alojamientos**
-| Nombre de columna | Tipo de dato | Descripcion |
-| --- | --- | --- |
-| idAlojamientos | INT | Unique identifier for each accommodation type |
-| TipoAlojamiento | VARCHAR(45) | Accommodation type name |
-**AlojamientosAct**
-| Nombre de columna | Tipo de dato | Descripcion |
-| --- | --- | --- |
-| IdActividad | INT | Activity ID (foreign key) |
-| tipoAlojamiento | INT | Accommodation type ID (foreign key) |
+| IdAct | INT | Identificacion de la actividad (foreign key) |
+| CodCur | VARCHAR(5) | Codigo de curso (foreign key) |
+|DESCRIPCION|Cursos participantes en una actividad||
