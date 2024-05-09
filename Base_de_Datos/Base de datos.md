@@ -117,7 +117,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Solicitud [ACEX]`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Solicitud` (
-  `idSolicitud` INT NOT NULL,
+  `idSolicitud` INT NOT NULL auto_increment,
   `Solicitante` INT NOT NULL,
   `nombreAct` VARCHAR(45) NOT NULL,
   `tipoActividad` ENUM('Extraordinaria', 'Complementaria') NOT NULL,
@@ -126,8 +126,8 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Solicitud` (
   `Transporte` TINYINT(1) NOT NULL,
   `FechaInicial` DATE NOT NULL,
   `FechaFinal` DATE NOT NULL,
-  `HoraInicial` DATETIME NOT NULL,
-  `HoraFinal` DATETIME NOT NULL,
+  `HoraInicial` TIME NOT NULL,
+  `HoraFinal` TIME NOT NULL,
   `Alojamiento` TINYINT(1) NULL,
   `comentarioAdicional` VARCHAR(500) NOT NULL,
   `AlumnosMAX` int not null,
@@ -175,8 +175,8 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`ActividadProgramada` (
   `Transporte` TINYINT(1) NOT NULL,
   `FechaInicial` DATE NOT NULL,
   `FechaFinal` DATE NOT NULL,
-  `HoraInicial` DATETIME NOT NULL,
-  `HoraFinal` DATETIME NOT NULL,
+  `HoraInicial` TIME NOT NULL,
+  `HoraFinal` TIME NOT NULL,
   `Alojamiento` TINYINT(1) NULL,
   `comentarioAdicional` VARCHAR(200) NOT NULL,
   `TransporteContrato` TINYINT(1) NOT NULL,
@@ -242,9 +242,12 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Alojamientos`
 -- -----------------------------------------------------
 
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 ```
 # Tablas
 
