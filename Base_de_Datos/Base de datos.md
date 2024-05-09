@@ -1,6 +1,21 @@
-# BASE DE DATOS ![Mysql_logo](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webempresa.com%2Fblog%2Fque-es-mysql.html&psig=AOvVaw3HdxwKRYwt1o48GB_Z4wd4&ust=1715347301391000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMCC-eXUgIYDFQAAAAAdAAAAABAI)
+
+
+
+[![mysql-logo.png](https://i.postimg.cc/HL1S7PbT/mysql-logo.png)](https://postimg.cc/G4zPWKMf)
+# BASE DE DATOS - RETO
+[![logo.png](https://i.postimg.cc/QxDvRCFX/logo.png)](https://postimg.cc/23HHWzdJ)
+
+# Índice
+
+1. [Script de creación de la base de datos](#script)
+2. [Tabla de la base de datos](#tablas)
+3. [Selects de la base de datos](#selects)
+4. [Facilitar el uso de inserts](#inserts)
+
 <br>
-<h2>SCRIPT DE CREACIÓN DE LA BASE DE DATOS</h1>
+
+
+# SCRIPT
 
 ```sql
 -- MySQL Workbench Forward Engineering
@@ -231,7 +246,7 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ```
-<h1> Tabla de la base de datos</h1>
+# Tablas
 
 <br>
 
@@ -359,7 +374,7 @@ DESCRIPCION | Informacion personal de profesor, *Email* para el acceso a la apli
 
 <br>
 
-# Creación de Selects
+# Selects
 *Creamos diferentes selects para utilizarlos luego en caso necesario para filtrar de diferentes maneras:*
 <br>
 
@@ -411,3 +426,36 @@ INNER JOIN ProfesorParticipante ON solicitud.idSolicitud = ProfesorParticipante.
 INNER JOIN Profesores ON ProfesorParticipante.IdProfesor = Profesores.ID_Prof;
 ```
 
+# Inserts
+
+```sql
+-- Inserts para la tabla Profesores
+INSERT INTO `RETO_PRUEBA`.`Profesores` (`Nombre`, `Apellidos`, `DNI`, `Email`, `Estado`, `Departamento`, `Perfil`) VALUES ();
+
+-- Inserts para la tabla JEFES
+INSERT INTO `RETO_PRUEBA`.`JEFES` (`idDepartamentos`, `ID_Prof`) VALUES ();
+
+-- Inserts para la tabla Cursos
+INSERT INTO `RETO_PRUEBA`.`Cursos` (`COD_CUR`, `descripCur`, `etapa`, `estadoCur`) VALUES ();
+
+-- Inserts para la tabla Grupos
+INSERT INTO `RETO_PRUEBA`.`Grupos` (`COD_GRUP`, `idCurso`, `alumnos`, `estadoGrup`) VALUES ();
+
+-- Inserts para la tabla Solicitud
+INSERT INTO `RETO_PRUEBA`.`Solicitud` (`Solicitante`, `nombreAct`, `tipoActividad`, `Departamento`, `Prevista`, `Transporte`, `FechaInicial`, `FechaFinal`, `HoraInicial`, `HoraFinal`, `Alojamiento`, `comentarioAdicional`, `AlumnosMAX`, `Estado`, `ConsultaEstado`) VALUES ();
+
+-- Inserts para la tabla ActividadProgramada
+INSERT INTO `RETO_PRUEBA`.`ActividadProgramada` (`Solicitante`, `nombreAct`, `tipoActividad`, `Departamento`, `Prevista`, `Transporte`, `FechaInicial`, `FechaFinal`, `HoraInicial`, `HoraFinal`, `Alojamiento`, `comentarioAdicional`, `TransporteContrato`, `AlumnosMAX`, `Presupuesto`, `AlumnosParticipantes`, `Comentario`) VALUES ();
+
+-- Inserts para la tabla ProfesorParticipante
+INSERT INTO `RETO_PRUEBA`.`ProfesorParticipante` (`Actividad`, `IdProfesor`, `Rol`) VALUES ();
+
+-- Inserts para la tabla GruposAct
+INSERT INTO `RETO_PRUEBA`.`GruposAct` (`IdAct`, `idGrupo`) VALUES ();
+
+-- Inserts para la tabla CursosAct
+INSERT INTO `RETO_PRUEBA`.`CursosAct` (`IdAct`, `idCur`) VALUES ();
+
+-- Inserts para la tabla Alojamientos
+-- (Necesitaría información adicional para generar los inserts)
+```
