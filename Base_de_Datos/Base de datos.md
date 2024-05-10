@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Usuarios` (
 
 ENGINE = InnoDB;
 
-insert into usuarios(idUsuarios,Email,PWD)values('999','super.usuario@educantabria','1234');
+insert into usuarios(idUsuarios,Email,PWD)values('999','super.usuario@educantabria.es','1234');
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Solicitud [ACEX]`
