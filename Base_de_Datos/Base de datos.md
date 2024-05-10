@@ -51,6 +51,9 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Profesores` (
   CONSTRAINT fk_Profesores_Departamento FOREIGN KEY (Departamento) REFERENCES Departamentos (idDepartamentos) ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+insert into profesores (ID_Prof,Nombre,Apellidos,DNI,Email,Estado,Departamento,Perfil)
+values('999','super','usuario','12345678Z','super.usuario@educantabria.es',1,20,'superusuario');
+
 -- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Table `mydb`.`Departamentos`
@@ -59,17 +62,33 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Departamentos` (
   `idDepartamentos` INT NOT NULL,
   `COD_DE` CHAR(3) NOT NULL UNIQUE,
   `Nombre` VARCHAR(50) NOT NULL,
+  `JEFE` int,
   PRIMARY KEY (`idDepartamentos`),
   UNIQUE INDEX `COD_DE_UNIQUE` (`COD_DE` ASC) VISIBLE)
+
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`JEFES`(
- `idDepartamentos` INT NOT NULL,
- `ID_Prof` INT,
-  CONSTRAINT fk_JEFES_Departamento FOREIGN KEY (idDepartamentos) REFERENCES Departamentos (idDepartamentos) ON UPDATE CASCADE,
-  CONSTRAINT fk_JEFES_Profesores FOREIGN KEY (ID_Prof) REFERENCES Profesores (ID_Prof) ON UPDATE CASCADE,
-  UNIQUE INDEX (`idDepartamentos`))
-ENGINE = InnoDB;
+INSERT INTO Departamentos (idDepartamentos, COD_DE, Nombre, JEFE) VALUES
+(1, 'BG', 'Biologia y Geologia', NULL),
+(2, 'DIB', 'Dibujo', NULL),
+(3, 'ECO', 'Economia', NULL),
+(4, 'EF', 'Educacion Fisica', NULL),
+(5, 'FIL', 'Filosofia', NULL),
+(6, 'FQ', 'Fisica y Quimica', NULL),
+(7, 'FRA', 'Frances', NULL),
+(8, 'GH', 'Geografia e Historia', NULL),
+(9, 'ING', 'Ingles', NULL),
+(10, 'LAT', 'Latin', NULL),
+(11, 'LEN', 'Lengua Castellana y Literatura', NULL),
+(12, 'MAT', 'Matematicas', NULL),
+(13, 'MUS', 'Musica', NULL),
+(14, 'TEC', 'Tecnologia', NULL),
+(15, 'AG', 'Administracion y Gestion', NULL),
+(16, 'FOL', 'Formacion y Orientacion Laboral', NULL),
+(17, 'INF', 'Informatica y Comunicaciones', NULL),
+(18, 'FM', 'Fabricacion Mecanica', NULL),
+(19, 'TMV', 'Transporte y Mantenimiento de Vehiculos', NULL),
+(20, 'S-U', 'Superusuario',999);
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Cursos`
@@ -83,6 +102,32 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Cursos` (
   PRIMARY KEY (`ID_CURSO`),
   UNIQUE INDEX `COD_CUR_UNIQUE` (`COD_CUR` ASC) VISIBLE)
 ENGINE = InnoDB;
+
+INSERT INTO cursos (ID_CURSO, COD_CUR, descripCur, etapa, estadoCur) VALUES
+(1, 'ESO1', 'Educacion Secundaria Obligatoria - 1º', 'ESO', 1),
+(2, 'ESO2', 'Educacion Secundaria Obligatoria - 2º', 'ESO', 1),
+(3, 'ESO3', 'Educacion Secundaria Obligatoria - 3º', 'ESO', 1),
+(4, 'ESO4', 'Educacion Secundaria Obligatoria - 4º', 'ESO', 1),
+(5, 'BCH1', 'Bachillerato 1º', 'Bachillerato', 1),
+(6, 'BCH2', 'Bachillerato 2º', 'Bachillerato', 1),
+(7, 'FM1', 'Fabricación y montaje - 1º', 'FPGM', 1),
+(8, 'FM2', 'Fabricación y montaje - 2º', 'FPGM', 1),
+(9, 'MV1', 'Mantenimiento de Vehiculos - 1º', 'FPGM', 1),
+(10, 'MV2', 'Mantenimiento de Vehiculos - 2º', 'FPGM', 1),
+(11, 'CAR1', 'Carroceria - 1º', 'FPGM', 1),
+(12, 'CAR2', 'Carroceria - 2º', 'FPGM', 1),
+(13, 'EVA1', 'Electromecánica de Vehiculos Automoviles - 1º', 'FPGM', 1),
+(14, 'EVA2', 'Electromecánica de Vehiculos Automoviles - 2º', 'FPGM', 1),
+(15, 'SMR1', 'Sistemas Microinformaticos y Redes - 1º', 'FPGM', 1),
+(16, 'SMR2', 'Sistemas Microinformaticos y Redes - 2º', 'FPGM', 1),
+(17, 'AF1', 'Administracion y Finanzas - 1º', 'FPGS', 1),
+(18, 'AF2', 'Administracion y Finanzas - 2º', 'FPGS', 1),
+(19, 'DAM1', 'Desarrollo de Aplicaciones Multiplataforma - 1º', 'FPGS', 1),
+(20, 'DAM2', 'Desarrollo de Aplicaciones Multiplataforma - 2º', 'FPGS', 1),
+(21, 'DAW1', 'Desarrollo de Aplicaciones Web - 1º', 'FPGS', 1),
+(22, 'DAW2', 'Desarrollo de Aplicaciones Web - 2º', 'FPGS', 1),
+(23, 'DFM1', 'Diseño en Fabricacion Mecanica - 1º', 'FPGS', 1),
+(24, 'DFM2', 'Diseño en Fabricacion Mecanica - 2º', 'FPGS', 1);
 
 
 -- -----------------------------------------------------
@@ -99,6 +144,46 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Grupos` (
 
 ENGINE = InnoDB;
 
+INSERT INTO grupos (ID_GRUPO, COD_GRUP, idCurso, alumnos, estadoGrup) VALUES
+(1, 'ESO1A', 1, 22, 1),
+(2, 'ESO1B', 1, 21, 1),
+(3, 'ESO1C', 1, 20, 1),
+(4, 'ESO1D', 1, 22, 1),
+(5, 'ESO2A', 2, 19, 1),
+(6, 'ESO2B', 2, 21, 1),
+(7, 'ESO2C', 2, 20, 1),
+(8, 'ESO2D', 2, 19, 1),
+(9, 'ESO3A', 3, 25, 1),
+(10, 'ESO3B', 3, 24, 1),
+(11, 'ESO3C', 3, 25, 1),
+(12, 'ESO4A', 4, 19, 1),
+(13, 'ESO4B', 4, 18, 1),
+(14, 'ESO4C', 4, 18, 1),
+(15, 'ESO4D', 4, 17, 1),
+(16, 'BCH1HCS', 5, 21, 1),
+(17, 'BCH1CT', 5, 22, 1),
+(18, 'BCH2HCS', 6, 20, 1),
+(19, 'BDH2CT', 6, 19, 1),
+(20, 'FM1', 7, 24, 1),
+(21, 'FM2', 8, 18, 1),
+(22, 'MV1', 9, 25, 1),
+(23, 'MV2', 10, 15, 1),
+(24, 'CAR1', 11, 25, 1),
+(25, 'CAR2', 12, 16, 1),
+(26, 'EVA1', 13, 24, 1),
+(27, 'EVA2', 14, 14, 1),
+(28, 'SMR1', 15, 28, 1),
+(29, 'SMR2', 16, 19, 1),
+(30, 'AF1', 17, 24, 1),
+(31, 'AF2', 18, 25, 1),
+(32, 'DAM1', 19, 28, 1),
+(33, 'DAM2', 20, 35, 1),
+(34, 'DAW1', 21, 24, 1),
+(35, 'DAW2', 22, 18, 1),
+(36, 'DFM1', 23, 16, 1),
+(37, 'DFM2', 24, 9, 1);
+
+
 -- -----------------------------------------------------
 -- Table `mydb`.`Usuarios`
 -- -----------------------------------------------------
@@ -112,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`Usuarios` (
 
 ENGINE = InnoDB;
 
+insert into usuarios(idUsuarios,Email,PWD)values('999','super.usuario@educantabria','1234');
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Solicitud [ACEX]`
@@ -238,6 +324,8 @@ CONSTRAINT fk_CursosAct_Cursos FOREIGN KEY (idCur) REFERENCES Cursos (ID_CURSO) 
 
 ENGINE = InnoDB;
 
+alter table departamentos add CONSTRAINT fk_Departamentos_Profesores FOREIGN KEY (JEFE) REFERENCES Profesores (ID_Prof) ON UPDATE CASCADE;
+
 -- -----------------------------------------------------
 -- Table `mydb`.`Alojamientos`
 -- -----------------------------------------------------
@@ -247,6 +335,8 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
 
 ```
 # Tablas
@@ -271,13 +361,9 @@ DESCRIPCION | Informacion personal de profesor, *Email* para el acceso a la apli
 | --- | --- | --- |
 | idDepartamentos | INT | Identificador del departamento |
 | COD_DE | CHAR(3) | Codigo de departamento |
-| Nombre | VARCHAR(50) | Nombre |
+| Nombre | VARCHAR(50) | Nombre de departamento |
+| JEFE | INT  | *ID_Prof* del profesor jefe de cada departamento |
 |DESCRIPCION|Informacion del departamento|
-**Jefes**
-| --- | --- | --- |
-| idDepartamentos | INT | Identificador del departamento |
-| ID_Prof | INT |Identificador de profesor |
-|DESCRIPCION|Informacion del profesor jefe *ID_Prof* de cada *departamento*|
 **Cursos**
 | --- | --- | --- |
 | ID_CURSO|INT NOT NULL|Identificador de curso|
@@ -435,9 +521,6 @@ INNER JOIN Profesores ON ProfesorParticipante.IdProfesor = Profesores.ID_Prof;
 -- Inserts para la tabla Profesores
 INSERT INTO `RETO_PRUEBA`.`Profesores` (`Nombre`, `Apellidos`, `DNI`, `Email`, `Estado`, `Departamento`, `Perfil`) VALUES ();
 
--- Inserts para la tabla JEFES
-INSERT INTO `RETO_PRUEBA`.`JEFES` (`idDepartamentos`, `ID_Prof`) VALUES ();
-
 -- Inserts para la tabla Cursos
 INSERT INTO `RETO_PRUEBA`.`Cursos` (`COD_CUR`, `descripCur`, `etapa`, `estadoCur`) VALUES ();
 
@@ -458,7 +541,3 @@ INSERT INTO `RETO_PRUEBA`.`GruposAct` (`IdAct`, `idGrupo`) VALUES ();
 
 -- Inserts para la tabla CursosAct
 INSERT INTO `RETO_PRUEBA`.`CursosAct` (`IdAct`, `idCur`) VALUES ();
-
--- Inserts para la tabla Alojamientos
--- (Necesitaría información adicional para generar los inserts)
-```
