@@ -6,7 +6,7 @@ package Clases;
 import Enums.TipoActividad;
 import Enums.Estado;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 /**
  *
@@ -23,15 +23,15 @@ public class Solicitud {
     private boolean transporte;
     private LocalDate fechaInicial;
     private LocalDate fechaFinal;
-    private LocalDateTime horaInicial;
-    private LocalDateTime horaFinal;
+    private LocalTime horaInicial;
+    private LocalTime horaFinal;
     private boolean alojamiento;
     private String comentarioAdicional;
     private Estado estado;
     private String consultaEstado;
     private int maximoAlumnos;
 
-    public Solicitud(int idSolicitud, int solicitante, String nombreActividad, TipoActividad tipoActividad, int departamento, boolean prevista, boolean transporte, LocalDate fechaInicial, LocalDate fechaFinal, LocalDateTime horaInicial, LocalDateTime horaFinal, boolean alojamiento, String comentarioAdicional, Estado estado, String consultaEstado, int maximoAlumnos) {
+    public Solicitud(int idSolicitud, int solicitante, String nombreActividad, TipoActividad tipoActividad, int departamento, boolean prevista, boolean transporte, LocalDate fechaInicial, LocalDate fechaFinal, LocalTime horaInicial, LocalTime horaFinal, boolean alojamiento, String comentarioAdicional, Estado estado, String consultaEstado, int maximoAlumnos) {
         this.idSolicitud = idSolicitud;
         this.solicitante = solicitante;
         this.nombreActividad = nombreActividad;
@@ -122,19 +122,19 @@ public class Solicitud {
         this.fechaFinal = fechaFinal;
     }
 
-    public LocalDateTime getHoraInicial() {
+    public LocalTime getHoraInicial() {
         return horaInicial;
     }
 
-    public void setHoraInicial(LocalDateTime horaInicial) {
+    public void setHoraInicial(LocalTime horaInicial) {
         this.horaInicial = horaInicial;
     }
 
-    public LocalDateTime getHoraFinal() {
+    public LocalTime getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(LocalDateTime horaFinal) {
+    public void setHoraFinal(LocalTime horaFinal) {
         this.horaFinal = horaFinal;
     }
 
@@ -191,12 +191,12 @@ public class Solicitud {
     }
     
     public String formatoHoraInicial(){
-        DateTimeFormatter fecFor = DateTimeFormatter.ofPattern("h:mm");
+        DateTimeFormatter fecFor = DateTimeFormatter.ofPattern("HH:mm");
         return horaInicial.format(fecFor);
     }
     
     public String formatoHoraFinal(){
-        DateTimeFormatter fecFor = DateTimeFormatter.ofPattern("h:mm");
+        DateTimeFormatter fecFor = DateTimeFormatter.ofPattern("HH:mm");
         return horaFinal.format(fecFor);
     }
 

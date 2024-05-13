@@ -4,7 +4,7 @@
  */
 package Interface;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public interface MetodosBD<T> {
     
     //Metodo que listar cualquier objeto T
-    ArrayList<T> listar();
+    List<T> listar();
     
     //Metodo que recuperara un objeto mediante un parametro String
-    T buscar(String aux);
+    T buscar(int ID);
     
     //Metodo que guardara un objeto mediante un un generico
     void guardar(T t);

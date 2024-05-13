@@ -48,6 +48,8 @@ public class MetodoFichero {
                 Profesor p = new Profesor(cont,nombre, Apellido, dni, mail, departamento,perfil);
 
                 leeProfesores.add(p);
+                
+                cont++;
 
             }
 
