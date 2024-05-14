@@ -73,7 +73,7 @@ public class MetodoFichero {
 
     }
 
-    public static ArrayList<Cursos> listarCursos(File aux) {
+    /*public static ArrayList<Cursos> listarCursos(File aux) {
 
         ArrayList<Cursos> leeCursos = new ArrayList<>();
 
@@ -119,7 +119,7 @@ public class MetodoFichero {
 
         return leeCursos;
 
-    }
+    }*/
     
     public static ArrayList<Departamentos> listarDepartamentos(File aux) {
 
@@ -188,7 +188,7 @@ public class MetodoFichero {
                 String codGrupo = data[1];
                 int idcurso = Integer.parseInt(data[2]);
                 int alumno = Integer.parseInt(data[3]);
-                int activo = Integer.parseInt(data[4]);
+                boolean activo = Boolean.parseBoolean((data[4]));
 
                 Grupos g = new Grupos(idgrupo, codGrupo, idcurso, alumno, activo);
 
@@ -214,50 +214,6 @@ public class MetodoFichero {
 
         return leeGrupos;
 
-    }
-    
-    void pruebaFichero(){
-        
-        File c = new File("src/main/archivosCSV/cursos.csv");
-        File d = new File("src/main/archivosCSV/departamentos.csv");
-        File g = new File("src/main/archivosCSV/grupos.csv");
-        File p = new File("src/main/archivosCSV/profesores.csv");
-        
-        ArrayList<Cursos> auxC = MetodoFichero.listarCursos(c);
-        ArrayList<Departamentos> auxD = MetodoFichero.listarDepartamentos(d);
-        ArrayList<Grupos> auxG = MetodoFichero.listarGrupos(g);
-        ArrayList<Profesor> auxP = MetodoFichero.listarProfesores(p);
-        
-        for (Cursos cur : auxC) {
-            
-            System.out.println(cur.toString());
-            
-        }
-        
-        System.out.println("");
-        
-        for (Departamentos dep : auxD) {
-            
-            System.out.println(dep.toString());
-            
-        }
-        
-        System.out.println("");
-        
-        for (Grupos gru : auxG) {
-            
-            System.out.println(gru.toString());
-            
-        }
-        
-        System.out.println("");
-        
-        for (Profesor pro : auxP) {
-            
-            System.out.println(pro.toString());
-            
-        }
-        
     }
 
 }

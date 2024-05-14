@@ -10,6 +10,12 @@ import java.io.File;
 import java.util.ArrayList;
 import Enums.Perfil;
 import DAOImp.SolicitudDAOImp;
+import DAOImp.ProfesorDAOImp;
+import DAOImp.TransporteDAOImp;
+import DAOImp.GruposDAOImp;
+import DAOImp.CursosDAOImp;
+import DAOImp.ActividadProgramadaDAOImp;
+import DAOImp.FotosDAOImp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +41,12 @@ public class Prueba {
     public static void main(String[] args) {
         
         SolicitudDAOImp soli = new SolicitudDAOImp();
+        ProfesorDAOImp pro = new ProfesorDAOImp();
+        TransporteDAOImp tra = new TransporteDAOImp();
+        GruposDAOImp gru = new GruposDAOImp();
+        CursosDAOImp cur = new CursosDAOImp();
+        ActividadProgramadaDAOImp act = new ActividadProgramadaDAOImp();
+        FotosDAOImp fot = new FotosDAOImp();
         
        /*int diaI = Integer.parseInt(textFechaInicial.getText().substring(0, 2));
         int mesI = Integer.parseInt(textFechaInicial.getText().substring(3, 5));
@@ -47,13 +59,18 @@ public class Prueba {
         int horaI = Integer.parseInt(textHoraInicial.getText().substring(0, 2));
         int minutosI = Integer.parseInt(textHoraInicial.getText().substring(3, textHoraInicial.getText().length()));*/
         
-        List<Solicitud> aux = soli.listar();
+        List<Fotos> auxF = fot.listar();
         
-        for (Solicitud solicitud : aux) {
+        /*for (Fotos auxf : auxF) {
             
-            System.out.println(solicitud.toString());
             
-        }
+            System.out.println(auxf.toString());
+        }*/
+        
+        System.out.println(auxF.size());
+
+        //ultima Actualizacion 1.1
+
        
     }
 

@@ -10,6 +10,6 @@ package Enums;
  */
 public enum Estado {
     
-    SOLICITADA,REALIZADA,DENEGANADA,APROBADA;
+    SOLICITADA,REALIZADA,DENEGADA,APROBADA;
     
 }

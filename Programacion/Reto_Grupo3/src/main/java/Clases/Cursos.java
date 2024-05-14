@@ -14,15 +14,16 @@ public class Cursos {
     private String codCurso;
     private String desCurso;
     private String etapa;
-    private int activo;
+    private boolean activo;
     private int totalAlumnos;//pendiente
 
-    public Cursos(int idCurso, String codCurso, String desCurso, String etapa, int activo) {
+    public Cursos(int idCurso, String codCurso, String desCurso, String etapa, boolean activo, int totalAlumnos) {
         this.idCurso = idCurso;
         this.codCurso = codCurso;
         this.desCurso = desCurso;
         this.etapa = etapa;
         this.activo = activo;
+        this.totalAlumnos = totalAlumnos;
     }
 
     public int getIdCurso() {
@@ -57,17 +58,25 @@ public class Cursos {
         this.etapa = etapa;
     }
 
-    public int getActivo() {
+    public boolean isActivo() {
         return activo;
     }
 
-    public void setActivo(int activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public int getTotalAlumnos() {
+        return totalAlumnos;
+    }
+
+    public void setTotalAlumnos(int totalAlumnos) {
+        this.totalAlumnos = totalAlumnos;
     }
 
     @Override
     public String toString() {
-        return "Cursos{" + "idCurso=" + idCurso + ", codCurso=" + codCurso + ", desCurso=" + desCurso + ", etapa=" + etapa + ", activo=" + activo + '}';
+        return "Cursos{" + "idCurso=" + idCurso + ", codCurso=" + codCurso + ", desCurso=" + desCurso + ", etapa=" + etapa + ", activo=" + activo + ", totalAlumnos=" + totalAlumnos + '}';
     }
-
+    
 }
