@@ -43,7 +43,6 @@ import Ficheros.MetodoFichero;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -2665,7 +2664,9 @@ public class Principal extends javax.swing.JFrame {
 
             }
 
-        } else {
+        }else if (auxUsu == null){
+                 mensaje("Usuario no existe en la base de datos!!!");
+                } else {
 
             mensaje("Usuario o Contraseña incorrecta");
 
