@@ -70,7 +70,7 @@ public class UsuarioDAOImp implements MetodosBD<Usuario> {
 
         String contraseña = p.getNombre().substring(0, 4) + p.getApellidos().substring(0, 3);
 
-        final String sql = "insert into usuarios (idUsuarios,Email,PWD) values('" + p.getId_Prof() + "','" + p.getMail() + "','" + contraseña.toLowerCase() + "')";
+        final String sql = "insert into usuarios (idUsuarios,Email,PWD) values('"+p.getId_Prof()+"','"+p.getMail()+"','"+contraseña.toLowerCase()+"')";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
 

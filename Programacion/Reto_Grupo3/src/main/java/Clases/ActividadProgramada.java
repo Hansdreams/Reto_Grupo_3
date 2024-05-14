@@ -14,26 +14,20 @@ import java.time.LocalTime;
  * @author DAW112
  */
 public class ActividadProgramada extends Solicitud{
-    
-    private int idSolicitudPro;
+  
     private boolean transporteContratado;
-    private boolean alojamiento;
     private double presupuesto;
     private int alumnosParticipantes;
     private String comentarios;
 
-    public ActividadProgramada(int idSolicitud, int solicitante, String nombreActividad, TipoActividad tipoActividad, int departamento, boolean prevista, boolean transporte, LocalDate fechaInicial, LocalDate fechaFinal, LocalTime horaInicial, LocalTime horaFinal, boolean alojamiento, String comentarioAdicional, Estado estado, String consultaEstado, int maximoAlumnos) {
+    public ActividadProgramada(boolean transporteContratado, double presupuesto, int alumnosParticipantes, String comentarios, int idSolicitud, int solicitante, String nombreActividad, TipoActividad tipoActividad, int departamento, 
+            boolean prevista, boolean transporte, LocalDate fechaInicial, LocalDate fechaFinal, LocalTime horaInicial, LocalTime horaFinal, boolean alojamiento, String comentarioAdicional, Estado estado, String consultaEstado, int maximoAlumnos) {
+        
         super(idSolicitud, solicitante, nombreActividad, tipoActividad, departamento, prevista, transporte, fechaInicial, fechaFinal, horaInicial, horaFinal, alojamiento, comentarioAdicional, estado, consultaEstado, maximoAlumnos);
-    }
-
-    
-
-    public int getIdSolicitudPro() {
-        return idSolicitudPro;
-    }
-
-    public void setIdSolicitudPro(int idSolicitudPro) {
-        this.idSolicitudPro = idSolicitudPro;
+        this.transporteContratado = transporteContratado;
+        this.presupuesto = presupuesto;
+        this.alumnosParticipantes = alumnosParticipantes;
+        this.comentarios = comentarios;
     }
 
     public boolean isTransporteContratado() {
@@ -42,14 +36,6 @@ public class ActividadProgramada extends Solicitud{
 
     public void setTransporteContratado(boolean transporteContratado) {
         this.transporteContratado = transporteContratado;
-    }
-
-    public boolean isAlojamiento() {
-        return alojamiento;
-    }
-
-    public void setAlojamiento(boolean alojamiento) {
-        this.alojamiento = alojamiento;
     }
 
     public double getPresupuesto() {
@@ -78,9 +64,9 @@ public class ActividadProgramada extends Solicitud{
 
     @Override
     public String toString() {
-        return "ActividadProgramada{" + "idSolicitudPro=" + idSolicitudPro + ", transporteContratado=" + transporteContratado + ", alojamiento=" + alojamiento + ", presupuesto=" + presupuesto + ", alumnosParticipantes=" + alumnosParticipantes + ", comentarios=" + comentarios + '}';
+        return "ActividadProgramada{" + "transporteContratado=" + transporteContratado + ", presupuesto=" + presupuesto + ", alumnosParticipantes=" + alumnosParticipantes + ", comentarios=" + comentarios +",Solicitud="+super.toString()+'}';
     }
 
     
-    
+
 }

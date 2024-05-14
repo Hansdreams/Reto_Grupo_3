@@ -51,7 +51,7 @@
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Component id="jTextCorreo" min="-2" pref="350" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCorreo" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="335" max="-2" attributes="0"/>
@@ -88,7 +88,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelUsuario" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="jTextCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jLabelCorreo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -155,13 +155,14 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
+            <Property name="text" type="java.lang.String" value="contrase&#xf1;a"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPasswordContrase&#xf1;aMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordContrase&#xf1;aActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jLabelCorreo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
@@ -204,51 +205,49 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabelSolicitud" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSolicitudesAprobadas" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabelSolicitudesAprobadas" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelSolicitud" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="1360" max="32767" attributes="0"/>
-                              <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
                           <Component id="jButtonNuevaSolicitud" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jButtonSalirVentanaProfesor" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jPanelModificacionSolicitud" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="jPanelFotosActividad" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane2" pref="1390" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="jLabelSolicitud" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="240" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="130" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabelSolicitudesAprobadas" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="130" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="240" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="378" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonSalirVentanaProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonNuevaSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="341" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jPanelFotosActividad" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanelModificacionSolicitud" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButtonNuevaSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonSalirVentanaProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="118" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -271,6 +270,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTableSolicitudes">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
                     <Column editable="true" title="Title 1" type="java.lang.Object"/>
@@ -280,6 +282,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableSolicitudesMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -300,6 +305,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTableSolicitudesAprobadas">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
                     <Column editable="true" title="Title 1" type="java.lang.Object"/>
@@ -309,6 +317,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableSolicitudesAprobadasMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -328,12 +339,720 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Salir"/>
+            <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalirVentanaProfesorActionPerformed"/>
           </Events>
         </Component>
+        <Container class="javax.swing.JPanel" name="jPanelModificacionSolicitud">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabelModificacionSolicitud" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldModificacionIdSolicitud" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabelModificacionNombreActividad" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelModificacionTransporte" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelModificacionDepartamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelModificacionFechaInicial" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelModificacionFechaFinal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelModificacionComentarioAdicional" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextFieldModificacionTransporte" alignment="0" pref="135" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldModificacionDepartamento" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldModificacionNombreActividad" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jTextFieldModificacionHoraInicial" min="-2" pref="130" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabelModificacionPreVista" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabelModificacionTipoActividad" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabelModificacionAlojamiento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="jTextFieldModificacionPreVista" alignment="0" pref="130" max="32767" attributes="0"/>
+                                                          <Component id="jTextFieldModificacionAlojamiento" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="jTextFieldModificacionTipoActividad" alignment="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                              <Component id="jLabelModificacionCantidadAlumnos" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="jLabelPresupuesto" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                                      <Component id="jLabelComentarioOpcional" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jButtonModificacionrSolicitudAprobada" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jTextFieldPresupuesto" alignment="0" pref="135" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldModificacionFechaFinal" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldModificacionFechaInicial" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldModificacionComentarioAdicional" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabelModificacionHoraInicial" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelModificacionHoraFinal" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelAlumnoAsistencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextFieldModificacionHoraFinal" min="-2" pref="130" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldModificacionCantidadAlumnos" pref="132" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldAlumnosAsistencia" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jTextFieldComentarioOpcional" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelTransporteContratado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelListaTransporte" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jButtonSeleccionarTranspote" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxTransporteContrado" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jButtonCerrarModificacionSolicitud" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelModificacionSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldModificacionIdSolicitud" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldModificacionNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelModificacionTipoActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldModificacionTipoActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelModificacionNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelTransporteContratado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxTransporteContrado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextFieldModificacionDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelModificacionPreVista" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldModificacionPreVista" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonSeleccionarTranspote" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabelModificacionDepartamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextFieldModificacionTransporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelModificacionAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldModificacionAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelModificacionTransporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelListaTransporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextFieldModificacionHoraInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelModificacionHoraInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldModificacionFechaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelModificacionFechaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jScrollPane6" min="-2" pref="80" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldModificacionFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelModificacionHoraFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldModificacionHoraFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelModificacionFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldModificacionComentarioAdicional" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldModificacionCantidadAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelModificacionComentarioAdicional" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelModificacionCantidadAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldPresupuesto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelPresupuesto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldAlumnosAsistencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelAlumnoAsistencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldComentarioOpcional" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelComentarioOpcional" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonModificacionrSolicitudAprobada" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCerrarModificacionSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionSolicitud">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Modificacion de Solicitud  Aprobada N&#xaa; : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionNombreActividad">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nombre de la Actividad :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionNombreActividad">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionTipoActividad">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Tipo de Actividad :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionTipoActividad">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionDepartamento">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Departamento :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionDepartamento">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionPreVista">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Pre - Vista :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionPreVista">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionTransporte">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Transporte : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionTransporte">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionFechaInicial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Fecha Inicial :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionFechaInicial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldModificacionFechaInicialMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionFechaFinal">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Fecha Final : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionFechaFinal">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldModificacionFechaFinalMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionHoraInicial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Hora Inicial : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionHoraInicial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldModificacionHoraInicialMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionHoraFinal">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Hora Final : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionHoraFinal">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldModificacionHoraFinalMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionAlojamiento">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Alojamiento : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionAlojamiento">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionComentarioAdicional">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Comentario Adicional :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionComentarioAdicional">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelModificacionCantidadAlumnos">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cant. de Alumnos :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionCantidadAlumnos">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonModificacionrSolicitudAprobada">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Modificar Solicitud Aprobada"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonModificacionrSolicitudAprobadaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonCerrarModificacionSolicitud">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cerrar Ventana"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarModificacionSolicitudActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldModificacionIdSolicitud">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelTransporteContratado">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Transporte :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxTransporteContrado">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelPresupuesto">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Presupuesto : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldPresupuesto">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelComentarioOpcional">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Comentario (Opcional) :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldComentarioOpcional">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonSeleccionarTranspote">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Seleccionar Transporte"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSeleccionarTranspoteActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelListaTransporte">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Lista Transporte :"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JList" name="jListTransportes">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                      <StringArray count="5">
+                        <StringItem index="0" value="Item 1"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
+                        <StringItem index="4" value="Item 5"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="jLabelAlumnoAsistencia">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Alumnos que Asisten :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldAlumnosAsistencia">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanelFotosActividad">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabelListaFotos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDescripcionFotos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelUrlFotos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDescripcionFotos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldURL" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabelNumeroDeLaActividad" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jTextFieldNumeroDeLaActividad" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jButtonAgregarListaFotos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jButtonGurdarFotos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButtonCerrarVentanaFotos" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelNumeroDeLaActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldNumeroDeLaActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabelUrlFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jTextFieldURL" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabelDescripcionFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDescripcionFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButtonAgregarListaFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="jLabelListaFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" min="-2" pref="133" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="jButtonGurdarFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButtonCerrarVentanaFotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabelNumeroDeLaActividad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Numero de la Actividad : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldNumeroDeLaActividad">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelUrlFotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="URL :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldURL">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelDescripcionFotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Descripcion :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldDescripcionFotos">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelListaFotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lista de Fotos :"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="jTableFotos">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="2" rowCount="4">
+                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="jButtonAgregarListaFotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar a la Lista Fotos"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAgregarListaFotosActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonGurdarFotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guardar Fotos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGurdarFotosActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonCerrarVentanaFotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cerrar Ventana"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarVentanaFotosActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelVentanaSuperUsuarioAdministrador">
@@ -347,51 +1066,55 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPanelModificarSolicitud" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonActualizarCSVprofesor" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jButtonActualizarJefesDepartamentos" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
-                                      <Component id="jButtonCerrarVentanaSuperAdaministrador" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jButtonNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                          <Component id="jButtonCerrarVentanaSuperAdaministrador" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jButtonActualizarCSVprofesor" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonActualizarJefesDepartamentos" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelTituloVentanaSuperUsuarioAdministrador" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" alignment="0" min="-2" pref="1400" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="1400" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jPanelNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jPanelModificarSolicitud" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jLabelTituloVentanaSuperUsuarioAdministrador" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="301" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="jPanelModificarSolicitud" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="143" max="32767" attributes="0"/>
-                  <Component id="jButtonActualizarCSVprofesor" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonActualizarJefesDepartamentos" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCerrarVentanaSuperAdaministrador" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jPanelNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanelModificarSolicitud" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButtonNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCerrarVentanaSuperAdaministrador" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonActualizarCSVprofesor" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonActualizarJefesDepartamentos" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="252" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -432,7 +1155,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cerrar"/>
+            <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarVentanaSuperAdaministradorActionPerformed"/>
@@ -474,63 +1197,74 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelMSNombreActividad" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelMSEstado" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelMSComentarioEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextFieldMSNombreActividad" max="32767" attributes="0"/>
-                          <Component id="jComboBoxMSEstado" pref="245" max="32767" attributes="0"/>
-                          <Component id="jTextFieldMSComentarioEstado" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="58" pref="235" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButtonActualizarModificarSolicitud" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabelCerrarModificarionSolicitud" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelVentanaModificarEstadoSolicitud" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabelMSNombreActividad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelMSEstado" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelMSComentarioEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonActualizarModificarSolicitud" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jComboBoxMSEstado" min="-2" pref="245" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldMSNombreActividad" min="-2" pref="245" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldMSComentarioEstado" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
+                                          <Component id="jButtonCerrarVentana" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="jLabelCerrarModificarionSolicitud" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabelMSNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldMSNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="jLabelCerrarModificarionSolicitud" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBoxMSEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelMSEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabelVentanaModificarEstadoSolicitud" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="35" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelMSComentarioEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldMSComentarioEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldMSNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelMSNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                      <Component id="jButtonActualizarModificarSolicitud" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jComboBoxMSEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelMSEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldMSComentarioEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelMSComentarioEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonActualizarModificarSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCerrarVentana" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -559,6 +1293,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Actulizar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonActualizarModificarSolicitudActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelMSNombreActividad">
               <Properties>
@@ -618,8 +1355,284 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="jButtonCerrarVentana">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cerrar Ventana"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarVentanaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelVentanaModificarEstadoSolicitud">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ventana Modificar Estado de la Solicitud :"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
+        <Container class="javax.swing.JPanel" name="jPanelNuevoProfesor">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelNombreNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelApellidosNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelTituloNuevoProfesor" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                              <Component id="jButtonGuardarNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="jLabelDepartamentoNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTextFieldNombreNuevoProfesor" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="jLabelCerrarNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jTextFieldApellidosNuevoProfesor" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jLabelDniNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jComboBoxDepartamentoNuevoProfesor" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jLabelPerfilNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jComboBoxPerfilNuevoProfesor" min="-2" pref="200" max="-2" attributes="0"/>
+                                              <Component id="jTextFieldDniNuevoProfesor" min="-2" pref="200" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelCerrarNuevoProfesor" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelTituloNuevoProfesor" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldNombreNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNombreNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldDniNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelApellidosNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldApellidosNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDniNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jComboBoxDepartamentoNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDepartamentoNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelPerfilNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxPerfilNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonGuardarNuevoProfesor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabelCerrarNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value=" X "/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelCerrarNuevoProfesorMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelTituloNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nuevo Profesor :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelNombreNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nombre :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldNombreNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelApellidosNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Apellidos :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldApellidosNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelDniNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Dni :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldDniNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelDepartamentoNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Departamento :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxDepartamentoNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelPerfilNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Perfil :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxPerfilNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonGuardarNuevoProfesor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGuardarNuevoProfesorActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cerrar Ventana Nuevo Profesor"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="jButtonNuevoProfesor">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nuevo Profesor"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNuevoProfesorActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelSolicitud">
@@ -634,64 +1647,136 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="jLabelNuevaSolicitud" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelNombreActividad" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelTipoActividad" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelDepartamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelPreVista" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelTransporte" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaInicial" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaFinal" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelHoraInicial" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelHoraFinal" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelAlojamiento" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelComentarioAdicional" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelCantidadAlumnos" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldHoraFinal" max="32767" attributes="0"/>
-                              <Component id="jTextNombreActividad" max="32767" attributes="0"/>
-                              <Component id="jComboBoxTipoActividad" max="32767" attributes="0"/>
-                              <Component id="jComboBoxDepartamento" alignment="0" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jRadioButtonTransporteSi" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonTransporteNo" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jRadioButtonPreVistaSi" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonPreVistaNo" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="jTextFieldFechaInicial" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldFechaFinal" alignment="1" pref="300" max="32767" attributes="0"/>
-                              <Component id="jTextFieldHoraInicial" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="jRadioButtonAlojamientoSi" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                  <Component id="jRadioButtonAlojamientoNo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelNuevaSolicitud" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="jButtonCrearSolicitud" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="jButtonCerrarSolicitud" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jTextFieldComentarioAdicional" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldCantidadAlumnos" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabelNombreActividad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabelTipoActividad" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabelPreVista" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabelTransporte" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabelDepartamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabelFechaInicial" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabelFechaFinal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="jLabelNumeroActividad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jTextNombreActividad" min="-2" pref="300" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jLabelProfesorResponsable" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxProfesorResponsable" min="-2" pref="160" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jRadioButtonPreVistaSi" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jRadioButtonPreVistaNo" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jRadioButtonTransporteSi" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jRadioButtonTransporteNo" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jTextFieldFechaFinal" alignment="1" min="-2" pref="300" max="-2" attributes="0"/>
+                                                  <Component id="jTextFieldFechaInicial" alignment="1" min="-2" pref="300" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxGrupos" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jButtonSeleccionarGrupos" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jComboBoxTipoActividad" min="-2" pref="300" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jLabelProfesorParticipante" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jComboBoxDepartamento" min="-2" pref="300" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jRadioButtonGrupos" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jRadioButtonCursos" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jComboBoxCursos" min="-2" pref="160" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jButtonSeleccionarCurso" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jComboBoxProfesorParticipantes" min="-2" pref="160" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jButtonSeleccionarProfesorParticipante" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Component id="jTextFieldNumeroActividad" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabelHoraInicial" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelHoraFinal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelAlojamiento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelComentarioAdicional" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelCantidadAlumnos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jTextFieldCantidadAlumnos" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                          <Component id="jTextFieldHoraInicial" alignment="1" min="-2" pref="300" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldHoraFinal" alignment="1" min="-2" pref="300" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jRadioButtonAlojamientoSi" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="jRadioButtonAlojamientoNo" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jTextFieldComentarioAdicional" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
-                          <Component id="jButtonCrearSolicitud" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                          <Component id="jButtonCerrarSolicitud" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="607" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelListaProfesoresParticipantes" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane7" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane8" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="jLabelListaGrupos" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="750" max="32767" attributes="0"/>
+                  <EmptySpace pref="280" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -699,78 +1784,115 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  <Component id="jLabelNuevaSolicitud" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelTipoActividad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxTipoActividad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelPreVista" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jRadioButtonPreVistaSi" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonPreVistaNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelTransporte" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButtonTransporteSi" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButtonTransporteNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFechaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelHoraInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldHoraInicial" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelHoraFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldHoraFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButtonAlojamientoSi" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButtonAlojamientoNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelComentarioAdicional" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldComentarioAdicional" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelCantidadAlumnos" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldCantidadAlumnos" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelNuevaSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCrearSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCerrarSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="72" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelNumeroActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldNumeroActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextNombreActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelProfesorResponsable" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxProfesorResponsable" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jComboBoxTipoActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTipoActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelProfesorParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxProfesorParticipantes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonSeleccionarProfesorParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jComboBoxDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonCursos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxCursos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonSeleccionarCurso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jRadioButtonPreVistaSi" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonPreVistaNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelPreVista" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonGrupos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jComboBoxGrupos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSeleccionarGrupos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jRadioButtonTransporteSi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonTransporteNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTransporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelListaProfesoresParticipantes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelListaGrupos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextFieldFechaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextFieldFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jTextFieldHoraInicial" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelHoraInicial" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jTextFieldHoraFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelHoraFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jRadioButtonAlojamientoSi" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonAlojamientoNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jTextFieldComentarioAdicional" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelComentarioAdicional" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jTextFieldCantidadAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelCantidadAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jScrollPane7" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane8" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="125" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -821,6 +1943,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxTipoActividadActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -868,6 +1993,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jRadioButtonPreVistaSiMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonPreVistaSiActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonPreVistaNo">
@@ -1045,6 +2171,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCrearSolicitud">
@@ -1063,11 +2190,250 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cerrar"/>
+            <Property name="text" type="java.lang.String" value="Cerrar Ventana"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarSolicitudActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelProfesorResponsable">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Profesor Responsable :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxProfesorResponsable">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelProfesorParticipante">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Profesor Participante : "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxProfesorParticipantes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jComboBoxProfesorParticipantesMouseClicked"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonSeleccionarProfesorParticipante">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seleccionar Profesores Participante"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSeleccionarProfesorParticipanteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonCursos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Curso :"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jRadioButtonCursosMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCursosActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxCursos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jComboBoxCursosMouseClicked"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jComboBoxCursosMousePressed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonSeleccionarCurso">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seleccionar Curso"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSeleccionarCursoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonGrupos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Grupos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jRadioButtonGruposMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxGrupos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonSeleccionarGrupos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seleccionar Grupos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSeleccionarGruposActionPerformed"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane7">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="jListProfesoresParticipantes">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                    <StringItem index="4" value="Item 5"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="jLabelListaProfesoresParticipantes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Lista de Profesores Participantes :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelListaGrupos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Lista Grupos :"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane8">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="jListGrupos">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                    <StringItem index="4" value="Item 5"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="jLabelNumeroActividad">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="N&#xaa; de la Actividad : "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldNumeroActividad">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

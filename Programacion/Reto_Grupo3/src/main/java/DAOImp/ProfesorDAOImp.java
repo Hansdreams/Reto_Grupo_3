@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,27 @@ public class ProfesorDAOImp implements MetodosBD<Profesor>{
 
     @Override
     public List<Profesor> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        List<Profesor> profesores = new ArrayList<>();
+        
+        final String sql = "SELECT ID_Prof,Nombre,Apellidos,DNI,Email,Estado,Departamento,Perfil FROM profesores";
+        
+        try ( Statement stmt = getConnection().createStatement();  ResultSet rs = stmt.executeQuery(sql);) {
+            while (rs.next()) {
+                Profesor solicitud = crearProfesor(rs);
+                if (!profesores.add(solicitud)) {
+                    throw new Exception("error no se ha insertado el objeto en la colección");
+                }
+            }
+
+        } catch (SQLException ex) {
+            // errores
+            System.out.println("SQLException: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return profesores;
+        
     }
 
     @Override
