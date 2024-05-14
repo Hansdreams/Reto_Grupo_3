@@ -56,7 +56,31 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
 
     @Override
     public Solicitud buscar(int ID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Solicitud solicitud = null;
+        
+        String sql = "SELECT idSolicitud,Solicitante,nombreAct,tipoActividad,Departamento,Prevista,Transporte,FechaInicial,FechaFinal,HoraInicial,HoraFinal,Alojamiento,comentarioAdicional,AlumnosMAX,Estado,ConsultaEstado FROM solicitud WHERE idSolicitud=?";
+        
+        try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            
+            stmt.setInt(1, ID);
+            
+            try ( ResultSet rs = stmt.executeQuery();) {
+                
+                if (rs.next()) {
+                    
+                    solicitud = crearSolicitud(rs);
+                    
+                }
+                
+            }
+
+        } catch (SQLException ex) {
+            // errores
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return solicitud;
+        
     }
 
     @Override
@@ -81,7 +105,7 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
         }else{
             transporte = 0;
         }
-        
+ 
         if(s.isAlojamiento()){
             alojamiento = 1;
         }else{
@@ -123,10 +147,35 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    private Solicitud crearSolicitud (final ResultSet rs) throws SQLException {
+    public boolean actualizarEstado(String estado, int solicitud, int solicitante, String comentario){
         
-        //SELECT idSolicitud,Solicitante,nombreAct,tipoActividad,Departamento,Prevista,Transporte,FechaInicial,FechaFinal,HoraInicial,HoraFinal,Alojamiento,comentarioAdicional,AlumnosMAX,Estado,ConsultaEstado FROM solicitud
-        return new Solicitud(rs.getInt("idSolicitud"), rs.getInt("Solicitante"), rs.getString("nombreAct"), TipoActividad.valueOf(rs.getString("tipoActividad").toUpperCase()), rs.getInt("Departamento"), rs.getBoolean("Prevista"), rs.getBoolean("Transporte"), rs.getDate("FechaInicial").toLocalDate(), rs.getDate("FechaFinal").toLocalDate(), rs.getTime("HoraInicial").toLocalTime(), rs.getTime("HoraFinal").toLocalTime(), rs.getBoolean("Alojamiento"), rs.getString("comentarioAdicional"), Estado.valueOf(rs.getString("Estado").toUpperCase()), rs.getString("ConsultaEstado"), rs.getInt("AlumnosMAX"));
+        boolean actualizado = false;
+        
+        final String sql = "update solicitud set Estado= '"+estado+"', ConsultaEstado='"+comentario+"' where idSolicitud= '"+solicitud+"' and Solicitante= '"+solicitante+"'";
+        
+        
+        try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            
+            int salida = stmt.executeUpdate();
+            
+            if (salida != 1) {
+                actualizado = false;
+            }else{
+                actualizado = true;
+            }
+
+        } catch (SQLException ex) {
+            // errores
+            System.out.println("SQLException: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return actualizado;
+        
+    }
+    
+    private Solicitud crearSolicitud (final ResultSet rs) throws SQLException {    
+               return new Solicitud(rs.getInt("idSolicitud"), rs.getInt("Solicitante"), rs.getString("nombreAct"), TipoActividad.valueOf(rs.getString("tipoActividad").toUpperCase()), rs.getInt("Departamento"), rs.getBoolean("Prevista"), rs.getBoolean("Transporte"), rs.getDate("FechaInicial").toLocalDate(), rs.getDate("FechaFinal").toLocalDate(), rs.getTime("HoraInicial").toLocalTime(), rs.getTime("HoraFinal").toLocalTime(), rs.getBoolean("Alojamiento"), rs.getString("comentarioAdicional"), Estado.valueOf(rs.getString("Estado").toUpperCase()), rs.getString("ConsultaEstado"), rs.getInt("AlumnosMAX"));
     }
     
 }

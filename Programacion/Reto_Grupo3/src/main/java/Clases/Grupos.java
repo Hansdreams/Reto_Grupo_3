@@ -10,18 +10,18 @@ package Clases;
  */
 public class Grupos {
     
-    private int idGrupo;//pendiente
+    private int idGrupo;
     private String codgrupo;
     private int idCurso;
     private int alumnos;
-    private int activo;
+    private boolean estadoGrupos;
 
-    public Grupos(int idGrupo, String codgrupo, int idCurso, int alumnos, int activo) {
+    public Grupos(int idGrupo, String codgrupo, int idCurso, int alumnos, boolean estadoGrupos) {
         this.idGrupo = idGrupo;
         this.codgrupo = codgrupo;
         this.idCurso = idCurso;
         this.alumnos = alumnos;
-        this.activo = activo;
+        this.estadoGrupos = estadoGrupos;
     }
 
     public int getIdGrupo() {
@@ -56,17 +56,17 @@ public class Grupos {
         this.alumnos = alumnos;
     }
 
-    public int getActivo() {
-        return activo;
+    public boolean isEstadoGrupos() {
+        return estadoGrupos;
     }
 
-    public void setActivo(int activo) {
-        this.activo = activo;
+    public void setEstadoGrupos(boolean estadoGrupos) {
+        this.estadoGrupos = estadoGrupos;
     }
 
     @Override
     public String toString() {
-        return "Grupos{" + "idGrupo=" + idGrupo + ", codgrupo=" + codgrupo + ", idCurso=" + idCurso + ", alumnos=" + alumnos + ", activo=" + activo + '}';
+        return "Grupos{" + "idGrupo=" + idGrupo + ", codgrupo=" + codgrupo + ", idCurso=" + idCurso + ", alumnos=" + alumnos + ", activo=" + estadoGrupos + '}';
     }
     
     
