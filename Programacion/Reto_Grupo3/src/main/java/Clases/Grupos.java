@@ -28,47 +28,20 @@ public class Grupos {
         return idGrupo;
     }
 
-    public void setIdGrupo(int idGrupo) {
-        this.idGrupo = idGrupo;
-    }
-
     public String getCodgrupo() {
         return codgrupo;
-    }
-
-    public void setCodgrupo(String codgrupo) {
-        this.codgrupo = codgrupo;
     }
 
     public int getIdCurso() {
         return idCurso;
     }
 
-    public void setIdCurso(int idCurso) {
-        this.idCurso = idCurso;
-    }
-
     public int getAlumnos() {
         return alumnos;
-    }
-
-    public void setAlumnos(int alumnos) {
-        this.alumnos = alumnos;
     }
 
     public boolean isEstadoGrupos() {
         return estadoGrupos;
     }
-
-    public void setEstadoGrupos(boolean estadoGrupos) {
-        this.estadoGrupos = estadoGrupos;
-    }
-
-    @Override
-    public String toString() {
-        return "Grupos{" + "idGrupo=" + idGrupo + ", codgrupo=" + codgrupo + ", idCurso=" + idCurso + ", alumnos=" + alumnos + ", activo=" + estadoGrupos + '}';
-    }
-    
-    
     
 }

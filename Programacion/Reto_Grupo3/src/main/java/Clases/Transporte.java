@@ -22,23 +22,8 @@ public class Transporte {
         return idTransporte;
     }
 
-    public void setIdTransporte(int idTransporte) {
-        this.idTransporte = idTransporte;
-    }
-
     public String getTipoTransporte() {
         return tipoTransporte;
     }
 
-    public void setTipoTransporte(String tipoTransporte) {
-        this.tipoTransporte = tipoTransporte;
-    }
-
-    @Override
-    public String toString() {
-        return "Transporte{" + "idTransporte=" + idTransporte + ", tipoTransporte=" + tipoTransporte + '}';
-    }
-    
-    
-    
 }

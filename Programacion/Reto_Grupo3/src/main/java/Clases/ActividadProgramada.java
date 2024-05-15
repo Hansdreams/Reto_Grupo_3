@@ -11,7 +11,7 @@ import java.time.LocalTime;
 
 /**
  * Esta clase contiene los atributos y metodos de una Actividad Programada
- * @author DAW112
+ * @author Grupo3
  * @version 1.0
  * @see Solicitud
  */
