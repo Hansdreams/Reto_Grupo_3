@@ -25,29 +25,13 @@ public class ProfesoresParticipantes {
         return idActividad;
     }
 
-    public void setIdActividad(int idActividad) {
-        this.idActividad = idActividad;
-    }
-
     public int getIdProfesor() {
         return idProfesor;
-    }
-
-    public void setIdProfesor(int idProfesor) {
-        this.idProfesor = idProfesor;
     }
 
     public Rol getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-    @Override
-    public String toString() {
-        return "ProfesoresParticipantes{" + "idActividad=" + idActividad + ", idProfesor=" + idProfesor + ", rol=" + rol + '}';
-    }
- 
+    
 }

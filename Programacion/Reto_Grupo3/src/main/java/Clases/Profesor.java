@@ -32,62 +32,28 @@ public class Profesor {
         return id_Prof;
     }
 
-    public void setId_Prof(int id_Prof) {
-        this.id_Prof = id_Prof;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getApellidos() {
         return apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
     public String getDni() {
         return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public String getDepartamento() {
         return departamento;
-    }
-
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
     }
 
     public Perfil getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
-    }
-
-    @Override
-    public String toString() {
-        return "Profesor{" + "id_Prof=" + id_Prof + ", nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + ", mail=" + mail + ", departamento=" + departamento + ", perfil=" + perfil + '}';
-    }
-
-    
 }

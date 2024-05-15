@@ -54,130 +54,66 @@ public class Solicitud {
         return idSolicitud;
     }
 
-    public void setIdSolicitud(int idSolicitud) {
-        this.idSolicitud = idSolicitud;
-    }
-
     public int getSolicitante() {
         return solicitante;
-    }
-
-    public void setSolicitante(int solicitante) {
-        this.solicitante = solicitante;
     }
 
     public String getNombreActividad() {
         return nombreActividad;
     }
 
-    public void setNombreActividad(String nombreActividad) {
-        this.nombreActividad = nombreActividad;
-    }
-
     public TipoActividad getTipoActividad() {
         return tipoActividad;
-    }
-
-    public void setTipoActividad(TipoActividad tipoActividad) {
-        this.tipoActividad = tipoActividad;
     }
 
     public int getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(int departamento) {
-        this.departamento = departamento;
-    }
-
     public boolean isPrevista() {
         return prevista;
-    }
-
-    public void setPrevista(boolean prevista) {
-        this.prevista = prevista;
     }
 
     public boolean isTransporte() {
         return transporte;
     }
 
-    public void setTransporte(boolean transporte) {
-        this.transporte = transporte;
-    }
-
     public LocalDate getFechaInicial() {
         return fechaInicial;
-    }
-
-    public void setFechaInicial(LocalDate fechaInicial) {
-        this.fechaInicial = fechaInicial;
     }
 
     public LocalDate getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(LocalDate fechaFinal) {
-        this.fechaFinal = fechaFinal;
-    }
-
     public LocalTime getHoraInicial() {
         return horaInicial;
-    }
-
-    public void setHoraInicial(LocalTime horaInicial) {
-        this.horaInicial = horaInicial;
     }
 
     public LocalTime getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(LocalTime horaFinal) {
-        this.horaFinal = horaFinal;
-    }
-
     public boolean isAlojamiento() {
         return alojamiento;
-    }
-
-    public void setAlojamiento(boolean alojamiento) {
-        this.alojamiento = alojamiento;
     }
 
     public String getComentarioAdicional() {
         return comentarioAdicional;
     }
 
-    public void setComentarioAdicional(String comentarioAdicional) {
-        this.comentarioAdicional = comentarioAdicional;
-    }
-
     public Estado getEstado() {
         return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
     }
 
     public String getConsultaEstado() {
         return consultaEstado;
     }
 
-    public void setConsultaEstado(String consultaEstado) {
-        this.consultaEstado = consultaEstado;
-    }
-
     public int getMaximoAlumnos() {
         return maximoAlumnos;
     }
 
-    public void setMaximoAlumnos(int maximoAlumnos) {
-        this.maximoAlumnos = maximoAlumnos;
-    }
-    
     //Formato de Fechas y horas
     
     public String formatoFechaInicial(){
@@ -199,13 +135,5 @@ public class Solicitud {
         DateTimeFormatter fecFor = DateTimeFormatter.ofPattern("HH:mm");
         return horaFinal.format(fecFor);
     }
-
-    @Override
-    public String toString() {
-        return "Solicitud{" + "idSolicitud=" + idSolicitud + ", solicitante=" + solicitante + ", nombreActividad=" + nombreActividad + ", tipoActividad=" + tipoActividad + ", departamento=" + departamento + ", prevista=" + prevista + ", transporte=" + transporte + ", fechaInicial=" + fechaInicial + ", fechaFinal=" + fechaFinal + ", horaInicial=" + horaInicial + ", horaFinal=" + horaFinal + ", alojamiento=" + alojamiento + ", comentarioAdicional=" + comentarioAdicional + ", estado=" + estado + ", consultaEstado=" + consultaEstado + ", maximoAlumnos=" + maximoAlumnos + '}';
-    }
-    
-    
-    
-    
+   
 }

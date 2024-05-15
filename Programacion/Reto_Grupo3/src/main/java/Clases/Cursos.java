@@ -30,53 +30,24 @@ public class Cursos {
         return idCurso;
     }
 
-    public void setIdCurso(int idCurso) {
-        this.idCurso = idCurso;
-    }
-
     public String getCodCurso() {
         return codCurso;
-    }
-
-    public void setCodCurso(String codCurso) {
-        this.codCurso = codCurso;
     }
 
     public String getDesCurso() {
         return desCurso;
     }
 
-    public void setDesCurso(String desCurso) {
-        this.desCurso = desCurso;
-    }
-
     public String getEtapa() {
         return etapa;
-    }
-
-    public void setEtapa(String etapa) {
-        this.etapa = etapa;
     }
 
     public boolean isActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
     public int getTotalAlumnos() {
         return totalAlumnos;
     }
 
-    public void setTotalAlumnos(int totalAlumnos) {
-        this.totalAlumnos = totalAlumnos;
-    }
-
-    @Override
-    public String toString() {
-        return "Cursos{" + "idCurso=" + idCurso + ", codCurso=" + codCurso + ", desCurso=" + desCurso + ", etapa=" + etapa + ", activo=" + activo + ", totalAlumnos=" + totalAlumnos + '}';
-    }
-    
 }
