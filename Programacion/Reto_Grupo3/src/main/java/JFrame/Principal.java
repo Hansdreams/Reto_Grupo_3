@@ -928,7 +928,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setTitle("Login");
-        setIconImage(getIconImage());
+  //      setIconImage(getIconImage());
         setLocationRelativeTo(null);
         setResizable(false);
         //setExtendedState(this.MAXIMIZED_HORIZ);
