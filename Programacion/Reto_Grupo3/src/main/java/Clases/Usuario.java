@@ -10,11 +10,21 @@ import Enums.Perfil;
  * @author Daw112
  */
 public class Usuario {
-    
+    /**
+    * Esta clase contiene los atributos y metodos de un Usuario
+    * @author Grupo3
+    * @version 1.0
+    */
     private int idUsuario;
     private String email;
     private String password;
 
+    /**
+     * 
+     * @param idUsuario Numero identificador de un usuario
+     * @param email Correo electronico de un usuario
+     * @param password Contraseña de un usuario
+     */
     public Usuario(int idUsuario, String email, String password) {
         this.idUsuario = idUsuario;
         this.email = email;
@@ -22,45 +32,28 @@ public class Usuario {
 
     }
 
-// Gets y Sets
-
+    /**
+     * Método que obtiene el id del usuario
+     * @return Regresa el id del usuario
+     */
     public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
+    /**
+     * Método que obtiene el email del usuario
+     * @return Regresa el email
+     */
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    /**
+     * Método que devuelve la contrseña del usuario
+     * @return Regresa la contraseña
+     */
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    //toString
-    @Override
-    public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", email=" + email + ", password=" + password +'}';
-    }
-    
-    
-
-    
-
-    
-    
-    
-    
-    
 }

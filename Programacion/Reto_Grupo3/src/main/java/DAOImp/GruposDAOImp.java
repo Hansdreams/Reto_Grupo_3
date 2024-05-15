@@ -64,11 +64,6 @@ public class GruposDAOImp implements MetodosBD<Grupos>{
     }
 
     @Override
-    public void eliminar(String aux) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void modificar(Grupos t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

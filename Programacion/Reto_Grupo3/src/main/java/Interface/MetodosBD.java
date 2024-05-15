@@ -21,9 +21,6 @@ public interface MetodosBD<T> {
     //Metodo que guardara un objeto mediante un un generico
     void guardar(T t);
     
-    //metodo que eliminar un objeto mediante un parametro String
-    void eliminar(String aux);
-    
     //modificar
     void modificar(T t);
     

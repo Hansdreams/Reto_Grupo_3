@@ -92,11 +92,6 @@ public class UsuarioDAOImp implements MetodosBD<Usuario> {
     }
 
     @Override
-    public void eliminar(String aux) {
-
-    }
-
-    @Override
     public void modificar(Usuario t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
