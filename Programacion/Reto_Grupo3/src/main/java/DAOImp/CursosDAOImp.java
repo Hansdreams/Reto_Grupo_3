@@ -63,11 +63,6 @@ public class CursosDAOImp implements MetodosBD<Cursos>{
     }
 
     @Override
-    public void eliminar(String aux) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void modificar(Cursos t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

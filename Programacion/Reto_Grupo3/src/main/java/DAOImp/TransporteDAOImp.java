@@ -63,11 +63,6 @@ public class TransporteDAOImp implements MetodosBD<Transporte>{
     }
 
     @Override
-    public void eliminar(String aux) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void modificar(Transporte t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

@@ -89,12 +89,7 @@ public class DepartamentoDAOImp implements MetodosBD<Departamentos>{
     public void guardar(Departamentos t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public void eliminar(String aux) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    
     @Override
     public void modificar(Departamentos t) {
         
