@@ -117,7 +117,7 @@ public class ValidarDatos {
 
     }
     
-    public static String validarUsuario(String mensaje){
+    public static String validarCorreo(String mensaje){
         String cadena="";
         boolean valido=false;
         do{
