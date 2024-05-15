@@ -17,11 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Daw112
+ * Esta clase contiene los metodos de una interface MetodoBD T con la Clase Usuario
+ * @author Grupo3
+ * @version 1.0
+ * @see Usuario
+ * @see AccesoBaseDatos
  */
 public class UsuarioDAOImp implements MetodosBD<Usuario> {
-
+    /**
+     * Método que retorna la conexion de la clase AccesoBaseDatos
+     * @return Regresa una Connection (Conn)
+     */
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
@@ -54,7 +60,7 @@ public class UsuarioDAOImp implements MetodosBD<Usuario> {
             }
 
         } catch (SQLException ex) {
-            // errores
+            //Manejar otras excepciones
             System.out.println("SQLException: " + ex.getMessage());
         }
         return usuario;
@@ -83,9 +89,10 @@ public class UsuarioDAOImp implements MetodosBD<Usuario> {
             }
 
         } catch (SQLException ex) {
-            // errores
+            // Manejar errores de SQL
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
+            // Manejar otras excepciones
             System.out.println(ex.getMessage());
         }
 
@@ -115,6 +122,7 @@ public class UsuarioDAOImp implements MetodosBD<Usuario> {
                 }
             }
         } catch (SQLException ex) {
+            // Manejar errores de SQL
             System.out.println("SQLException: " + ex.getMessage());
         }
 
