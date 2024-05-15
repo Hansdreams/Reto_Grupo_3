@@ -15,11 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Gus y Joaco
+ * Esta clase contiene los metodos de una interface MetodoBD T con la Clase Transporte
+ * @author Grupo3
+ * @version 1.0
+ * @see Transporte
+ * @see AccesoBaseDatos
  */
 public class TransporteDAOImp implements MetodosBD<Transporte>{
-    
+    /**
+     * Método que retorna la conexion de la clase AccesoBaseDatos
+     * @return Regresa una Connection (Conn)
+     */
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
@@ -43,9 +49,10 @@ public class TransporteDAOImp implements MetodosBD<Transporte>{
             }
 
         } catch (SQLException ex) {
-            // errores
+            // Manejar errores de SQL
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
+            // Manejar otras excepciones
             System.out.println(ex.getMessage());
         }
         return transporte;
