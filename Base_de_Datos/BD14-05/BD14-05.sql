@@ -1,3 +1,6 @@
+drop database if exists prueba2;
+create database prueba2;
+use prueba2;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: reto_prueba
@@ -94,7 +97,7 @@ DROP TABLE IF EXISTS `cursosact`;
 CREATE TABLE `cursosact` (
   `IdAct` int NOT NULL,
   `idCur` int NOT NULL,
-  KEY `fk_CursosAct_Cursos` (`idCur`),
+  CONSTRAINT `fk_CursosAct_Solicitud` FOREIGN KEY (`IdAct`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE,
   CONSTRAINT `fk_CursosAct_Cursos` FOREIGN KEY (`idCur`) REFERENCES `cursos` (`ID_CURSO`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -206,8 +209,6 @@ DROP TABLE IF EXISTS `gruposact`;
 CREATE TABLE `gruposact` (
   `IdAct` int NOT NULL,
   `idGrupo` int NOT NULL,
-  KEY `fk_GruposAct_Grupos` (`idGrupo`),
-  KEY `fk_gruposact_Solicitud` (`IdAct`),
   CONSTRAINT `fk_GruposAct_Grupos` FOREIGN KEY (`idGrupo`) REFERENCES `grupos` (`ID_GRUPO`) ON UPDATE CASCADE,
   CONSTRAINT `fk_gruposact_Solicitud` FOREIGN KEY (`IdAct`) REFERENCES `solicitud` (`idSolicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -270,7 +271,7 @@ CREATE TABLE `profesorparticipante` (
   `Actividad` int NOT NULL,
   `IdProfesor` int NOT NULL,
   `Rol` enum('responsable','participante') NOT NULL,
-  KEY `fk_ProfesorParticipante_Profesores` (`IdProfesor`),
+  CONSTRAINT `fk_ProfesorParticipante_Solicitud` FOREIGN KEY (`Actividad`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE,
   CONSTRAINT `fk_ProfesorParticipante_Profesores` FOREIGN KEY (`IdProfesor`) REFERENCES `profesores` (`ID_Prof`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
