@@ -41,15 +41,18 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
      */
     @Override
     public List<Solicitud> listar() {
-        
+        // Lista para almacenar las solicitudes
         List<Solicitud> solicitudes = new ArrayList<>();
-        
+        // Consulta SQL para obtener todas las solicitudes
         final String sql = "SELECT idSolicitud,Solicitante,nombreAct,tipoActividad,Departamento,Prevista,Transporte,FechaInicial,FechaFinal,HoraInicial,HoraFinal,Alojamiento,comentarioAdicional,AlumnosMAX,Estado,ConsultaEstado FROM solicitud";
         
         try ( Statement stmt = getConnection().createStatement();  ResultSet rs = stmt.executeQuery(sql);) {
             while (rs.next()) {
+                // Recorrer el resultado de la consulta
                 Solicitud solicitud = crearSolicitud(rs);
+                 // Agregar la solicitud a la lista
                 if (!solicitudes.add(solicitud)) {
+                    // Lanzar una excepción si no se pudo agregar la solicitud a la lista
                     throw new Exception("error no se ha insertado el objeto en la colección");
                 }
             }
@@ -64,24 +67,24 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
         
     }
     /**
-     * Método que busca una solicitud por su ID en la base de datos.
+     * Método que busca una solicitud por su ID en la base de datos
      * 
-     * @param ID El ID de la solicitud a buscar.
-     * @return Un objeto Solicitud que representa la solicitud encontrada, o null si no se encuentra.
+     * @param ID El ID de la solicitud a buscar
+     * @return Un objeto Solicitud que representa la solicitud encontrada, o null si no se encuentra
      */
     @Override
     public Solicitud buscar(int ID) {
-        
+        // Objeto Solicitud para almacenar el resultado de la búsqueda
         Solicitud solicitud = null;
-        
+        // Consulta SQL para buscar una solicitud por su ID
         String sql = "SELECT idSolicitud,Solicitante,nombreAct,tipoActividad,Departamento,Prevista,Transporte,FechaInicial,FechaFinal,HoraInicial,HoraFinal,Alojamiento,comentarioAdicional,AlumnosMAX,Estado,ConsultaEstado FROM solicitud WHERE idSolicitud=?";
         
         try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-            
+            // Establecer el parámetro ID en la consulta preparada
             stmt.setInt(1, ID);
-            
+            // Ejecutar la consulta
             try ( ResultSet rs = stmt.executeQuery();) {
-                
+                // Verificar si se encontró una solicitud
                 if (rs.next()) {
                     
                     solicitud = crearSolicitud(rs);
@@ -152,8 +155,16 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    /**
+     * Método que actualiza el estado de una solicitud en la base de datos
+     * @param estado El nuevo estado de la solicitud
+     * @param solicitud El ID de la solicitud
+     * @param solicitante El ID del solicitante
+     * @param comentario El comentario asociado a la actualización del estado
+     * @return Regresa true si el estado se actualizó correctamente, false de lo contrario
+     */
     public boolean actualizarEstado(String estado, int solicitud, int solicitante, String comentario){
-        
+        // Bandera para indicar si se actualizó el estado correctamente
         boolean actualizado = false;
             // Consulta SQL para actualizar el estado de una solicitud
         final String sql = "update solicitud set Estado= '"+estado+"', ConsultaEstado='"+comentario+"' where idSolicitud= '"+solicitud+"' and Solicitante= '"+solicitante+"'";
@@ -162,7 +173,7 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
         try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
             
             int salida = stmt.executeUpdate();
-            
+            // Verificar si se actualizó correctamente el estado
             if (salida != 1) {
                 actualizado = false;
             }else{
@@ -186,7 +197,7 @@ public class SolicitudDAOImp implements MetodosBD<Solicitud>{
     * @return Un objeto Solicitud creado a partir de los resultados de la consulta.
     */
     private Solicitud crearSolicitud (final ResultSet rs) throws SQLException {    
-               return new Solicitud(rs.getInt("idSolicitud"), rs.getInt("Solicitante"), rs.getString("nombreAct"), TipoActividad.valueOf(rs.getString("tipoActividad").toUpperCase()), rs.getInt("Departamento"), rs.getBoolean("Prevista"), rs.getBoolean("Transporte"), rs.getDate("FechaInicial").toLocalDate(), rs.getDate("FechaFinal").toLocalDate(), rs.getTime("HoraInicial").toLocalTime(), rs.getTime("HoraFinal").toLocalTime(), rs.getBoolean("Alojamiento"), rs.getString("comentarioAdicional"), Estado.valueOf(rs.getString("Estado").toUpperCase()), rs.getString("ConsultaEstado"), rs.getInt("AlumnosMAX"));
+        return new Solicitud(rs.getInt("idSolicitud"), rs.getInt("Solicitante"), rs.getString("nombreAct"), TipoActividad.valueOf(rs.getString("tipoActividad").toUpperCase()), rs.getInt("Departamento"), rs.getBoolean("Prevista"), rs.getBoolean("Transporte"), rs.getDate("FechaInicial").toLocalDate(), rs.getDate("FechaFinal").toLocalDate(), rs.getTime("HoraInicial").toLocalTime(), rs.getTime("HoraFinal").toLocalTime(), rs.getBoolean("Alojamiento"), rs.getString("comentarioAdicional"), Estado.valueOf(rs.getString("Estado").toUpperCase()), rs.getString("ConsultaEstado"), rs.getInt("AlumnosMAX"));
     }
     
 }
