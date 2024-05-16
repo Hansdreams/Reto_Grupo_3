@@ -6,14 +6,23 @@
 [![logo.png](https://i.postimg.cc/QxDvRCFX/logo.png)](https://postimg.cc/23HHWzdJ)
 
 # Índice
-
-1. [Script de creación de la base de datos](#script)
-2. [Tabla de la base de datos](#tablas)
-3. [Selects de la base de datos](#selects)
-4. [Facilitar el uso de inserts](#inserts)
+1. [Introducción de la base de datos](#introducción)
+2. [Script de creación de la base de datos](#script)
+3. [Tabla de la base de datos](#tablas)
+4. [Selects de la base de datos](#selects)
+5. [Facilitar el uso de inserts](#inserts)
 
 <br>
 
+# INTRODUCCIÓN
+Para implementar el sistema de gestión de actividades complementarias y extraescolares del departamento ACE, es fundamental diseñar una base de datos robusta que permita almacenar y gestionar de manera eficiente la información relacionada con las actividades, profesores, departamentos, cursos, grupos y fotos. Esta base de datos servirá como el núcleo del sistema, facilitando la organización y seguimiento de todas las actividades académicas y administrativas del departamento.
+
+A continuación, se presenta una introducción detallada a la estructura de la base de datos, incluyendo las tablas necesarias y sus respectivas relaciones, que han sido cuidadosamente diseñadas para asegurar la integridad y consistencia de los datos.
+
+<br>
+
+# Entidad/Relación
+[![image.png](https://i.postimg.cc/DZxBVQ5R/image.png)](https://postimg.cc/hz79Tdk0)
 
 # SCRIPT
 
@@ -242,7 +251,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`TransporteAct` (
   `IdActividad` INT NOT NULL,
   `tipoTransporte` INT NOT NULL,
-  PRIMARY KEY (`IdActividad`),
   CONSTRAINT fk_TransporteAct_ActividadProgramada FOREIGN KEY (IdActividad) REFERENCES ActividadProgramada (IdSolicitud) ON UPDATE CASCADE,
   CONSTRAINT fk_TransporteAct_Transportes FOREIGN KEY (tipoTransporte) REFERENCES Transportes (idTransportes) ON UPDATE CASCADE)
 
@@ -283,7 +291,6 @@ CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`ProfesorParticipante` (
   `Actividad` INT NOT NULL,
   `IdProfesor` INT NOT NULL,
   `Rol` ENUM('Responsable', 'Participante') NOT NULL,
-  PRIMARY KEY (`Actividad`),
   CONSTRAINT fk_ProfesorParticipante_Profesores FOREIGN KEY (IdProfesor) REFERENCES Profesores (ID_Prof) ON UPDATE CASCADE,
   CONSTRAINT fk_ProfesorParticipante_Solicitud FOREIGN KEY (Actividad) REFERENCES Solicitud (idSolicitud) ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -308,7 +315,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `RETO_PRUEBA`.`GruposAct` (
   `IdAct` INT NOT NULL,
   `idGrupo` INT NOT NULL,
-  PRIMARY KEY (`IdAct`),
   CONSTRAINT fk_GruposAct_Solicitud FOREIGN KEY (IdAct) REFERENCES Solicitud (IdSolicitud) ON UPDATE CASCADE,
   CONSTRAINT fk_GruposAct_Grupos FOREIGN KEY (idGrupo) REFERENCES Grupos (ID_GRUPO) ON UPDATE CASCADE)
 
@@ -318,7 +324,6 @@ ENGINE = InnoDB;
 Create table if not exists `RETO_PRUEBA`.`CursosAct`(
 `IdAct` INT NOT NULL,
 `idCur` INT NOT NULL,
-PRIMARY KEY (`IdAct`),
 CONSTRAINT fk_CursosAct_Solicitud FOREIGN KEY (IdAct) REFERENCES Solicitud (IdSolicitud) ON UPDATE CASCADE,
 CONSTRAINT fk_CursosAct_Cursos FOREIGN KEY (idCur) REFERENCES Cursos (ID_CURSO) ON UPDATE CASCADE)
 
