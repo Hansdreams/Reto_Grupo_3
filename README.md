@@ -43,6 +43,25 @@
 
 1. [Tabla sobre la implementación y despliegue](#tabla-sobre-la-implementación-y-despliegue)
 
+## Documentación Adicional del proyecto
+
+  - Manual de Usuario: 
+  
+     https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Documentacion/Manual%20de%20Usuario%20de%20la%20Aplicaci%C3%B3n%20de%20escritorio%20RET.pdf
+
+  - Guía de despliegue: 
+  
+     https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Gu%C3%ADa%20de%20despliegue%20Grupo%203.pdf
+
+  - Generar informes: 
+  
+    https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Documentacion/GENERAR_INFORMES_BD_G3.pdf
+
+  
+
+<br>
+<br>
+<hr>
 
 [![mysql-logo.png](https://i.postimg.cc/HL1S7PbT/mysql-logo.png)](https://postimg.cc/G4zPWKMf)
 
