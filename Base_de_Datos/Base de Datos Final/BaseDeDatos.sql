@@ -1,8 +1,11 @@
+drop database if exists prueba2;
+create database prueba2;
+use prueba2;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: reto_prueba
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version 8.0.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -52,7 +55,7 @@ CREATE TABLE `actividadprogramada` (
 
 LOCK TABLES `actividadprogramada` WRITE;
 /*!40000 ALTER TABLE `actividadprogramada` DISABLE KEYS */;
-INSERT INTO `actividadprogramada` VALUES (6,3,'prueba3','Complementaria',4,0,1,'2024-05-15','2024-05-16','16:30:00','17:30:00',1,'prueba',1,10,540.50,40,'esto es una prueba'),(17,6,'Solicitud 16','Complementaria',3,1,1,'2024-05-14','2024-05-15','21:42:00','22:42:00',1,'-',1,79,500.50,50,'NINGUNO'),(19,1,'aaaaaa','Extraordinaria',1,1,1,'2024-05-15','2024-05-15','20:00:00','20:30:00',1,'aaaaaa',1,22,500.00,10,'aaa'),(20,1,'aaaaaa','Complementaria',3,1,1,'2024-05-15','2024-05-15','20:32:00','23:20:00',0,'aaaa',1,85,100.00,80,'prueba'),(21,1,'Hola','Extraordinaria',1,0,1,'2024-05-17','2024-05-18','11:00:00','10:00:00',1,'Hola',1,171,150.00,100,'Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+INSERT INTO `actividadprogramada` VALUES (6,3,'prueba3','Complementaria',4,0,1,'2024-05-15','2024-05-16','16:30:00','17:30:00',1,'prueba',1,10,540.50,40,'esto es una prueba'),(17,6,'Solicitud 16','Complementaria',3,1,1,'2024-05-14','2024-05-15','21:42:00','22:42:00',1,'-',1,79,500.50,50,'NINGUNO');
 /*!40000 ALTER TABLE `actividadprogramada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +97,7 @@ DROP TABLE IF EXISTS `cursosact`;
 CREATE TABLE `cursosact` (
   `IdAct` int NOT NULL,
   `idCur` int NOT NULL,
-  KEY `fk_CursosAct_Cursos` (`idCur`),
+  CONSTRAINT `fk_CursosAct_Solicitud` FOREIGN KEY (`IdAct`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE,
   CONSTRAINT `fk_CursosAct_Cursos` FOREIGN KEY (`idCur`) REFERENCES `cursos` (`ID_CURSO`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -105,7 +108,7 @@ CREATE TABLE `cursosact` (
 
 LOCK TABLES `cursosact` WRITE;
 /*!40000 ALTER TABLE `cursosact` DISABLE KEYS */;
-INSERT INTO `cursosact` VALUES (16,2),(20,1),(21,3),(21,2),(21,8);
+INSERT INTO `cursosact` VALUES (16,2);
 /*!40000 ALTER TABLE `cursosact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,8 +209,6 @@ DROP TABLE IF EXISTS `gruposact`;
 CREATE TABLE `gruposact` (
   `IdAct` int NOT NULL,
   `idGrupo` int NOT NULL,
-  KEY `fk_GruposAct_Grupos` (`idGrupo`),
-  KEY `fk_gruposact_Solicitud` (`IdAct`),
   CONSTRAINT `fk_GruposAct_Grupos` FOREIGN KEY (`idGrupo`) REFERENCES `grupos` (`ID_GRUPO`) ON UPDATE CASCADE,
   CONSTRAINT `fk_gruposact_Solicitud` FOREIGN KEY (`IdAct`) REFERENCES `solicitud` (`idSolicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -219,7 +220,7 @@ CREATE TABLE `gruposact` (
 
 LOCK TABLES `gruposact` WRITE;
 /*!40000 ALTER TABLE `gruposact` DISABLE KEYS */;
-INSERT INTO `gruposact` VALUES (17,1),(17,2),(18,1);
+INSERT INTO `gruposact` VALUES (17,1),(17,2);
 /*!40000 ALTER TABLE `gruposact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +271,7 @@ CREATE TABLE `profesorparticipante` (
   `Actividad` int NOT NULL,
   `IdProfesor` int NOT NULL,
   `Rol` enum('responsable','participante') NOT NULL,
-  KEY `fk_ProfesorParticipante_Profesores` (`IdProfesor`),
+  CONSTRAINT `fk_ProfesorParticipante_Solicitud` FOREIGN KEY (`Actividad`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE,
   CONSTRAINT `fk_ProfesorParticipante_Profesores` FOREIGN KEY (`IdProfesor`) REFERENCES `profesores` (`ID_Prof`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -281,7 +282,7 @@ CREATE TABLE `profesorparticipante` (
 
 LOCK TABLES `profesorparticipante` WRITE;
 /*!40000 ALTER TABLE `profesorparticipante` DISABLE KEYS */;
-INSERT INTO `profesorparticipante` VALUES (16,1,'responsable'),(16,2,'participante'),(16,3,'participante'),(17,2,'responsable'),(17,1,'participante'),(17,3,'participante'),(18,1,'responsable'),(18,3,'participante'),(20,1,'responsable'),(20,3,'participante'),(21,1,'responsable'),(21,6,'participante');
+INSERT INTO `profesorparticipante` VALUES (16,1,'responsable'),(16,2,'participante'),(16,3,'participante'),(17,2,'responsable'),(17,1,'participante'),(17,3,'participante');
 /*!40000 ALTER TABLE `profesorparticipante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +315,7 @@ CREATE TABLE `solicitud` (
   KEY `fk_Solicitud_Departamento` (`Departamento`),
   CONSTRAINT `fk_Solicitud_Departamento` FOREIGN KEY (`Departamento`) REFERENCES `departamentos` (`idDepartamentos`) ON UPDATE CASCADE,
   CONSTRAINT `fk_Solicitud_Profesores` FOREIGN KEY (`Solicitante`) REFERENCES `profesores` (`ID_Prof`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +324,7 @@ CREATE TABLE `solicitud` (
 
 LOCK TABLES `solicitud` WRITE;
 /*!40000 ALTER TABLE `solicitud` DISABLE KEYS */;
-INSERT INTO `solicitud` VALUES (1,999,'Prueba','extraordinaria',20,1,1,'2011-05-24','2012-05-24','10:30:00','11:30:00',1,'Ninguno',10,'aprobada','kakakakak'),(2,999,'Prueba','extraordinaria',20,1,1,'2011-05-24','2012-05-24','10:30:00','11:30:00',1,'Ninguno',10,'solicitada','-'),(3,999,'Prueba','extraordinaria',20,1,1,'2024-05-11','2024-05-12','10:30:00','11:30:00',1,'Ninguno',10,'solicitada','-'),(4,3,'Prueba','extraordinaria',20,1,1,'2024-05-11','2024-05-12','10:30:00','11:30:00',1,'Ninguno',10,'solicitada','-'),(5,1,'aaa','complementaria',2,0,0,'2024-05-11','2024-05-12','10:30:00','11:30:00',0,'aaa',10,'solicitada',''),(6,3,'prueba3','complementaria',4,0,1,'2024-05-15','2024-05-16','16:30:00','17:30:00',1,'prueba',10,'aprobada','Aprobada'),(7,3,'bbbb','extraordinaria',1,1,1,'2024-05-15','2024-05-15','13:30:00','13:30:00',1,'aaaaa',1,'solicitada','-'),(8,999,'aaaaaa','complementaria',7,1,0,'2024-06-11','2024-06-12','10:30:00','11:30:00',1,'nueva ventana',10,'solicitada','-'),(9,999,'bbbbb','complementaria',17,0,1,'2024-05-12','2024-05-13','12:30:00','13:30:00',0,'asssss',30,'aprobada','bbbb'),(10,999,'ccc','complementaria',2,1,0,'2024-05-12','2024-05-13','13:30:00','14:30:00',1,'mmmmmm',2,'solicitada','-'),(11,999,'dddddd','extraordinaria',1,1,0,'2024-05-12','2024-05-13','13:30:00','13:40:00',0,'aaaaaa',3,'solicitada','-'),(12,3,'aaaaaa','complementaria',3,1,1,'2024-05-12','2024-05-13','17:50:00','18:50:00',1,'esta',20,'solicitada','-'),(13,1,'AAAAA','complementaria',4,0,0,'2004-02-10','2004-02-11','10:00:00','09:00:00',1,'Acampada',10,'solicitada','-'),(14,5,'FFFFFFFFF','extraordinaria',2,1,1,'2024-05-13','2024-05-14','18:40:00','19:40:00',1,'NINGUNO',85,'solicitada','-'),(16,4,'PRUEBAPRUEBA','complementaria',2,0,0,'2024-05-14','2024-05-15','20:08:00','21:08:00',1,'PRUEBAPRUEBA',85,'solicitada','-'),(17,6,'Solicitud 16','complementaria',3,1,1,'2024-05-14','2024-05-15','21:42:00','22:42:00',1,'-',79,'aprobada','TODO CORRECTO!'),(18,6,'Solicitud 17','extraordinaria',1,1,1,'2024-05-16','2024-05-17','21:47:00','22:47:00',0,'-',43,'realizada','-'),(19,1,'aaaaaa','extraordinaria',1,1,1,'2024-05-15','2024-05-15','20:00:00','20:30:00',1,'aaaaaa',22,'realizada',''),(20,1,'aaaaaa','complementaria',3,1,1,'2024-05-15','2024-05-15','20:32:00','23:20:00',0,'aaaa',85,'aprobada','aprobada'),(21,1,'Hola','extraordinaria',1,0,1,'2024-05-17','2024-05-18','11:00:00','10:00:00',1,'Hola',171,'aprobada','aprobada maquina');
+INSERT INTO `solicitud` VALUES (1,999,'Prueba','extraordinaria',20,1,1,'2011-05-24','2012-05-24','10:30:00','11:30:00',1,'Ninguno',10,'aprobada','kakakakak'),(2,999,'Prueba','extraordinaria',20,1,1,'2011-05-24','2012-05-24','10:30:00','11:30:00',1,'Ninguno',10,'solicitada','-'),(3,999,'Prueba','extraordinaria',20,1,1,'2024-05-11','2024-05-12','10:30:00','11:30:00',1,'Ninguno',10,'solicitada','-'),(4,3,'Prueba','extraordinaria',20,1,1,'2024-05-11','2024-05-12','10:30:00','11:30:00',1,'Ninguno',10,'solicitada','-'),(5,1,'aaa','complementaria',2,0,0,'2024-05-11','2024-05-12','10:30:00','11:30:00',0,'aaa',10,'solicitada',''),(6,3,'prueba3','complementaria',4,0,1,'2024-05-15','2024-05-16','16:30:00','17:30:00',1,'prueba',10,'aprobada','Aprobada'),(7,3,'bbbb','extraordinaria',1,1,1,'2024-05-15','2024-05-15','13:30:00','13:30:00',1,'aaaaa',1,'solicitada','-'),(8,999,'aaaaaa','complementaria',7,1,0,'2024-06-11','2024-06-12','10:30:00','11:30:00',1,'nueva ventana',10,'solicitada','-'),(9,999,'bbbbb','complementaria',17,0,1,'2024-05-12','2024-05-13','12:30:00','13:30:00',0,'asssss',30,'aprobada','bbbb'),(10,999,'ccc','complementaria',2,1,0,'2024-05-12','2024-05-13','13:30:00','14:30:00',1,'mmmmmm',2,'solicitada','-'),(11,999,'dddddd','extraordinaria',1,1,0,'2024-05-12','2024-05-13','13:30:00','13:40:00',0,'aaaaaa',3,'solicitada','-'),(12,3,'aaaaaa','complementaria',3,1,1,'2024-05-12','2024-05-13','17:50:00','18:50:00',1,'esta',20,'solicitada','-'),(13,1,'AAAAA','complementaria',4,0,0,'2004-02-10','2004-02-11','10:00:00','09:00:00',1,'Acampada',10,'solicitada','-'),(14,5,'FFFFFFFFF','extraordinaria',2,1,1,'2024-05-13','2024-05-14','18:40:00','19:40:00',1,'NINGUNO',85,'solicitada','-'),(16,4,'PRUEBAPRUEBA','complementaria',2,0,0,'2024-05-14','2024-05-15','20:08:00','21:08:00',1,'PRUEBAPRUEBA',85,'solicitada','-'),(17,6,'Solicitud 16','complementaria',3,1,1,'2024-05-14','2024-05-15','21:42:00','22:42:00',1,'-',79,'aprobada','TODO CORRECTO!'),(18,6,'Solicitud 17','extraordinaria',1,1,1,'2024-05-16','2024-05-17','21:47:00','22:47:00',0,'-',43,'realizada','-');
 /*!40000 ALTER TABLE `solicitud` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,7 +351,7 @@ CREATE TABLE `transporteact` (
 
 LOCK TABLES `transporteact` WRITE;
 /*!40000 ALTER TABLE `transporteact` DISABLE KEYS */;
-INSERT INTO `transporteact` VALUES (6,1),(6,2),(19,1),(20,1),(20,1),(20,2),(20,2),(21,4),(21,4);
+INSERT INTO `transporteact` VALUES (6,1),(6,2);
 /*!40000 ALTER TABLE `transporteact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-16 17:27:50
+-- Dump completed on 2024-05-14 20:06:22
