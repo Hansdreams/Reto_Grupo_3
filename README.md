@@ -45,17 +45,15 @@
 
 ## Documentación Adicional del proyecto
 
-  - Manual de Usuario: 
+  - [MANUAL DE USUARIO](https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Documentacion/Manual%20de%20Usuario%20de%20la%20Aplicaci%C3%B3n%20de%20escritorio%20RET.pdf
+)
+ 
   
-     https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Documentacion/Manual%20de%20Usuario%20de%20la%20Aplicaci%C3%B3n%20de%20escritorio%20RET.pdf
+  - [GUÍA DE DESPLIEGUE](https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Gu%C3%ADa%20de%20despliegue%20Grupo%203.pdf)
+ 
+    
 
-  - Guía de despliegue: 
-  
-     https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Gu%C3%ADa%20de%20despliegue%20Grupo%203.pdf
-
-  - Generar informes: 
-  
-    https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Documentacion/GENERAR_INFORMES_BD_G3.pdf
+  - [GENERAR INFORMES](https://github.com/Hansdreams/Reto_Grupo_3/blob/master/Documentacion/GENERAR_INFORMES_BD_G3.pdf)
 
   
 
