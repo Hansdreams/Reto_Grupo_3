@@ -16,8 +16,9 @@ import Clases.Profesor;
 import Enums.Perfil;
 
 /**
- *
- * @author DAW112
+ * Clase que contiene metodos ficheros estaticos para el manejo de los datos de archivos CSV
+ * @author Grupo3
+ * @version 1.0
  */
 public class MetodoFichero {
 

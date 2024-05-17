@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\Gus y Joaco\.m2\repository\Reto_G3\Reto_Grupo3\1.0-SNAPSHOT\Reto_Grupo3-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>
+  <outfile>C:\Users\Gus y Joaco\Desktop\Trabajo Acttual3\Programacion\Reto_Grupo3\Ejecutable\RETMH.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>G:\DAW2023-24\Proyecto Final\logo.ico</icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>18</minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+</launch4jConfig>

@@ -18,8 +18,7 @@ import java.util.List;
  * Esta clase contiene los metodos de una interface MetodoBD T con la Clase grupos
  * @author Grupo3
  * @version 1.0
- * @see grupos
- * @see AccesoBaseDatos
+ * @see grupos AccesoBaseDatos
  */
 public class GruposDAOImp implements MetodosBD<Grupos>{
     /**

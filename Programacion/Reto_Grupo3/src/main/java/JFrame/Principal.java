@@ -11,7 +11,6 @@ import Acceso_BaseDatos.AccesoBaseDatos;
 import Clases.Profesor;
 import Clases.Solicitud;
 import Clases.Usuario;
-import Clases.Cursos;
 import Clases.Grupos;
 import Clases.Transporte;
 import Clases.ActividadProgramada;
@@ -31,7 +30,6 @@ import DAOImp.TransporteDAOImp;
 import DAOImp.FotosDAOImp;
 
 //Importacion Enums
-import Enums.Estado;
 import Enums.Perfil;
 import Enums.TipoActividad;
 import Enums.Estado;
@@ -40,6 +38,10 @@ import Enums.Rol;
 //Importacion de Fichero
 import Ficheros.MetodoFichero;
 
+//Importacion de las Validaciones
+import Validar_Datos.ValidarDatos;
+
+//Importacion del mismos Netbeans
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -57,11 +59,18 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.VK_ENTER;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
+ * Clase Principal donde se trabajara la visualizacion de la aplicacion
  *
- * @author Gus y Joaco
+ * @author Grupo3
+ * @version 1.0
+ * @see javax.swing..JFrame
  */
 public class Principal extends javax.swing.JFrame {
 
@@ -73,7 +82,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    //ATRIBUTOS
+    //ATRIBUTOS PARA EL MANEJO DE LAS CLASE DAOImp
     UsuarioDAOImp auxUsuarioDAOImp = new UsuarioDAOImp();
     ProfesorDAOImp auxProfesorDAOImp = new ProfesorDAOImp();
     SolicitudDAOImp auxSolicitudDAOImp = new SolicitudDAOImp();
@@ -83,13 +92,15 @@ public class Principal extends javax.swing.JFrame {
     TransporteDAOImp auxTransporteDAOImp = new TransporteDAOImp();
     ActividadProgramadaDAOImp auxActividadProgramadaDAOImp = new ActividadProgramadaDAOImp();
     FotosDAOImp auxFotosDAOImp = new FotosDAOImp();
+
+    //ATRIBUTOS PARA EL MANEJO DE LAS CLASES
     Profesor profesor;
     Departamentos departamento;
     Solicitud solicitud;
     ActividadProgramada actividaProgramada;
     Fotos fotos;
 
-    //ATRIBUTOS SOLICITUD
+    //ATRIBUTOS PARA LA SOLICITUD
     int idSolicitud, idProfesor;
 
     //FORMATO DE FECHA Y HORA
@@ -101,97 +112,180 @@ public class Principal extends javax.swing.JFrame {
     DefaultTableModel modeloSolicitudesAprobadas;
     DefaultTableModel modeloTodasLasSolicitudes;
     DefaultTableModel modeloFotos;
-    private String[] cabeceraSolicitudes = {"ID", "Nombre de la Actividad", "Tipo de Actividad", "Departamento", "Prevista", "Transporte", "Fecha Inicial", "Fecha Final",
+    final private String[] cabeceraSolicitudes = {"ID", "Nombre de la Actividad", "Tipo de Actividad", "Departamento", "Prevista", "Transporte", "Fecha Inicial", "Fecha Final",
         "Hora Inicial", "Hora Final", "Alojamiento", "Comentario", "Estado", "Consulta Estado"};
-    private String[] cabeceraSolicitudesAprobadas = {"ID", "Nombre de la Actividad", "Tipo de Actividad", "Departamento", "Prevista", "Transporte", "Fecha Inicial", "Fecha Final",
+    final private String[] cabeceraSolicitudesAprobadas = {"ID", "Nombre de la Actividad", "Tipo de Actividad", "Departamento", "Prevista", "Transporte", "Fecha Inicial", "Fecha Final",
         "Hora Inicial", "Hora Final", "Alojamiento", "Comentario", "Estado", "Consulta Estado"};
-    private String[] cabeceraTodasLasSolicitudes = {"ID", "Solicitante", "Nombre de la Actividad", "Tipo de Actividad", "Departamento", "Prevista", "Transporte", "Fecha Inicial", "Fecha Final",
+    final private String[] cabeceraTodasLasSolicitudes = {"ID", "Solicitante", "Nombre de la Actividad", "Tipo de Actividad", "Departamento", "Prevista", "Transporte", "Fecha Inicial", "Fecha Final",
         "Hora Inicial", "Hora Final", "Alojamiento", "Comentario", "Estado", "Consulta Estado"};
-    private String[] cabeceraTablaFotos = {"URL", "Descripcion"};
+    final private String[] cabeceraTablaFotos = {"URL", "Descripcion"};
 
     //Atributos para las listas
     DefaultListModel modeloListaProfesoresParticipantes;
     DefaultListModel modeloListaGrupos;
+    DefaultListModel modeloListaCursos;
     DefaultListModel modeloListaTransporte;
 
+    //Atributos de ordenamiento
+    TableRowSorter<TableModel> ordenadoSolicitud;
+    TableRowSorter<TableModel> ordenadoSolicitudAprobada;
+    TableRowSorter<TableModel> ordenadoTodasLasSolicitudes;
+
     //METODOS
-    //Icono de la ventana
+    /**
+     * Metodo que devulver un Imagen pasado por una url
+     *
+     * @return El logo que se usara
+     */
     @Override
     public Image getIconImage() {
-
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("logo.jpg"));
-
+        
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("logo.png"));
+        
         return retValue;
     }
 
+    /**
+     * Motodo que muestra un JOptionPane con el mensaje ingresado
+     *
+     * @param mensaje
+     */
     private void mensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, "<html><p style = \" font: 16px \">" + mensaje + "</p></html>");
+        JOptionPane.showMessageDialog(this, "<html><p style = \" font: 16px \">" + mensaje.toUpperCase() + "</p></html>");
     }
 
-    //METODO QUE ME REGRESA EL USUARIO(PROFESOR) LOGEADO
+    /**
+     * Motodo que muestra un JOptionPane con el mensaje de Error de color rojo
+     *
+     * @param mensajeE
+     */
+    private void mensajeError(String mensajeE) {
+        
+        JOptionPane.showMessageDialog(this, "<html><p style = \" font: 16px ; color: #FF0000 \"  >" + mensajeE.toUpperCase() + "</p></html>");
+        
+    }
+
+    /**
+     * Metodo que retorna un objeto Profesor
+     *
+     * @see Profesor
+     * @return Todos los datos de un Profesor
+     */
     private Profesor getProfesor() {
         return profesor;
     }
 
+    /**
+     * Metodo que realiza el ingreso de las caberas en las Tablas
+     * correspondiente
+     */
     private void muestraCabeceraTablaSolicitudesProfesor() {
-
+        
         modeloSolicitudes = new DefaultTableModel(cabeceraSolicitudes, 0);
         jTableSolicitudes.setModel(modeloSolicitudes);
-
+        
         modeloSolicitudesAprobadas = new DefaultTableModel(cabeceraSolicitudesAprobadas, 0);
         jTableSolicitudesAprobadas.setModel(modeloSolicitudesAprobadas);
-
+        
     }
 
-    private void muestraCabeceraTablaTodasLasSolicitudes() {
+    /**
+     * Metodo que permite ordenar los datos por la cabecera seleccionada
+     */
+    private void metodoQuePermiteElOrdenamientoDeLasTablasPorLasCasillas() {
+        
+        ordenadoSolicitud = new TableRowSorter<TableModel>(modeloTodasLasSolicitudes);
+        jTableSolicitudes.setRowSorter(ordenadoSolicitud);
+        
+        ordenadoSolicitudAprobada = new TableRowSorter<TableModel>(modeloSolicitudesAprobadas);
+        jTableSolicitudesAprobadas.setRowSorter(ordenadoSolicitudAprobada);
+        
+        ordenadoTodasLasSolicitudes = new TableRowSorter<TableModel>(modeloTodasLasSolicitudes);
+        jTableTodasLasSolicitudes.setRowSorter(ordenadoTodasLasSolicitudes);
+        
+    }
 
+    /**
+     * Metodo que permite mostrar las cabeceras de la tabla
+     * jTableTodasLasSolicitudes
+     */
+    private void muestraCabeceraTablaTodasLasSolicitudes() {
+        
         modeloTodasLasSolicitudes = new DefaultTableModel(cabeceraTodasLasSolicitudes, 0);
         jTableTodasLasSolicitudes.setModel(modeloTodasLasSolicitudes);
-
+        
     }
 
+    /**
+     * Metodo que permite mostrar las cabeceras de la tabla jTableFotos
+     */
     private void muestraCabeceraTablaFotos() {
-
+        
         modeloFotos = new DefaultTableModel(cabeceraTablaFotos, 0);
         jTableFotos.setModel(modeloFotos);
-
+        
     }
 
+    /**
+     * Metodo que modela la lista jListProfesorParticipantes
+     */
     private void cargarModeloListaProfesorParticipantes() {
-
+        
         modeloListaProfesoresParticipantes = new DefaultListModel();
         jListProfesoresParticipantes.setModel(modeloListaProfesoresParticipantes);
-
+        
         modeloListaProfesoresParticipantes.removeAllElements();
-
+        
     }
 
+    /**
+     * Metodo que modela la lista jListGrupos
+     */
     private void cargarModeloListaGrupos() {
-
+        
         modeloListaGrupos = new DefaultListModel();
         jListGrupos.setModel(modeloListaGrupos);
-
+        
         modeloListaGrupos.removeAllElements();
-
+        
     }
 
-    private void cargarModeloListaTransporte() {
+    /**
+     * Metodo que modela la lista jListCursos
+     */
+    private void cargarModeloListaCursos() {
+        
+        modeloListaCursos = new DefaultListModel();
+        jListCursos.setModel(modeloListaCursos);
+        
+        modeloListaCursos.removeAllElements();
+        
+    }
 
+    /**
+     * Metodo que modela la lista jListTransporte
+     */
+    private void cargarModeloListaTransporte() {
+        
         modeloListaTransporte = new DefaultListModel();
         jListTransportes.setModel(modeloListaTransporte);
-
+        
         modeloListaTransporte.removeAllElements();
-
+        
     }
 
+    /**
+     * Metodo muestra todas las Solicitudes del profesor en la tabla
+     * JtableSolicitudesProfesor
+     */
     private void cargarSolicitudesDelProfesor() {
-
+        
         List<Solicitud> auxS = auxSolicitudDAOImp.listar();
-
+        
         modeloSolicitudes.setRowCount(0);
-
+        
         for (Solicitud s : auxS) {
-
+            
             if (s.getSolicitante() == getProfesor().getId_Prof()) {
 
                 // Creamos un arreglo con los datos extraidos del ArrayList
@@ -200,21 +294,75 @@ public class Principal extends javax.swing.JFrame {
                     devuelveSiNo(s.isAlojamiento()), s.getComentarioAdicional(), s.getEstado(), s.getConsultaEstado()};
                 // Agregamos el arreglo creado al modelo de datos del JTable
                 modeloSolicitudes.addRow(Fila);
-
+                
             }
-
+            
         }
-
+        
     }
 
-    private void cargarSolicitudesAprobadaDelProfesor() {
+    /**
+     * Metodo que actualiza el estado de las Solicitudes y lo muestra en la
+     * tabla JtableSolicitudesProfesor
+     */
+    private void actualizacionEstadoDeSolicitud() {//PROBAR METODO
 
         List<Solicitud> auxS = auxSolicitudDAOImp.listar();
+        
+        for (Solicitud solic : auxS) {
+            
+            if (solic.getEstado().toString().equalsIgnoreCase("aprobada")) {
+                
+                if (solic.getFechaFinal().isAfter(LocalDate.now())) {
+                    
+                    final String sql = "update solicitud set Estado= 'realizada' where idSolicitud= '" + solic.getIdSolicitud() + "'";
+                    
+                    try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+                        
+                    } catch (SQLException ex) {
+                        // errores
+                        System.out.println("SQLException: " + ex.getMessage());
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    
+                }
+                
+            } else if (solic.getEstado().toString().equalsIgnoreCase("solicitada")) {
+                
+                if (solic.getFechaFinal().isAfter(LocalDate.now())) {
+                    
+                    final String sql = "update solicitud set Estado= 'denegada' where idSolicitud= '" + solic.getIdSolicitud() + "'";
+                    
+                    try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+                        
+                    } catch (SQLException ex) {
+                        // errores
+                        System.out.println("SQLException: " + ex.getMessage());
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
 
+    /**
+     * Metodo muestra todas las Solicitudes del profesor en estado APROBADA en
+     * la tabla JtableSolicitudesAprobadas
+     */
+    private void cargarSolicitudesAprobadaDelProfesor() {
+        
+        List<Solicitud> auxS = auxSolicitudDAOImp.listar();
+        
         modeloSolicitudesAprobadas.setRowCount(0);
-
+        
         for (Solicitud s : auxS) {
-
+            
             if (s.getSolicitante() == getProfesor().getId_Prof() && s.getEstado().equals(Estado.APROBADA)) {
 
                 // Creamos un arreglo con los datos extraidos del ArrayList
@@ -223,19 +371,23 @@ public class Principal extends javax.swing.JFrame {
                     devuelveSiNo(s.isAlojamiento()), s.getComentarioAdicional(), s.getEstado(), s.getConsultaEstado()};
                 // Agregamos el arreglo creado al modelo de datos del JTable
                 modeloSolicitudesAprobadas.addRow(Fila);
-
+                
             }
-
+            
         }
-
+        
     }
 
+    /**
+     * Metodo muestra todas las Solicitudes para el administrador y superusuario
+     * en la tabla JtableTodasSolicitudes
+     */
     private void cargarTodasLasSolicitudes() {
-
+        
         List<Solicitud> auxS = auxSolicitudDAOImp.listar();
-
+        
         modeloTodasLasSolicitudes.setRowCount(0);
-
+        
         for (Solicitud s : auxS) {
 
             // Creamos un arreglo con los datos extraidos del ArrayList
@@ -243,326 +395,383 @@ public class Principal extends javax.swing.JFrame {
                 s.formatoFechaInicial(), s.formatoFechaFinal(), s.formatoHoraInicial(), s.formatoHoraFinal(),
                 devuelveSiNo(s.isAlojamiento()), s.getComentarioAdicional(), s.getEstado(), s.getConsultaEstado()};
             // Agregamos el arreglo creado al modelo de datos del JTable
+
             modeloTodasLasSolicitudes.addRow(Fila);
-
+            
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxTipoActividad con todos las Actividaddes
+     * dentro del ENUM TipoActividad
+     *
+     * @see TipoActividad
+     */
     private void comboBoxTipoActividad() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxTipoActividad.removeAllItems();//limpia el combobox
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
             for (TipoActividad t : TipoActividad.values()) {
-
+                
                 nombre = t.toString();
                 //Se arega un nuevo ítem al combobox
                 jComboBoxTipoActividad.addItem(nombre.substring(0, 1) + nombre.substring(1, nombre.length()).toLowerCase());
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxTipoActividad" + e);
+            mensajeError("Error al cargar ComboBoxTipoActividad" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxPerfilProfesor con todos los perfiles
+     * dentro del ENUM Perfil
+     *
+     * @see Perfil
+     */
     private void comboBoxPerfilProfesor() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxPerfilNuevoProfesor.removeAllItems();//limpia el combobox
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
             for (Perfil p : Perfil.values()) {
-
+                
                 nombre = p.toString();
                 //Se arega un nuevo ítem al combobox
                 jComboBoxPerfilNuevoProfesor.addItem(nombre.substring(0, 1) + nombre.substring(1, nombre.length()).toLowerCase());
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
             mensaje("Error al cargar ComboBoxTipoActividad" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxDepartamento con todos los nombres de los
+     * departementos
+     */
     private void comboBoxDepartamento() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxDepartamento.removeAllItems();//limpia el combobox
         List<Departamentos> auxDepartamentoses = auxdepartamentoDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Departamentos auxD : auxDepartamentoses) {
-
+                
                 if (auxD.getId() != 20) {
-
+                    
                     nombre = auxD.getNombre();
                     jComboBoxDepartamento.addItem(nombre);
-
+                    
                 }
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxDepartamento" + e);
+            mensajeError("Error al cargar ComboBoxDepartamento" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxDepartamentoNuevoProfesor con todos los
+     * nombres de los departementos
+     */
     private void comboBoxDepartamentoNuevoProfesor() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxDepartamentoNuevoProfesor.removeAllItems();//limpia el combobox
         List<Departamentos> auxDepartamentoses = auxdepartamentoDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Departamentos auxD : auxDepartamentoses) {
-
+                
                 if (auxD.getId() != 20) {
-
+                    
                     nombre = auxD.getNombre();
                     jComboBoxDepartamentoNuevoProfesor.addItem(nombre);
-
+                    
                 }
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxDepartamento" + e);
+            mensajeError("Error al cargar ComboBoxDepartamento" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxProfesorResponsable con todos los nombres
+     * de los profesores guardados
+     */
     private void comboBoxProfesorResponsable() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxProfesorResponsable.removeAllItems();//limpia el combobox
         List<Profesor> auxProfesores = auxProfesorDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Profesor auxP : auxProfesores) {
-
+                
                 if (auxP.getId_Prof() != 999) {
-
+                    
                     nombre = auxP.getNombre() + " " + auxP.getApellidos();
                     jComboBoxProfesorResponsable.addItem(nombre);
-
+                    
                 }
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxProfesorResponsable" + e);
+            mensajeError("Error al cargar ComboBoxProfesorResponsable" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxProfesoresParticipantes con todos los
+     * nombres de los departementos
+     */
     private void comboBoxProfesoresParticipantes() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxProfesorParticipantes.removeAllItems();//limpia el combobox
         List<Profesor> auxProfesores = auxProfesorDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Profesor auxP : auxProfesores) {
-
+                
                 if (auxP.getId_Prof() != 999) {
-
+                    
                     nombre = auxP.getNombre() + " " + auxP.getApellidos();
                     jComboBoxProfesorParticipantes.addItem(nombre);
-
+                    
                 }
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxProfesorResponsable" + e);
+            mensajeError("Error al cargar ComboBoxProfesorResponsable" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxCursos con todos los codigo de los cursos
+     */
     private void comboBoxCursos() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxCursos.removeAllItems();//limpia el combobox
         List<Cursos> auxCursos = auxCursoDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Cursos auxC : auxCursos) {
-
+                
                 nombre = auxC.getCodCurso();
                 jComboBoxCursos.addItem(nombre);
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxCursos" + e);
+            mensajeError("Error al cargar ComboBoxCursos" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxGrupos con todas los codigos de los grupos
+     */
     private void comboBoxGrupos() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxGrupos.removeAllItems();//limpia el combobox
         List<Grupos> auxGrupos = auxGrupoDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Grupos auxG : auxGrupos) {
-
+                
                 nombre = auxG.getCodgrupo();
                 jComboBoxGrupos.addItem(nombre);
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxCursos" + e);
+            mensajeError("Error al cargar ComboBoxCursos" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxTransporteContratado con todas los nombres
+     * de los transportes
+     */
     private void comboBoxTransporteContratado() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxTransporteContrado.removeAllItems();//limpia el combobox
         List<Transporte> auxTransportes = auxTransporteDAOImp.listar();
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
 
             for (Transporte auxT : auxTransportes) {
-
+                
                 nombre = auxT.getTipoTransporte();
                 jComboBoxTransporteContrado.addItem(nombre);
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxCursos" + e);
+            mensajeError("Error al cargar ComboBoxCursos" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que rellena el comboBoxEstado con todas los tipos de estado
+     *
+     * @see Estado
+     */
     private void comboBoxEstado() {
 
         //variable para tomar el nombre
         String nombre;
-        TipoActividad tipo;
         //se limpia el combo
         jComboBoxMSEstado.removeAllItems();//limpia el combobox
         //try por si fallara al momento de rellenar
         try {
-            //Se recorre con un for la lista de conductores
+            //Se recorre con un for la lista 
             for (Estado e : Estado.values()) {
-
+                
                 nombre = e.toString();
                 //Se arega un nuevo ítem al combobox
                 jComboBoxMSEstado.addItem(nombre.substring(0, 1) + nombre.substring(1, nombre.length()).toLowerCase());
-
+                
             }
-
+            
         } catch (Exception e) { //capta el error y lo muestra
-            mensaje("Error al cargar ComboBoxMSEstado" + e);
+            mensajeError("Error al cargar ComboBoxMSEstado" + e);
         }
-
+        
     }
 
+    /**
+     * Metodo que recibe un booleano y retorna un si o no
+     *
+     * @return devuelve un String
+     */
     private String devuelveSiNo(boolean aux) {
         String siNo = "No";
-
+        
         if (aux) {
             siNo = "Si";
         }
-
+        
         return siNo;
     }
 
+    /**
+     * Metodo retorna un boolean dependiendo si se selecciona un jRadioButton
+     *
+     * @return devuelve un boolean
+     */
     private boolean prevista() {
-
+        
         boolean prevista = false;
-
+        
         if (jRadioButtonPreVistaSi.isSelected()) {
             prevista = true;
         } else if (jRadioButtonPreVistaNo.isSelected()) {
             prevista = false;
         }
-
+        
         return prevista;
     }
 
+    /**
+     * Metodo retorna un boolean dependiendo si se selecciona un jRadioButton
+     *
+     * @return devuelve un boolean
+     */
     private boolean transporte() {
-
+        
         boolean transporte = false;
-
+        
         if (jRadioButtonTransporteSi.isSelected()) {
             transporte = true;
         } else if (jRadioButtonTransporteNo.isSelected()) {
             transporte = false;
         }
-
+        
         return transporte;
     }
 
+    /**
+     * Metodo retorna un boolean dependiendo si se selecciona un jRadioButton
+     *
+     * @return devuelve un boolean
+     */
     private boolean alojamiento() {
-
+        
         boolean alojamiento = false;
-
+        
         if (jRadioButtonAlojamientoSi.isSelected()) {
             alojamiento = true;
         } else if (jRadioButtonAlojamientoNo.isSelected()) {
             alojamiento = false;
         }
-
+        
         return alojamiento;
     }
 
+    /**
+     * Metodo limpia los jTextFiel
+     */
     private void limpiarPanelSolicitud() {
-
+        
         jTextFieldNumeroActividad.setText("");
         jTextNombreActividad.setText("");
         jComboBoxTipoActividad.setSelectedIndex(0);
@@ -587,419 +796,546 @@ public class Principal extends javax.swing.JFrame {
         jComboBoxGrupos.setSelectedIndex(0);
         modeloListaProfesoresParticipantes.removeAllElements();
         modeloListaGrupos.removeAllElements();
+        modeloListaCursos.removeAllElements();
         jTextNombreActividad.requestFocus();
-
+        
     }
 
+    /**
+     * Metodo limpia los jTextFiel
+     */
     private void limpiarPanelModificarSolicitud() {
-
+        
         jTextFieldMSNombreActividad.setText("");
         jComboBoxMSEstado.removeAllItems();
         jComboBoxMSEstado.enable(false);
         jTextFieldMSComentarioEstado.setText("");
         jTextFieldMSComentarioEstado.enable(false);
         comboBoxEstado();
-
+        
     }
 
+    /**
+     * Metodo limpia los jTextFiel
+     */
     private void limpiarPanelNuevoProfesor() {
-
+        
         jTextFieldNombreNuevoProfesor.setText("");
         jTextFieldApellidosNuevoProfesor.setText("");
         jTextFieldDniNuevoProfesor.setText("");
-        jComboBoxDepartamentoNuevoProfesor.removeAllItems();;
+        jComboBoxDepartamentoNuevoProfesor.removeAllItems();
         jComboBoxPerfilNuevoProfesor.removeAllItems();
         comboBoxDepartamentoNuevoProfesor();
         comboBoxPerfilProfesor();
         jTextFieldNombreNuevoProfesor.requestFocus();
-
+        
+    }
+    
+    private void limpiarPanelFotos() {
+        
+        jTextFieldURL.setText("");
+        jTextFieldDescripcionFotos.setText("");
+        jTextFieldNumeroDeLaActividad.setText("");
+        muestraCabeceraTablaFotos();
+        jPanelFotosActividad.setVisible(false);
+        jTextFieldURL.requestFocus();
+        
     }
 
+    /**
+     * Metodo que recibe un String y retorna el ID de un departamento
+     *
+     * @return devuelve un String
+     */
     private String devuelveIdDepartamento(String aux) {
-
+        
         String idDep = "";
-
+        
         List<Departamentos> auxDep = auxdepartamentoDAOImp.listar();
-
+        
         for (Departamentos d : auxDep) {
-
+            
             if (d.getNombre().equalsIgnoreCase(aux)) {
-
+                
                 idDep += d.getId();
-
+                
             }
-
+            
         }
         return idDep;
-
+        
     }
 
-    private void cargarCantidadAlumnosCurso() {
-
-        String codigoCurso = jComboBoxCursos.getSelectedItem().toString();
-
-        List<Cursos> auxCursos = auxCursoDAOImp.listar();
-
-        for (Cursos auxC : auxCursos) {
-
-            if (auxC.getCodCurso().equalsIgnoreCase(codigoCurso)) {
-
-                jTextFieldCantidadAlumnos.setText("" + auxC.getTotalAlumnos());
-                return;
-
-            }
-
-        }
-
-    }
-
+    /**
+     * Metodo que recibe un String y retorna un entero
+     *
+     * @return devuelve un int con las cantidad total de los alumnos por grupos
+     */
     private int totalAlumnosGrupos(String aux) {
-
+        
         int cantidad = 0;
-
+        
         List<Grupos> auxGrupos = auxGrupoDAOImp.listar();
-
+        
         for (Grupos auxG : auxGrupos) {
-
+            
             if (auxG.getCodgrupo().equals(aux)) {
-
+                
                 cantidad = auxG.getAlumnos();
-
+                
             }
-
+            
         }
-
+        
         return cantidad;
-
+        
     }
 
-    private void guardarProfesorResponsable(int actividad, int profesor) {
-
-        final String sql = "INSERT INTO profesorparticipante(Actividad,IdProfesor,Rol)values ('" + actividad + "','" + profesor + "','" + Rol.RESPONSABLE.toString().toLowerCase() + "')";
-
-        try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
-            int salida = stmt.executeUpdate(sql);
-
-            if (salida != 1) {
-                mensaje("No se ha guardado Profesor Responsable!!!".toUpperCase());
-            } else {
-                mensaje("Se ha guardado Correctamente Profesor Responsable!!!".toUpperCase());
+    /**
+     * Metodo que recibe un String y retorna un entero
+     *
+     * @return devuelve un int con las cantidad total de los alumnos por cursos
+     */
+    private int totalAlumnosCursos(String aux) {
+        
+        int cantidad = 0;
+        
+        List<Cursos> auxCursos = auxCursoDAOImp.listar();
+        
+        for (Cursos auxC : auxCursos) {
+            
+            if (auxC.getCodCurso().equals(aux)) {
+                
+                cantidad = auxC.getTotalAlumnos();
+                
             }
+            
+        }
+        
+        return cantidad;
+        
+    }
 
+    /**
+     * Metodo que recibe 2 entero e guarda el profesor responsable mediante una
+     * sentencia sql insert
+     */
+    private void guardarProfesorResponsable(int actividad, int profesor) {
+        
+        final String sql = "INSERT INTO profesorparticipante(Actividad,IdProfesor,Rol)values ('" + actividad + "','" + profesor + "','" + Rol.RESPONSABLE.toString().toLowerCase() + "')";
+        
+        try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            
+            int salida = stmt.executeUpdate(sql);
+            
+            if (salida != 1) {
+                mensajeError("No se ha guardado Profesor Responsable!!!");
+            } else {
+                mensaje("Se ha guardado Correctamente Profesor Responsable!!!");
+            }
+            
         } catch (SQLException ex) {
             // errores
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
+        
     }
 
+    /**
+     * Metodo que recibe un String y retorna un entero
+     *
+     * @return devuelve el ID del profesor
+     */
     private int devuelveIdProfesor(String aux) {
-
+        
         List<Profesor> auxProfesores = auxProfesorDAOImp.listar();
-
+        
         for (Profesor auxP : auxProfesores) {
-
+            
             String nombreApellido = auxP.getNombre() + " " + auxP.getApellidos();
-
+            
             if (nombreApellido.equals(aux)) {
-
+                
                 return auxP.getId_Prof();
-
+                
             }
-
+            
         }
-
+        
         return 0;
     }
 
+    /**
+     * Metodo que recibe 2 entero e guarda el o los profesor participantes
+     * mediante una sentencia sql
+     */
     private void ProfesoresParticipantes(int actividad, int profesor) {
-
+        
         final String sql = "INSERT INTO profesorparticipante(Actividad,IdProfesor,Rol)values ('" + actividad + "','" + profesor + "','" + Rol.PARTICIPANTE.toString().toLowerCase() + "')";
-
+        
         try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
+            
             int salida = stmt.executeUpdate(sql);
-
+            
             if (salida != 1) {
                 System.out.println("No se ha guardado Profesor Participante!!!");
             } else {
                 System.out.println("Se ha guardado Correctamente Profesor Participante!!!");
             }
-
+            
         } catch (SQLException ex) {
             // errores
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
+        
     }
 
+    /**
+     * Metodo que recore una lista y los guarda
+     *
+     * @return devuelve un boolean
+     * @see metodo ProfesoresParticipantes
+     */
     private boolean guardarProfesoresParticipantes() {
-
+        
         boolean guardado = false;
-
+        
         List<Profesor> auxProfesores = auxProfesorDAOImp.listar();
-
+        
         for (int i = 0; i < modeloListaProfesoresParticipantes.getSize(); i++) {
-
+            
             for (Profesor auxP : auxProfesores) {
-
+                
                 String nombreApellido = auxP.getNombre() + " " + auxP.getApellidos();
-
+                
                 int idSol = Integer.parseInt(jTextFieldNumeroActividad.getText());
-
+                
                 if (nombreApellido.equals(modeloListaProfesoresParticipantes.getElementAt(i))) {
-
+                    
                     ProfesoresParticipantes(idSol, auxP.getId_Prof());
                     guardado = true;
-
+                    
                 } else {
                     guardado = false;
                 }
-
+                
             }
-
+            
         }
-
+        
         return guardado;
-
+        
     }
 
-    private int devuelveIdCurso(String aux) {
-
-        List<Cursos> auxCurso = auxCursoDAOImp.listar();
-
-        for (Cursos auxC : auxCurso) {
-
-            String codCurso = auxC.getCodCurso();
-
-            if (codCurso.equals(aux)) {
-
-                return auxC.getIdCurso();
-
-            }
-
-        }
-
-        return 0;
-    }
-
-    private boolean guardarCursoActividad(int actividad, int curso) {
-
-        boolean guardado = false;
-
+    /**
+     * Metodo que recibe 2 entero e guarda el o los cursos mediante una
+     * sentencia sql insert
+     */
+    private void cursoActividad(int actividad, int curso) {
+        
         final String sql = "INSERT INTO cursosact (IdAct,idCur) values('" + actividad + "','" + curso + "')";
-
+        
         try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
+            
             int salida = stmt.executeUpdate(sql);
-
+            
             if (salida != 1) {
-                guardado = false;
+                System.out.println("No se ha guardado Curso Actividad!!!");
             } else {
-                guardado = true;
+                System.out.println("Se ha guardado Curso Actividad correctamente!!!");
             }
-
+            
         } catch (SQLException ex) {
             // errores
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
-        return guardado;
-
+        
     }
 
+    /**
+     * Metodo que recibe 2 entero e guarda el o los grupos mediante una
+     * sentencia sql insert
+     */
     private void grupoActividad(int actividad, int grupo) {
-
+        
         final String sql = "INSERT INTO gruposact(IdAct,idGrupo) values ('" + actividad + "','" + grupo + "')";
-
+        
         try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
+            
             int salida = stmt.executeUpdate(sql);
-
+            
             if (salida != 1) {
                 System.out.println("No se ha guardado Grupo Actividad!!!");
             } else {
                 System.out.println("Se ha guardado Grupo Actividad correctamente!!!");
             }
-
+            
         } catch (SQLException ex) {
             // errores
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
+        
     }
 
+    /**
+     * Metodo que recore una lista y los guarda
+     *
+     * @return devuelve un boolean
+     * @see metodo grupoActividad
+     */
     private boolean guardarGruposActividad() {
-
+        
         boolean guardado = false;
-
+        
         List<Grupos> auxGrupos = auxGrupoDAOImp.listar();
-
+        
         for (int i = 0; i < modeloListaGrupos.getSize(); i++) {
-
+            
             for (Grupos auxG : auxGrupos) {
-
+                
                 String codGru = auxG.getCodgrupo();
-
+                
                 int idSol = Integer.parseInt(jTextFieldNumeroActividad.getText());
-
+                
                 if (codGru.equals(modeloListaGrupos.getElementAt(i))) {
-
+                    
                     grupoActividad(idSol, auxG.getIdGrupo());
                     guardado = true;
-
+                    
                 } else {
                     guardado = false;
                 }
-
+                
             }
-
+            
         }
-
+        
         return guardado;
-
+        
     }
 
-    private void transporteActividad(int actividad, int transporte) {
-
-        final String sql = "INSERT INTO transporteact (IdActividad,tipoTransporte) values ('" + actividad + "','" + transporte + "')";
-
-        try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
-            int salida = stmt.executeUpdate(sql);
-
-            if (salida != 1) {
-                mensaje("No se ha guardado Transporte Actividad!!!");
-            } else {
-                mensaje("Se ha guardado Correctamente Transporte Actividad!!!");
+    /**
+     * Metodo que recore una lista y los guarda
+     *
+     * @return devuelve un boolean
+     * @see metodo cursosActividad
+     */
+    private boolean guardarCursosActividad() {
+        
+        boolean guardado = false;
+        
+        List<Cursos> auxCursos = auxCursoDAOImp.listar();
+        
+        for (int i = 0; i < modeloListaCursos.getSize(); i++) {
+            
+            for (Cursos auxC : auxCursos) {
+                
+                String codCur = auxC.getCodCurso();
+                
+                int idSol = Integer.parseInt(jTextFieldNumeroActividad.getText());
+                
+                if (codCur.equals(modeloListaCursos.getElementAt(i))) {
+                    
+                    cursoActividad(idSol, auxC.getIdCurso());
+                    guardado = true;
+                    
+                } else {
+                    guardado = false;
+                }
+                
             }
+            
+        }
+        
+        return guardado;
+        
+    }
 
+    /**
+     * Metodo que recibe 2 entero e guarda el o los transporte mediante una
+     * sentencia sql insert
+     */
+    private void transporteActividad(int actividad, int transporte) {
+        
+        final String sql = "INSERT INTO transporteact (IdActividad,tipoTransporte) values ('" + actividad + "','" + transporte + "')";
+        
+        try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            
+            int salida = stmt.executeUpdate(sql);
+            
+            if (salida != 1) {
+                System.out.println("No se ha guardado Transporte Actividad!!!");
+            } else {
+                System.out.println("Se ha guardado Correctamente Transporte Actividad!!!");
+            }
+            
         } catch (SQLException ex) {
             // errores
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
+        
     }
 
+    /**
+     * Metodo que recore una lista y los guarda
+     *
+     * @return devuelve un boolean
+     * @see metodo transporteActividad
+     */
     private void guardarTransporteActividad() {
-
+        
         boolean guardado = false;
-
+        
         List<Transporte> auxTransportes = auxTransporteDAOImp.listar();
-
+        
         for (int i = 0; i < modeloListaTransporte.getSize(); i++) {
-
+            
             for (Transporte auxT : auxTransportes) {
-
+                
                 String tipoTransporte = auxT.getTipoTransporte();
                 int idSol = Integer.parseInt(jTextFieldModificacionIdSolicitud.getText());
-
+                
                 if (tipoTransporte.equals(modeloListaTransporte.getElementAt(i))) {
-
+                    
                     transporteActividad(idSol, auxT.getIdTransporte());
                     guardado = true;
-
+                    
                 }
-
+                
             }
-
+            
         }
-
+        
         if (guardado) {
             mensaje("Se guardo correctamente el Transporte".toUpperCase());
         } else {
-            mensaje("No se ha Guardado Transporte".toUpperCase());
+            mensajeError("No se ha Guardado Transporte".toUpperCase());
         }
+        
+    }
 
+    /**
+     * Metodo que guarda los transportes en una lista
+     */
+    private void guardarEnListatransporte(String aux) {
+        
+        try {
+            
+            String transporte = aux;
+            
+            boolean igual = false;
+            
+            for (int i = 0; i < modeloListaTransporte.getSize(); i++) {
+                
+                if (transporte.equals(modeloListaTransporte.getElementAt(i))) {
+                    
+                    mensaje("El Transporte: " + transporte + ", ya esta seleccionado!!!");
+                    igual = true;
+                    
+                }
+                
+            }
+            
+            if (igual == false) {
+                
+                modeloListaTransporte.addElement(transporte);
+                
+            }
+            
+        } catch (NullPointerException e) {
+            
+            mensajeError("Seleccione uno o varios Transportes!!!");
+            
+        }
+        
     }
 
     //PRINCIPAL
     public Principal() {
         initComponents();
         setTitle("Login");
-  //      setIconImage(getIconImage());
+        setIconImage(getIconImage());
         setLocationRelativeTo(null);
         setResizable(false);
-        //setExtendedState(this.MAXIMIZED_HORIZ);
+        setExtendedState(this.MAXIMIZED_HORIZ);
         jPanelVentanaProfesor.setVisible(false);
         jPanelVentanaSuperUsuarioAdministrador.setVisible(false);
         jPanelSolicitud.setVisible(false);
         jPanelModificarSolicitud.setVisible(false);
         jPanelFotosActividad.setVisible(false);
         jTableTodasLasSolicitudes.addMouseListener(new MouseAdapter() {
-
+            
             public void mousePressed(MouseEvent Mouse_evt) {
-
+                
                 JTable table = (JTable) Mouse_evt.getSource();
                 Point point = (Point) Mouse_evt.getPoint();
                 int row = table.rowAtPoint(point);
-
+                
                 if (Mouse_evt.getClickCount() == 1) {
-
+                    
                     idSolicitud = Integer.parseInt(jTableTodasLasSolicitudes.getValueAt(jTableTodasLasSolicitudes.getSelectedRow(), 0).toString());
                     idProfesor = Integer.parseInt(jTableTodasLasSolicitudes.getValueAt(jTableTodasLasSolicitudes.getSelectedRow(), 1).toString());
                     String aux = jTableTodasLasSolicitudes.getValueAt(jTableTodasLasSolicitudes.getSelectedRow(), 13).toString();
                     String msEstado = aux.substring(0, 1) + aux.substring(1, aux.length()).toLowerCase();
-
+                    
                     jTextFieldMSNombreActividad.setText(jTableTodasLasSolicitudes.getValueAt(jTableTodasLasSolicitudes.getSelectedRow(), 2).toString());
                     jComboBoxMSEstado.enable(true);
                     jComboBoxMSEstado.setSelectedItem(msEstado);
                     jTextFieldMSComentarioEstado.enable(true);
-
+                    
                 }
-
+                
             }
-
+            
         });
         jPanelNuevoProfesor.setVisible(false);
         jPanelModificacionSolicitud.setVisible(false);
         jTableSolicitudesAprobadas.addMouseListener(new MouseAdapter() {
-
+            
             public void mousePressed(MouseEvent Mouse_evt) {
-
+                
                 JTable table = (JTable) Mouse_evt.getSource();
                 Point point = (Point) Mouse_evt.getPoint();
                 int row = table.rowAtPoint(point);
-
+                
                 if (Mouse_evt.getClickCount() == 1) {
-
+                    
                     jTextFieldModificacionIdSolicitud.setText(jTableSolicitudesAprobadas.getValueAt(jTableSolicitudesAprobadas.getSelectedRow(), 0).toString());
-
+                    
                 }
-
+                
             }
-
+            
         });
-
+        
         jTableSolicitudes.addMouseListener(new MouseAdapter() {
-
+            
             public void mousePressed(MouseEvent Mouse_evt) {
-
+                
                 JTable table = (JTable) Mouse_evt.getSource();
                 Point point = (Point) Mouse_evt.getPoint();
                 int row = table.rowAtPoint(point);
-
+                
                 if (Mouse_evt.getClickCount() == 1) {
-
+                    
                     jTextFieldNumeroDeLaActividad.setText(jTableSolicitudes.getValueAt(jTableSolicitudes.getSelectedRow(), 0).toString());
-
+                    
                 }
-
+                
             }
-
+            
         });
-
+        
     }
 
     /**
@@ -1168,6 +1504,9 @@ public class Principal extends javax.swing.JFrame {
         jListGrupos = new javax.swing.JList<>();
         jLabelNumeroActividad = new javax.swing.JLabel();
         jTextFieldNumeroActividad = new javax.swing.JTextField();
+        jLabelListaCursos = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListCursos = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1211,6 +1550,11 @@ public class Principal extends javax.swing.JFrame {
                 jPasswordContraseñaActionPerformed(evt);
             }
         });
+        jPasswordContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordContraseñaKeyTyped(evt);
+            }
+        });
 
         jLabelCorreo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabelCorreo.setText("@educantabria.es");
@@ -1220,6 +1564,11 @@ public class Principal extends javax.swing.JFrame {
         jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIngresarActionPerformed(evt);
+            }
+        });
+        jButtonIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButtonIngresarKeyPressed(evt);
             }
         });
 
@@ -1258,9 +1607,9 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(500, 500, 500)
                         .addComponent(jlLabelImagen))
                     .addGroup(jPanelLoginLayout.createSequentialGroup()
-                        .addGap(511, 511, 511)
+                        .addGap(517, 517, 517)
                         .addComponent(jButtonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(184, 184, 184)
+                        .addGap(178, 178, 178)
                         .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1470,6 +1819,11 @@ public class Principal extends javax.swing.JFrame {
 
         jComboBoxTransporteContrado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxTransporteContrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTransporteContrado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxTransporteContradoMouseClicked(evt);
+            }
+        });
 
         jLabelPresupuesto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelPresupuesto.setText("Presupuesto : ");
@@ -1480,6 +1834,11 @@ public class Principal extends javax.swing.JFrame {
         jLabelComentarioOpcional.setText("Comentario (Opcional) :");
 
         jTextFieldComentarioOpcional.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldComentarioOpcional.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldComentarioOpcionalKeyTyped(evt);
+            }
+        });
 
         jButtonSeleccionarTranspote.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonSeleccionarTranspote.setText("Seleccionar Transporte");
@@ -1503,6 +1862,11 @@ public class Principal extends javax.swing.JFrame {
         jLabelAlumnoAsistencia.setText("Alumnos que Asisten :");
 
         jTextFieldAlumnosAsistencia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldAlumnosAsistencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldAlumnosAsistenciaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelModificacionSolicitudLayout = new javax.swing.GroupLayout(jPanelModificacionSolicitud);
         jPanelModificacionSolicitud.setLayout(jPanelModificacionSolicitudLayout);
@@ -1970,16 +2334,31 @@ public class Principal extends javax.swing.JFrame {
         jLabelNombreNuevoProfesor.setText("Nombre :");
 
         jTextFieldNombreNuevoProfesor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldNombreNuevoProfesor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreNuevoProfesorKeyTyped(evt);
+            }
+        });
 
         jLabelApellidosNuevoProfesor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelApellidosNuevoProfesor.setText("Apellidos :");
 
         jTextFieldApellidosNuevoProfesor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldApellidosNuevoProfesor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldApellidosNuevoProfesorKeyTyped(evt);
+            }
+        });
 
         jLabelDniNuevoProfesor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelDniNuevoProfesor.setText("Dni :");
 
         jTextFieldDniNuevoProfesor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldDniNuevoProfesor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDniNuevoProfesorKeyTyped(evt);
+            }
+        });
 
         jLabelDepartamentoNuevoProfesor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelDepartamentoNuevoProfesor.setText("Departamento :");
@@ -2144,6 +2523,11 @@ public class Principal extends javax.swing.JFrame {
         jLabelNombreActividad.setText("Nombre de la Actividad :");
 
         jTextNombreActividad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextNombreActividad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextNombreActividadKeyTyped(evt);
+            }
+        });
 
         jLabelTipoActividad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelTipoActividad.setText("Tipo de Actividad :");
@@ -2161,6 +2545,11 @@ public class Principal extends javax.swing.JFrame {
 
         jComboBoxDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBoxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxDepartamentoActionPerformed(evt);
+            }
+        });
 
         jLabelPreVista.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelPreVista.setText("Pre - Vista :");
@@ -2185,6 +2574,11 @@ public class Principal extends javax.swing.JFrame {
                 jRadioButtonPreVistaNoMouseClicked(evt);
             }
         });
+        jRadioButtonPreVistaNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPreVistaNoActionPerformed(evt);
+            }
+        });
 
         jLabelTransporte.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelTransporte.setText("Transporte : ");
@@ -2196,12 +2590,22 @@ public class Principal extends javax.swing.JFrame {
                 jRadioButtonTransporteSiMouseClicked(evt);
             }
         });
+        jRadioButtonTransporteSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTransporteSiActionPerformed(evt);
+            }
+        });
 
         jRadioButtonTransporteNo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jRadioButtonTransporteNo.setText("No");
         jRadioButtonTransporteNo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jRadioButtonTransporteNoMouseClicked(evt);
+            }
+        });
+        jRadioButtonTransporteNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTransporteNoActionPerformed(evt);
             }
         });
 
@@ -2215,6 +2619,11 @@ public class Principal extends javax.swing.JFrame {
                 jTextFieldFechaInicialMouseClicked(evt);
             }
         });
+        jTextFieldFechaInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldFechaInicialKeyTyped(evt);
+            }
+        });
 
         jLabelFechaFinal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelFechaFinal.setText("Fecha Final : ");
@@ -2224,6 +2633,11 @@ public class Principal extends javax.swing.JFrame {
         jTextFieldFechaFinal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextFieldFechaFinalMouseClicked(evt);
+            }
+        });
+        jTextFieldFechaFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldFechaFinalKeyTyped(evt);
             }
         });
 
@@ -2237,6 +2651,11 @@ public class Principal extends javax.swing.JFrame {
                 jTextFieldHoraInicialMouseClicked(evt);
             }
         });
+        jTextFieldHoraInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldHoraInicialKeyTyped(evt);
+            }
+        });
 
         jLabelHoraFinal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelHoraFinal.setText("Hora Final : ");
@@ -2246,6 +2665,11 @@ public class Principal extends javax.swing.JFrame {
         jTextFieldHoraFinal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextFieldHoraFinalMouseClicked(evt);
+            }
+        });
+        jTextFieldHoraFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldHoraFinalKeyTyped(evt);
             }
         });
 
@@ -2259,6 +2683,11 @@ public class Principal extends javax.swing.JFrame {
                 jRadioButtonAlojamientoSiMouseClicked(evt);
             }
         });
+        jRadioButtonAlojamientoSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAlojamientoSiActionPerformed(evt);
+            }
+        });
 
         jRadioButtonAlojamientoNo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jRadioButtonAlojamientoNo.setText("No");
@@ -2267,16 +2696,27 @@ public class Principal extends javax.swing.JFrame {
                 jRadioButtonAlojamientoNoMouseClicked(evt);
             }
         });
+        jRadioButtonAlojamientoNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAlojamientoNoActionPerformed(evt);
+            }
+        });
 
         jLabelComentarioAdicional.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelComentarioAdicional.setText("Comentario Adicional :");
 
         jTextFieldComentarioAdicional.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldComentarioAdicional.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldComentarioAdicionalKeyTyped(evt);
+            }
+        });
 
         jLabelCantidadAlumnos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelCantidadAlumnos.setText("Cantidad de Alumnos :");
 
         jTextFieldCantidadAlumnos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldCantidadAlumnos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTextFieldCantidadAlumnos.setEnabled(false);
 
         jButtonCrearSolicitud.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -2300,6 +2740,11 @@ public class Principal extends javax.swing.JFrame {
 
         jComboBoxProfesorResponsable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxProfesorResponsable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxProfesorResponsable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxProfesorResponsableActionPerformed(evt);
+            }
+        });
 
         jLabelProfesorParticipante.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelProfesorParticipante.setText("Profesor Participante : ");
@@ -2361,6 +2806,11 @@ public class Principal extends javax.swing.JFrame {
                 jRadioButtonGruposMouseClicked(evt);
             }
         });
+        jRadioButtonGrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonGruposActionPerformed(evt);
+            }
+        });
 
         jComboBoxGrupos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxGrupos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -2400,6 +2850,16 @@ public class Principal extends javax.swing.JFrame {
 
         jTextFieldNumeroActividad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldNumeroActividad.setEnabled(false);
+
+        jLabelListaCursos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelListaCursos.setText("Lista Cursos :");
+
+        jListCursos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jListCursos);
 
         javax.swing.GroupLayout jPanelSolicitudLayout = new javax.swing.GroupLayout(jPanelSolicitud);
         jPanelSolicitud.setLayout(jPanelSolicitudLayout);
@@ -2502,9 +2962,13 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jLabelListaProfesoresParticipantes)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
+                        .addGroup(jPanelSolicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelListaGrupos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane8))
+                        .addGap(44, 44, 44)
                         .addGroup(jPanelSolicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelListaGrupos))))
+                            .addComponent(jLabelListaCursos)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(280, Short.MAX_VALUE))
         );
         jPanelSolicitudLayout.setVerticalGroup(
@@ -2557,7 +3021,8 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelSolicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelListaProfesoresParticipantes)
-                    .addComponent(jLabelListaGrupos))
+                    .addComponent(jLabelListaGrupos)
+                    .addComponent(jLabelListaCursos))
                 .addGroup(jPanelSolicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelSolicitudLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2595,8 +3060,9 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jLabelCantidadAlumnos)))
                             .addGroup(jPanelSolicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(125, Short.MAX_VALUE))
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(419, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1470, 1170));
@@ -2622,6 +3088,24 @@ public class Principal extends javax.swing.JFrame {
 
     private void jTextCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCorreoKeyTyped
         // TODO add your handling code here:
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarCorreo(jTextCorreo.getText())) {
+                
+                mensaje("correo correcto!!!");
+                jPasswordContraseña.setText("");
+                jPasswordContraseña.requestFocus();
+                
+            } else {
+                
+                mensajeError("error: formato incorrecto!!! / ejemplo: nombre.apellidos");
+                jTextCorreo.setText("");
+            }
+            
+        }
+
     }//GEN-LAST:event_jTextCorreoKeyTyped
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
@@ -2629,17 +3113,18 @@ public class Principal extends javax.swing.JFrame {
         final String correo = "@educantabria.es";
         String email = jTextCorreo.getText() + correo;
         String password = jPasswordContraseña.getText();
-
+        
         Usuario auxUsu = auxUsuarioDAOImp.buscarUsuarioEmail(email, password);
-
+        
         if (auxUsu != null) {
-
+            
             Profesor auxProfesor = auxProfesorDAOImp.buscar(auxUsu.getIdUsuario());
-
+            actualizacionEstadoDeSolicitud();
+            
             if (auxProfesor != null) {
-
+                
                 if (auxProfesor.getPerfil().equals(Perfil.PROFESOR)) {
-
+                    
                     mensaje("Bienvenido " + auxProfesor.getNombre().toUpperCase() + " " + auxProfesor.getApellidos().toUpperCase());
                     jPanelLogin.setVisible(false);
                     jPanelVentanaProfesor.setVisible(true);
@@ -2648,9 +3133,9 @@ public class Principal extends javax.swing.JFrame {
                     muestraCabeceraTablaSolicitudesProfesor();
                     cargarSolicitudesDelProfesor();
                     cargarSolicitudesAprobadaDelProfesor();
-
+                    
                 } else if (auxProfesor.getPerfil().equals(Perfil.SUPERUSUARIO) || auxProfesor.getPerfil().equals(Perfil.ADMINISTRADOR)) {
-
+                    
                     mensaje("Bienvenido " + auxProfesor.getNombre().toUpperCase() + " " + auxProfesor.getApellidos().toUpperCase());
                     jPanelLogin.setVisible(false);
                     jPanelVentanaSuperUsuarioAdministrador.setVisible(true);
@@ -2658,18 +3143,27 @@ public class Principal extends javax.swing.JFrame {
                     profesor = auxProfesor;
                     jLabelTituloVentanaSuperUsuarioAdministrador.setText("Bienvenido " + profesor.getPerfil().toString().substring(0, 1) + profesor.getPerfil().toString().substring(1, profesor.getPerfil().toString().length()).toLowerCase());
                     muestraCabeceraTablaTodasLasSolicitudes();
+                    metodoQuePermiteElOrdenamientoDeLasTablasPorLasCasillas(); // PRUEBA
                     cargarTodasLasSolicitudes();
                     comboBoxEstado();
                 }
-
+                
             }
-
-        }else if (auxUsu == null){
-                 mensaje("Usuario no existe en la base de datos!!!");
-                } else {
-
-            mensaje("Usuario o Contraseña incorrecta");
-
+            
+        } else if (auxUsu == null) {
+            
+            mensajeError("Usuario no existe en la base de datos!!!");
+            jTextCorreo.setText("");
+            jPasswordContraseña.setText("");
+            jTextCorreo.requestFocus();
+            
+        } else {
+            
+            mensajeError("Usuario o Contraseña incorrecta");
+            jTextCorreo.setText("");
+            jPasswordContraseña.setText("");
+            jTextCorreo.requestFocus();
+            
         }
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
@@ -2706,62 +3200,70 @@ public class Principal extends javax.swing.JFrame {
     private void jButtonCrearSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearSolicitudActionPerformed
         // TODO add your handling code here:
 
-        int idSol = Integer.parseInt(jTextFieldNumeroActividad.getText());
-
-        String nombreActividad = jTextNombreActividad.getText();
-        TipoActividad tipoActividad = TipoActividad.valueOf(jComboBoxTipoActividad.getSelectedItem().toString().toUpperCase());
-        departamento = auxdepartamentoDAOImp.buscarID(jComboBoxDepartamento.getSelectedItem().toString());
-        int numeroDepartamento = departamento.getId();
-        boolean prevista = prevista();
-        boolean transporte = transporte();
-        LocalDate fecInicial = LocalDate.parse(jTextFieldFechaInicial.getText(), formatoFecha);
-        LocalDate fecFinal = LocalDate.parse(jTextFieldFechaFinal.getText(), formatoFecha);
-        LocalTime horaInicial = LocalTime.parse(jTextFieldHoraInicial.getText(), formatoHora);
-        LocalTime horaFinal = LocalTime.parse(jTextFieldHoraFinal.getText(), formatoHora);
-        boolean alojamiento = alojamiento();
-        String comentadioAdicional = jTextFieldComentarioAdicional.getText();
-        Estado estado = Estado.SOLICITADA;
-        int cantidadAlumnos = Integer.parseInt(jTextFieldCantidadAlumnos.getText());
-
-        solicitud = new Solicitud(idSol, getProfesor().getId_Prof(), nombreActividad, tipoActividad, numeroDepartamento, prevista, transporte, fecInicial, fecFinal, horaInicial, horaFinal, alojamiento, comentadioAdicional, estado, "-", cantidadAlumnos);
-
-        if (auxSolicitudDAOImp.guardarSolicitud(solicitud)) {
-            mensaje("Solicitud Guardada Correctamente!!!".toUpperCase());
-        } else {
-            mensaje("No se a podido Guardar Solicitud!!!".toUpperCase());
-        }
-
-        int idProf = devuelveIdProfesor(jComboBoxProfesorResponsable.getSelectedItem().toString()); //FUNCIONA CORRECTAMENTE
-
-        guardarProfesorResponsable(idSol, idProf); //FUNCIONA CORRECTAMENTE
-
-        if (guardarProfesoresParticipantes()) {
-            mensaje("ERROR: NO SE HA GUARDADO los PROFESORES PARTICIPANTES!!!");
-        } else {
-            mensaje("PROFESORES PARTICIPANTES GUARDADO CORRECTAMENTE!!!");
-        }
-
-        int idCur = devuelveIdCurso(jComboBoxCursos.getSelectedItem().toString());
-
-        if (jRadioButtonCursos.isSelected()) {
-
-            if (guardarCursoActividad(idSol, idCur)) {//FUNCIONA CORRECTAMENTE
-                mensaje("CURSO DE LA ACTIVADAD GUARDADO CORRECTEAMENTE!!!");
+        if (!jTextNombreActividad.getText().equals("") && !jTextFieldFechaInicial.getText().equals("00-00-0000") && !jTextFieldFechaFinal.getText().equals("00-00-0000") && !jTextFieldHoraInicial.getText().equals("00:00") && !jTextFieldHoraFinal.getText().equals("00:00")) {
+            
+            int idSol = Integer.parseInt(jTextFieldNumeroActividad.getText());
+            String nombreActividad = jTextNombreActividad.getText();
+            TipoActividad tipoActividad = TipoActividad.valueOf(jComboBoxTipoActividad.getSelectedItem().toString().toUpperCase());
+            departamento = auxdepartamentoDAOImp.buscarID(jComboBoxDepartamento.getSelectedItem().toString());
+            int numeroDepartamento = departamento.getId();
+            boolean prevista = prevista();
+            boolean transporte = transporte();
+            LocalDate fecInicial = LocalDate.parse(jTextFieldFechaInicial.getText(), formatoFecha);
+            LocalDate fecFinal = LocalDate.parse(jTextFieldFechaFinal.getText(), formatoFecha);
+            LocalTime horaInicial = LocalTime.parse(jTextFieldHoraInicial.getText(), formatoHora);
+            LocalTime horaFinal = LocalTime.parse(jTextFieldHoraFinal.getText(), formatoHora);
+            boolean alojamiento = alojamiento();
+            String comentadioAdicional = jTextFieldComentarioAdicional.getText();
+            Estado estado = Estado.SOLICITADA;
+            int cantidadAlumnos = Integer.parseInt(jTextFieldCantidadAlumnos.getText());
+            
+            solicitud = new Solicitud(idSol, getProfesor().getId_Prof(), nombreActividad, tipoActividad, numeroDepartamento, prevista, transporte, fecInicial, fecFinal, horaInicial, horaFinal, alojamiento, comentadioAdicional, estado, "-", cantidadAlumnos);
+            
+            if (auxSolicitudDAOImp.guardarSolicitud(solicitud)) {
+                mensaje("Solicitud Guardada Correctamente!!!".toUpperCase());
             } else {
-                mensaje("ERROR: NO SE HA GUARDADO EL CURSO DE LA ACTIVIDAD !!!");
+                mensajeError("No se a podido Guardar Solicitud!!!".toUpperCase());
             }
+            
+            int idProf = devuelveIdProfesor(jComboBoxProfesorResponsable.getSelectedItem().toString()); //FUNCIONA CORRECTAMENTE
 
-        } else if (jRadioButtonGrupos.isSelected()) {
+            guardarProfesorResponsable(idSol, idProf); //FUNCIONA CORRECTAMENTE
 
-            if (guardarGruposActividad()) {//FUNCIONA CORRECTAMENTE
-                mensaje("ERROR: NO SE HA GUARDADO EL GRUPO DE LA ACTIVIDAD !!!");
+            if (guardarProfesoresParticipantes()) {
+                mensajeError("ERROR: NO SE HA GUARDADO los PROFESORES PARTICIPANTES!!!");
             } else {
-                mensaje("GRUPO DE LA ACTIVIDAD GUARDADO CORRECTAMENTE!!!");
+                mensaje("PROFESORES PARTICIPANTES GUARDADO CORRECTAMENTE!!!");
             }
-
+            
+            if (jRadioButtonCursos.isSelected()) {
+                
+                if (guardarCursosActividad()) {//FUNCIONA CORRECTAMENTE
+                    mensajeError("ERROR: NO SE HA GUARDADO EL CURSO DE LA ACTIVIDAD !!!");
+                    System.out.println("c");
+                } else {
+                    mensaje("CURSO DE LA ACTIVADAD GUARDADO CORRECTEAMENTE!!!");
+                    System.out.println("d");
+                }
+                
+            } else if (jRadioButtonGrupos.isSelected()) {
+                
+                if (guardarGruposActividad()) {//FUNCIONA CORRECTAMENTE
+                    mensajeError("ERROR: NO SE HA GUARDADO EL GRUPO DE LA ACTIVIDAD !!!");
+                    System.out.println("a");
+                } else {
+                    mensaje("GRUPO DE LA ACTIVIDAD GUARDADO CORRECTAMENTE!!!");
+                    System.out.println("b");
+                }
+                
+            }
+            
+            limpiarPanelSolicitud();
+            
+        } else {
+            mensajeError("varios casillas no rellenadas!!!");
         }
-
-        limpiarPanelSolicitud();
+        
 
     }//GEN-LAST:event_jButtonCrearSolicitudActionPerformed
 
@@ -2771,6 +3273,7 @@ public class Principal extends javax.swing.JFrame {
         jPanelVentanaProfesor.setVisible(true);
         cargarSolicitudesDelProfesor();
         cargarSolicitudesAprobadaDelProfesor();
+        limpiarPanelSolicitud();
 
     }//GEN-LAST:event_jButtonCerrarSolicitudActionPerformed
 
@@ -2779,7 +3282,7 @@ public class Principal extends javax.swing.JFrame {
         jPanelVentanaProfesor.setVisible(false);
         jPanelSolicitud.setVisible(true);
         int idSolici = auxSolicitudDAOImp.listar().size() + 1;
-        jTextFieldNumeroActividad.setText("" + idSolici);
+        jTextFieldNumeroActividad.setText("" + (idSolici + 1));
         comboBoxTipoActividad();
         comboBoxDepartamento();
         comboBoxCursos();
@@ -2789,8 +3292,9 @@ public class Principal extends javax.swing.JFrame {
         comboBoxProfesoresParticipantes();
         cargarModeloListaProfesorParticipantes();
         cargarModeloListaGrupos();
+        cargarModeloListaCursos();
         cargarModeloListaTransporte();
-
+        jTextNombreActividad.requestFocus();
     }//GEN-LAST:event_jButtonNuevaSolicitudActionPerformed
 
     private void jButtonSalirVentanaProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirVentanaProfesorActionPerformed
@@ -2826,25 +3330,25 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         File archivoProfesor = new File("src/main/resources/archivosCSV/profesores.csv");
         boolean guardadoP = false;
-
+        
         ArrayList<Profesor> auxProfesores = MetodoFichero.listarProfesores(archivoProfesor);
-
+        
         for (Profesor auxP : auxProfesores) {
-
+            
             auxProfesorDAOImp.guardar(auxP);
             auxUsuarioDAOImp.crearUsuariosContraseñas(auxP);
             guardadoP = true;
-
+            
         }
-
+        
         if (guardadoP == true) {
-
+            
             mensaje("Archivo Actualizado correctamente!!!");
-
+            
         } else {
-
-            mensaje("No hay actualizaciones nuevas!!!");
-
+            
+            mensajeError("No hay actualizaciones nuevas!!!");
+            
         }
 
     }//GEN-LAST:event_jButtonActualizarCSVprofesorActionPerformed
@@ -2852,23 +3356,28 @@ public class Principal extends javax.swing.JFrame {
     private void jButtonActualizarJefesDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarJefesDepartamentosActionPerformed
         // TODO add your handling code here:
         boolean guardadoD = false;
-
+        
         List<Departamentos> auxDepartamentoses = auxdepartamentoDAOImp.listar();
-
+        
         for (Departamentos auxD : auxDepartamentoses) {
-
+            
             if (auxD.getId() != 20) {
-
+                
                 auxdepartamentoDAOImp.modificar(auxD);
                 guardadoD = true;
-
-            } else {
-
-                mensaje("Jefe de Departamento, Actualizado correctamente!!!");
-                return;
-
+                
             }
-
+            
+        }
+        
+        if (guardadoD == true) {
+            
+            mensaje("Jefe de Departamento, Actualizado correctamente!!!");
+            
+        } else {
+            
+            mensajeError("Erro al actualizar Jefe de Departamento!!!");
+            
         }
 
     }//GEN-LAST:event_jButtonActualizarJefesDepartamentosActionPerformed
@@ -2895,35 +3404,41 @@ public class Principal extends javax.swing.JFrame {
     private void jButtonActualizarModificarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarModificarSolicitudActionPerformed
         // TODO add your handling code here:
 
-        String estadoActualizado = jComboBoxMSEstado.getSelectedItem().toString().toString().toLowerCase();
+        String estadoActualizado = jComboBoxMSEstado.getSelectedItem().toString().toLowerCase();
         String comentario = jTextFieldMSComentarioEstado.getText();
-
+        
         final String sql = "update solicitud set Estado= '" + estadoActualizado + "', ConsultaEstado='" + comentario + "' where idSolicitud= '" + idSolicitud + "'";
-
+        
         try ( PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
+            
             int salida = stmt.executeUpdate();
-
+            
             if (salida != 1) {
                 mensaje("Error en la Actualizacion!!!");
             } else {
                 mensaje("Actualizacion Correctamente!!!");
             }
-
+            
         } catch (SQLException ex) {
             // errores
             System.out.println("SQLException: " + ex.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
+        
         limpiarPanelModificarSolicitud();
         cargarTodasLasSolicitudes();
+        jPanelModificarSolicitud.setVisible(false);
 
     }//GEN-LAST:event_jButtonActualizarModificarSolicitudActionPerformed
 
     private void jComboBoxTipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoActividadActionPerformed
         // TODO add your handling code here:
+
+        if (jComboBoxTipoActividad.getSelectedIndex() >= 0) {
+            jComboBoxDepartamento.requestFocus();
+        }
+
     }//GEN-LAST:event_jComboBoxTipoActividadActionPerformed
 
     private void jButtonCerrarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarVentanaActionPerformed
@@ -2943,66 +3458,73 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButtonGuardarNuevoProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarNuevoProfesorActionPerformed
         // TODO add your handling code here:
-        List<Profesor> aux = auxProfesorDAOImp.listar();
-
-        int cantidadProfesores = aux.size();
-        String nombreP = jTextFieldNombreNuevoProfesor.getText();
-        String apellidosP = jTextFieldApellidosNuevoProfesor.getText();
-        String dni = jTextFieldDniNuevoProfesor.getText();
-        String correo = (nombreP + "." + apellidosP + "@educantabria.es").replaceAll(" ", "").toLowerCase();
-        String departamento = jComboBoxDepartamentoNuevoProfesor.getSelectedItem().toString();
-        String contraseña = (nombreP.substring(0, 3) + apellidosP.substring(0, 3)).toLowerCase();
-        String idDepartamento = devuelveIdDepartamento(departamento);
-        String perfil = jComboBoxPerfilNuevoProfesor.getSelectedItem().toString().toLowerCase();
-
-        final String sqlProfesor = "insert into profesores(ID_Prof,Nombre,Apellidos,DNI,Email,Estado,Departamento,Perfil) "
-                + "values('" + cantidadProfesores + "','" + nombreP + "','" + apellidosP + "','" + dni + "','" + correo + "','" + 1 + "','" + idDepartamento + "','" + perfil + "')";
-
-        try ( PreparedStatement stmt = getConnection().prepareStatement(sqlProfesor);) {
-
-            int salida = stmt.executeUpdate(sqlProfesor);
-
-            if (salida != 1) {
-
-                mensaje(" Error: No se ha guardado Profesor!!!");
-
-            } else {
-
-                mensaje("Se Guardp Correctamente Profesor!!!");
-
+        
+        if (!jTextFieldNombreNuevoProfesor.getText().equals("") && !jTextFieldApellidosNuevoProfesor.getText().equals("") && jTextFieldDniNuevoProfesor.getText().equals("")) {
+            
+            List<Profesor> aux = auxProfesorDAOImp.listar();
+            
+            int cantidadProfesores = aux.size();
+            String nombreP = jTextFieldNombreNuevoProfesor.getText();
+            String apellidosP = jTextFieldApellidosNuevoProfesor.getText();
+            String dni = jTextFieldDniNuevoProfesor.getText();
+            String correo = (nombreP + "." + apellidosP + "@educantabria.es").replaceAll(" ", "").toLowerCase();
+            String depart = jComboBoxDepartamentoNuevoProfesor.getSelectedItem().toString();
+            String contraseña = (nombreP.substring(0, 3) + apellidosP.substring(0, 3)).toLowerCase();
+            String idDepartamento = devuelveIdDepartamento(depart);
+            String perfil = jComboBoxPerfilNuevoProfesor.getSelectedItem().toString().toLowerCase();
+            
+            final String sqlProfesor = "insert into profesores(ID_Prof,Nombre,Apellidos,DNI,Email,Estado,Departamento,Perfil) "
+                    + "values('" + cantidadProfesores + "','" + nombreP + "','" + apellidosP + "','" + dni + "','" + correo + "','" + 1 + "','" + idDepartamento + "','" + perfil + "')";
+            
+            try ( PreparedStatement stmt = getConnection().prepareStatement(sqlProfesor);) {
+                
+                int salida = stmt.executeUpdate(sqlProfesor);
+                
+                if (salida != 1) {
+                    
+                    mensajeError(" Error: No se ha guardado Profesor!!!");
+                    
+                } else {
+                    
+                    mensaje("Se Guardp Correctamente Profesor!!!");
+                    
+                }
+                
+            } catch (SQLException ex) {
+                // errores
+                System.out.println("SQLException: " + ex.getMessage());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
-
-        } catch (SQLException ex) {
-            // errores
-            System.out.println("SQLException: " + ex.getMessage());
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        final String sqlUsuario = "insert into usuarios (idUsuarios,Email,PWD) values('" + cantidadProfesores + "','" + correo + "','" + contraseña + "')";
-
-        try ( PreparedStatement stmt = getConnection().prepareStatement(sqlUsuario);) {
-
-            int salida = stmt.executeUpdate(sqlUsuario);
-
-            if (salida != 1) {
-
-                mensaje(" Error: No se ha guardado Usuario!!!");
-
-            } else {
-
-                mensaje("Se Guardp Correctamente Usuario!!!");
-
+            
+            final String sqlUsuario = "insert into usuarios (idUsuarios,Email,PWD) values('" + cantidadProfesores + "','" + correo + "','" + contraseña + "')";
+            
+            try ( PreparedStatement stmt = getConnection().prepareStatement(sqlUsuario);) {
+                
+                int salida = stmt.executeUpdate(sqlUsuario);
+                
+                if (salida != 1) {
+                    
+                    mensajeError(" Error: No se ha guardado Usuario!!!");
+                    
+                } else {
+                    
+                    mensaje("Se Guardp Correctamente Usuario!!!");
+                    
+                }
+                
+            } catch (SQLException ex) {
+                // errores
+                System.out.println("SQLException: " + ex.getMessage());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
-
-        } catch (SQLException ex) {
-            // errores
-            System.out.println("SQLException: " + ex.getMessage());
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            
+            limpiarPanelNuevoProfesor();
+            
+        } else {
+            mensajeError("varias casillas vacias!!!");
         }
-
-        limpiarPanelNuevoProfesor();
 
     }//GEN-LAST:event_jButtonGuardarNuevoProfesorActionPerformed
 
@@ -3029,30 +3551,36 @@ public class Principal extends javax.swing.JFrame {
     private void jTextFieldModificacionHoraFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldModificacionHoraFinalMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldModificacionHoraFinalMouseClicked
-
+    
 
     private void jButtonModificacionrSolicitudAprobadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificacionrSolicitudAprobadaActionPerformed
         // TODO add your handling code here:
 
-        int idSol = Integer.parseInt(jTextFieldModificacionIdSolicitud.getText());
-
-        guardarTransporteActividad();
-
-        Solicitud auxSol = auxSolicitudDAOImp.buscar(idSol);
-        double presupuesto = Double.parseDouble(jTextFieldPresupuesto.getText());
-        int totalAlumnos = Integer.parseInt(jTextFieldAlumnosAsistencia.getText());
-        String comentarios = jTextFieldComentarioOpcional.getText();
-
-        actividaProgramada = new ActividadProgramada(auxSol.isTransporte(), presupuesto, totalAlumnos, comentarios, auxSol.getIdSolicitud(), auxSol.getSolicitante(), auxSol.getNombreActividad(), auxSol.getTipoActividad(),
-                auxSol.getDepartamento(), auxSol.isPrevista(), auxSol.isTransporte(), auxSol.getFechaInicial(), auxSol.getFechaFinal(), auxSol.getHoraInicial(), auxSol.getHoraFinal(), auxSol.isAlojamiento(), auxSol.getComentarioAdicional(),
-                auxSol.getEstado(), auxSol.getConsultaEstado(), auxSol.getMaximoAlumnos());
-
-        if (auxActividadProgramadaDAOImp.guardarActividadProgramada(actividaProgramada)) {
-            mensaje("Activada " + actividaProgramada.getIdSolicitud() + " Aprobada Guardada!!!");
+        if (!jTextFieldPresupuesto.getText().equals("") && !jTextFieldAlumnosAsistencia.getText().equals("") && modeloListaTransporte.size() != 0) {
+            
+            int idSol = Integer.parseInt(jTextFieldModificacionIdSolicitud.getText());
+            Solicitud auxSol = auxSolicitudDAOImp.buscar(idSol);
+            double presupuesto = Double.parseDouble(jTextFieldPresupuesto.getText());
+            int totalAlumnos = Integer.parseInt(jTextFieldAlumnosAsistencia.getText());
+            String comentarios = jTextFieldComentarioOpcional.getText();
+            
+            actividaProgramada = new ActividadProgramada(auxSol.isTransporte(), presupuesto, totalAlumnos, comentarios, auxSol.getIdSolicitud(), auxSol.getSolicitante(), auxSol.getNombreActividad(), auxSol.getTipoActividad(),
+                    auxSol.getDepartamento(), auxSol.isPrevista(), auxSol.isTransporte(), auxSol.getFechaInicial(), auxSol.getFechaFinal(), auxSol.getHoraInicial(), auxSol.getHoraFinal(), auxSol.isAlojamiento(), auxSol.getComentarioAdicional(),
+                    auxSol.getEstado(), auxSol.getConsultaEstado(), auxSol.getMaximoAlumnos());
+            
+            if (auxActividadProgramadaDAOImp.guardarActividadProgramada(actividaProgramada)) {
+                mensaje("Activada " + actividaProgramada.getIdSolicitud() + " Aprobada Guardada!!!");
+                
+                guardarTransporteActividad();
+                
+            } else {
+                mensajeError("Error al Guardar Actividad Programada!!!");
+            }
+            
         } else {
-            mensaje("Error al Guardar Actividad Programada!!!");
+            mensajeError("casillas o lista vacia!!!");
         }
-
+        
 
     }//GEN-LAST:event_jButtonModificacionrSolicitudAprobadaActionPerformed
 
@@ -3064,15 +3592,15 @@ public class Principal extends javax.swing.JFrame {
     private void jTableSolicitudesAprobadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSolicitudesAprobadasMouseClicked
         // TODO add your handling code here:
         jPanelModificacionSolicitud.setVisible(true);
-
+        
         int idSoli = Integer.parseInt(jTextFieldModificacionIdSolicitud.getText());
-
+        
         List<Solicitud> auxS = auxSolicitudDAOImp.listar();
-
+        
         for (Solicitud s : auxS) {
-
+            
             if (s.getIdSolicitud() == idSoli && s.getSolicitante() == getProfesor().getId_Prof() && s.getEstado().equals(Estado.APROBADA)) {
-
+                
                 jTextFieldModificacionNombreActividad.setText(s.getNombreActividad());
                 jTextFieldModificacionTipoActividad.setText(s.getTipoActividad().toString());
                 jTextFieldModificacionDepartamento.setText("" + s.getDepartamento());
@@ -3085,11 +3613,11 @@ public class Principal extends javax.swing.JFrame {
                 jTextFieldModificacionAlojamiento.setText(devuelveSiNo(s.isAlojamiento()));
                 jTextFieldModificacionComentarioAdicional.setText(s.getComentarioAdicional());
                 jTextFieldModificacionCantidadAlumnos.setText("" + s.getMaximoAlumnos());
-
+                
             }
-
+            
         }
-
+        
         comboBoxCursos();
         comboBoxGrupos();
         comboBoxTransporteContratado();
@@ -3108,39 +3636,38 @@ public class Principal extends javax.swing.JFrame {
     private void jButtonSeleccionarTranspoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSeleccionarTranspoteActionPerformed
         // TODO add your handling code here:
 
-        try {
-
-            String transporte = jComboBoxTransporteContrado.getSelectedItem().toString();
-
-            boolean igual = false;
-
-            for (int i = 0; i < modeloListaTransporte.getSize(); i++) {
-
-                if (transporte.equals(modeloListaTransporte.getElementAt(i))) {
-
-                    mensaje("El Transporte: " + transporte + ", ya esta seleccionado!!!");
-                    igual = true;
-
-                }
-
+        int id = Integer.parseInt(jTextFieldModificacionIdSolicitud.getText());
+        
+        Solicitud s = auxSolicitudDAOImp.buscar(id);
+        
+        String auxBus = jComboBoxTransporteContrado.getSelectedItem().toString();
+        
+        if (auxBus.equalsIgnoreCase("bus")) {
+            
+            if (s.getFechaInicial().plusWeeks(2).isBefore(LocalDate.now())) {
+                
+                mensaje("Esta dentro de de las 2 semanas para pedir el Bus!!!");
+                guardarEnListatransporte(auxBus);
+                
+            } else {
+                
+                mensajeError("Ya te pasaste de las 2 semanas!!!");
             }
-
-            if (igual == false) {
-
-                modeloListaTransporte.addElement(transporte);
-
-            }
-
-        } catch (NullPointerException e) {
-
-            mensaje("Seleccione uno o varios Transportes!!!");
-
+            
+        } else {
+            
+            guardarEnListatransporte(auxBus);
+            
         }
+        
 
     }//GEN-LAST:event_jButtonSeleccionarTranspoteActionPerformed
 
     private void jRadioButtonPreVistaSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPreVistaSiActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:   
+        if (jRadioButtonPreVistaSi.isSelected()) {
+            jRadioButtonTransporteSi.requestFocus();
+        }
     }//GEN-LAST:event_jRadioButtonPreVistaSiActionPerformed
 
     private void jComboBoxProfesorParticipantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxProfesorParticipantesMouseClicked
@@ -3150,39 +3677,42 @@ public class Principal extends javax.swing.JFrame {
     private void jButtonSeleccionarProfesorParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSeleccionarProfesorParticipanteActionPerformed
         // TODO add your handling code here:
         try {
-
-            String profesor = jComboBoxProfesorParticipantes.getSelectedItem().toString();
-
-            if (!profesor.equalsIgnoreCase(jComboBoxProfesorResponsable.getSelectedItem().toString())) {
-
+            
+            String profes = jComboBoxProfesorParticipantes.getSelectedItem().toString();
+            
+            if (!profes.equalsIgnoreCase(jComboBoxProfesorResponsable.getSelectedItem().toString())) {
+                
                 boolean igual = false;
-
+                
                 for (int i = 0; i < modeloListaProfesoresParticipantes.getSize(); i++) {
-
-                    if (profesor.equals(modeloListaProfesoresParticipantes.getElementAt(i))) {
-
-                        mensaje("El Profesor " + profesor + ", ya esta seleccionado!!!");
+                    
+                    if (profes.equals(modeloListaProfesoresParticipantes.getElementAt(i))) {
+                        
+                        mensajeError("El Profesor " + profes + ", ya esta seleccionado!!!");
                         igual = true;
-
+                        
                     }
-
+                    
                 }
-
+                
                 if (igual == false) {
-
-                    modeloListaProfesoresParticipantes.addElement(profesor);
-
+                    
+                    modeloListaProfesoresParticipantes.addElement(profes);
+                    
                 }
-
+                
             } else {
-                mensaje("No se puede seleccionar al Profesor Responsable como Participante!!!");
+                mensajeError("No se puede seleccionar al Profesor Responsable como Participante!!!");
             }
-
+            
         } catch (NullPointerException e) {
-
-            mensaje("Seleccione uno o varios Profesores Participantes!!!");
-
+            
+            mensajeError("Seleccione uno o varios Profesores Participantes!!!");
+            
         }
+        
+        jRadioButtonCursos.requestFocus();
+
     }//GEN-LAST:event_jButtonSeleccionarProfesorParticipanteActionPerformed
 
     private void jRadioButtonCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonCursosMouseClicked
@@ -3205,15 +3735,52 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButtonSeleccionarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSeleccionarCursoActionPerformed
         // TODO add your handling code here:
-        if (jRadioButtonCursos.isSelected()) {
-
-            cargarCantidadAlumnosCurso();
-
-        } else {
-
-            mensaje("Tiene que seleccionar CURSO!!!");
-
+        int total = 0;
+        String curso = jComboBoxCursos.getSelectedItem().toString();
+        
+        try {
+            
+            if (jRadioButtonCursos.isSelected()) {
+                
+                boolean igual = false;
+                
+                for (int i = 0; i < modeloListaCursos.getSize(); i++) {
+                    
+                    if (curso.equals(modeloListaCursos.getElementAt(i))) {
+                        
+                        mensaje("El Curso: " + curso + ", ya esta seleccionado!!!");
+                        igual = true;
+                        
+                    }
+                    
+                }
+                
+                if (igual == false) {
+                    
+                    modeloListaCursos.addElement(curso);
+                    
+                }
+                
+            } else {
+                
+                mensajeError("Tiene que seleccionar uno o Varios CURSOS!!!");
+                
+            }
+            
+        } catch (NullPointerException e) {
+            
+            mensajeError("Seleccione uno o varios Cursos!!!");
+            
         }
+        
+        for (int i = 0; i < modeloListaCursos.getSize(); i++) {
+            
+            total += totalAlumnosCursos(modeloListaCursos.getElementAt(i).toString());
+            
+        }
+        
+        jTextFieldCantidadAlumnos.setText("" + total);
+
     }//GEN-LAST:event_jButtonSeleccionarCursoActionPerformed
 
     private void jRadioButtonGruposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonGruposMouseClicked
@@ -3230,62 +3797,65 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int total = 0;
         String grupo = jComboBoxGrupos.getSelectedItem().toString();
-
+        
         try {
-
+            
             if (jRadioButtonGrupos.isSelected()) {
-
+                
                 boolean igual = false;
-
+                
                 for (int i = 0; i < modeloListaGrupos.getSize(); i++) {
-
+                    
                     if (grupo.equals(modeloListaGrupos.getElementAt(i))) {
-
+                        
                         mensaje("El Grupo: " + grupo + ", ya esta seleccionado!!!");
                         igual = true;
-
+                        
                     }
-
+                    
                 }
-
+                
                 if (igual == false) {
-
+                    
                     modeloListaGrupos.addElement(grupo);
-
+                    
                 }
-
+                
             } else {
-
-                mensaje("Tiene que seleccionar uno o Varios GRUPOS!!!");
-
+                
+                mensajeError("Tiene que seleccionar uno o Varios GRUPOS!!!");
+                
             }
-
+            
         } catch (NullPointerException e) {
-
-            mensaje("Seleccione uno o varios Profesores Participantes!!!");
-
+            
+            mensajeError("Seleccione uno o varios GRUPOS!!!");
+            
         }
-
+        
         for (int i = 0; i < modeloListaGrupos.getSize(); i++) {
-
+            
             total += totalAlumnosGrupos(modeloListaGrupos.getElementAt(i).toString());
-
+            
         }
-
+        
         jTextFieldCantidadAlumnos.setText("" + total);
 
     }//GEN-LAST:event_jButtonSeleccionarGruposActionPerformed
 
     private void jRadioButtonCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCursosActionPerformed
         // TODO add your handling code here:
+        if (jRadioButtonCursos.isSelected()) {
+            jComboBoxCursos.requestFocus();
+        }
     }//GEN-LAST:event_jRadioButtonCursosActionPerformed
 
     private void jTableSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSolicitudesMouseClicked
         // TODO add your handling code here:
         muestraCabeceraTablaFotos();
-
+        
         String est = jTableSolicitudes.getValueAt(jTableSolicitudes.getSelectedRow(), 12).toString();
-
+        
         if (est.equalsIgnoreCase("realizada")) {
             jPanelFotosActividad.setVisible(true);
         } else {
@@ -3299,25 +3869,25 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         boolean igual = false;
-
+        
         if (jTextFieldURL.getText().equals("") && jTextFieldDescripcionFotos.getText().equals("")) {
-
-            mensaje("Campos Vacios!!!");
-
+            
+            mensajeError("Campos Vacios!!!");
+            
         } else {
-
+            
             for (int i = 0; i < modeloFotos.getRowCount(); i++) {
-
+                
                 if (jTableFotos.getValueAt(i, 0).toString().equals(jTextFieldURL.getText())) {
-
+                    
                     igual = true;
                 }
-
+                
             }
-
+            
             if (igual) {
                 
-                mensaje("Url ya Ingresada!!!");
+                mensajeError("Url ya Ingresada!!!");
                 jTextFieldURL.setText("");
                 jTextFieldDescripcionFotos.setText("");
                 
@@ -3327,50 +3897,352 @@ public class Principal extends javax.swing.JFrame {
                 modeloFotos.addRow(Fila);
                 jTextFieldURL.setText("");
                 jTextFieldDescripcionFotos.setText("");
-
+                
             }
-
+            
         }
-
+        
 
     }//GEN-LAST:event_jButtonAgregarListaFotosActionPerformed
 
     private void jButtonGurdarFotosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGurdarFotosActionPerformed
         // TODO add your handling code here:
-        
-        boolean guardado = false;
-        
-        int idFoto = auxFotosDAOImp.listar().size()+1;
-        int actividad = Integer.parseInt(jTextFieldNumeroDeLaActividad.getText());
-        
-        for (int i = 0; i < modeloFotos.getRowCount(); i++) {
 
-            Fotos f = new Fotos(idFoto, jTableFotos.getValueAt(i, 0).toString(), jTableFotos.getValueAt(i, 1).toString(), actividad);
-            auxFotosDAOImp.guardar(f);
-            idFoto++;
-            guardado = true;
-
-        }
-        
-        if(guardado){
-            mensaje("Fotos Guardadas");
-            jTextFieldURL.setText("");
-            jTextFieldDescripcionFotos.setText("");
-            jTextFieldNumeroDeLaActividad.setText("");
-            muestraCabeceraTablaFotos();
-            jPanelFotosActividad.setVisible(false);
-            jTextFieldURL.requestFocus();
+        if (modeloFotos.getRowCount() != 0) {
+            
+            boolean guardado = false;
+            
+            int idFoto = auxFotosDAOImp.listar().size() + 1;
+            int actividad = Integer.parseInt(jTextFieldNumeroDeLaActividad.getText());
+            
+            for (int i = 0; i < modeloFotos.getRowCount(); i++) {
                 
-        }else{
-            mensaje("Error: con las Fotos!!!");
+                Fotos f = new Fotos(idFoto, jTableFotos.getValueAt(i, 0).toString(), jTableFotos.getValueAt(i, 1).toString(), actividad);
+                auxFotosDAOImp.guardar(f);
+                idFoto++;
+                guardado = true;
+                
+            }
+            
+            if (guardado) {
+                mensaje("Fotos Guardadas");
+                limpiarPanelFotos();
+                
+            } else {
+                mensajeError("Error: con las Fotos!!!");
+            }
+            
+        } else {
+            
+            mensajeError("Lista de fotos vacia!!!");
+            
         }
-        
+
     }//GEN-LAST:event_jButtonGurdarFotosActionPerformed
 
     private void jButtonCerrarVentanaFotosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarVentanaFotosActionPerformed
         // TODO add your handling code here:
         jPanelFotosActividad.setVisible(false);
+        limpiarPanelFotos();
     }//GEN-LAST:event_jButtonCerrarVentanaFotosActionPerformed
+
+    private void jRadioButtonGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGruposActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonGrupos.isSelected()) {
+            jComboBoxGrupos.requestFocus();
+        }
+    }//GEN-LAST:event_jRadioButtonGruposActionPerformed
+
+    private void jComboBoxTransporteContradoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTransporteContradoMouseClicked
+        // TODO add your handling code here: 
+    }//GEN-LAST:event_jComboBoxTransporteContradoMouseClicked
+
+    private void jButtonIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonIngresarKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButtonIngresarKeyPressed
+
+    private void jPasswordContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordContraseñaKeyTyped
+        // TODO add your handling code here:
+
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarContraseña(jPasswordContraseña.getText())) {
+                mensaje("formato correcto!!!");
+                jButtonIngresar.doClick();
+            } else {
+                mensajeError("formato incorrecto!!!");
+                jPasswordContraseña.setText("");
+            }
+            
+        }
+
+    }//GEN-LAST:event_jPasswordContraseñaKeyTyped
+
+    private void jTextNombreActividadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNombreActividadKeyTyped
+        // TODO add your handling code here:
+
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarNombreActivida(jTextNombreActividad.getText())) {
+                mensaje("formato correcto!!!");
+                jComboBoxTipoActividad.requestFocus();
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextNombreActividad.setText("");
+            }
+            
+        }
+
+    }//GEN-LAST:event_jTextNombreActividadKeyTyped
+
+    private void jComboBoxDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDepartamentoActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxDepartamento.getSelectedIndex() >= 0) {
+            jRadioButtonPreVistaSi.requestFocus();
+        }
+    }//GEN-LAST:event_jComboBoxDepartamentoActionPerformed
+
+    private void jRadioButtonPreVistaNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPreVistaNoActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonPreVistaNo.isSelected()) {
+            jRadioButtonTransporteSi.requestFocus();
+        }
+    }//GEN-LAST:event_jRadioButtonPreVistaNoActionPerformed
+
+    private void jRadioButtonTransporteSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTransporteSiActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonTransporteSi.isSelected()) {
+            jTextFieldFechaInicial.setText("");
+            jTextFieldFechaInicial.requestFocus();
+        }
+    }//GEN-LAST:event_jRadioButtonTransporteSiActionPerformed
+
+    private void jRadioButtonTransporteNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTransporteNoActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonTransporteNo.isSelected()) {
+            jTextFieldFechaInicial.setText("");
+            jTextFieldFechaInicial.requestFocus();
+        }
+    }//GEN-LAST:event_jRadioButtonTransporteNoActionPerformed
+
+    private void jTextFieldFechaInicialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFechaInicialKeyTyped
+        // TODO add your handling code here:
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarFecha(jTextFieldFechaInicial.getText())) {
+                mensaje("formato correcto!!!");
+                jTextFieldFechaFinal.requestFocus();
+                jTextFieldFechaFinal.setText("");
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldFechaInicial.setText("");
+            }
+            
+        }
+
+    }//GEN-LAST:event_jTextFieldFechaInicialKeyTyped
+
+    private void jTextFieldFechaFinalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFechaFinalKeyTyped
+        // TODO add your handling code here:
+
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarFecha(jTextFieldFechaFinal.getText())) {
+                mensaje("formato correcto!!!");
+                jTextFieldHoraInicial.requestFocus();
+                jTextFieldHoraInicial.setText("");
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldFechaFinal.setText("");
+            }
+            
+        }
+
+    }//GEN-LAST:event_jTextFieldFechaFinalKeyTyped
+
+    private void jTextFieldHoraInicialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldHoraInicialKeyTyped
+        // TODO add your handling code here:
+
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarHora(jTextFieldHoraInicial.getText())) {
+                mensaje("formato correcto!!!");
+                jTextFieldHoraFinal.requestFocus();
+                jTextFieldHoraFinal.setText("");
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldFechaInicial.setText("");
+            }
+            
+        }
+
+    }//GEN-LAST:event_jTextFieldHoraInicialKeyTyped
+
+    private void jTextFieldHoraFinalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldHoraFinalKeyTyped
+        // TODO add your handling code here:
+
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarHora(jTextFieldHoraFinal.getText())) {
+                mensaje("formato correcto!!!");
+                jRadioButtonAlojamientoSi.requestFocus();
+                
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldFechaFinal.setText("");
+            }
+            
+        }
+
+    }//GEN-LAST:event_jTextFieldHoraFinalKeyTyped
+
+    private void jRadioButtonAlojamientoSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAlojamientoSiActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonAlojamientoSi.isSelected()) {
+            jTextFieldComentarioAdicional.requestFocus();
+            
+        }
+    }//GEN-LAST:event_jRadioButtonAlojamientoSiActionPerformed
+
+    private void jRadioButtonAlojamientoNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAlojamientoNoActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonAlojamientoNo.isSelected()) {
+            jTextFieldComentarioAdicional.requestFocus();
+            
+        }
+    }//GEN-LAST:event_jRadioButtonAlojamientoNoActionPerformed
+
+    private void jTextFieldComentarioAdicionalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldComentarioAdicionalKeyTyped
+        // TODO add your handling code here:
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarComentario(jTextFieldComentarioAdicional.getText())) {
+                mensaje("formato correcto!!!");
+                jComboBoxProfesorResponsable.requestFocus();
+                
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldComentarioAdicional.setText("");
+            }
+            
+        }
+    }//GEN-LAST:event_jTextFieldComentarioAdicionalKeyTyped
+
+    private void jComboBoxProfesorResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProfesorResponsableActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxProfesorResponsable.getSelectedIndex() >= 0) {
+            jComboBoxProfesorParticipantes.requestFocus();
+        }
+    }//GEN-LAST:event_jComboBoxProfesorResponsableActionPerformed
+
+    private void jTextFieldAlumnosAsistenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAlumnosAsistenciaKeyTyped
+        // TODO add your handling code here:
+
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            int cantidadAlumnos = Integer.parseInt(jTextFieldCantidadAlumnos.getText());
+            int alumnosAsisten = Integer.parseInt(jTextFieldAlumnosAsistencia.getText());
+            
+            if (alumnosAsisten <= cantidadAlumnos) {
+                mensaje("Cantidad de alumnos correcta!!!");
+            } else {
+                mensajeError("la cantidad de alumnos que pueden asistir no puede exceder de " + cantidadAlumnos);
+            }
+            
+        }
+
+    }//GEN-LAST:event_jTextFieldAlumnosAsistenciaKeyTyped
+
+    private void jTextFieldComentarioOpcionalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldComentarioOpcionalKeyTyped
+        // TODO add your handling code here:
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarComentario(jTextFieldComentarioOpcional.getText())) {
+                mensaje("formato correcto!!!");
+                
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldComentarioOpcional.setText("");
+            }
+            
+        }
+    }//GEN-LAST:event_jTextFieldComentarioOpcionalKeyTyped
+
+    private void jTextFieldNombreNuevoProfesorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreNuevoProfesorKeyTyped
+        // TODO add your handling code here:
+        
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarNombre(jTextFieldNombreNuevoProfesor.getText())) {
+                mensaje("formato correcto!!!");
+                jTextFieldApellidosNuevoProfesor.requestFocus();
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldNombreNuevoProfesor.setText("");
+            }
+            
+        }
+        
+    }//GEN-LAST:event_jTextFieldNombreNuevoProfesorKeyTyped
+
+    private void jTextFieldApellidosNuevoProfesorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidosNuevoProfesorKeyTyped
+        // TODO add your handling code here:
+        
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarApellido(jTextFieldApellidosNuevoProfesor.getText())) {
+                mensaje("apellidos correcto!!!");
+                jTextFieldDniNuevoProfesor.requestFocus();
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldApellidosNuevoProfesor.setText("");
+            }
+            
+        }
+        
+    }//GEN-LAST:event_jTextFieldApellidosNuevoProfesorKeyTyped
+
+    private void jTextFieldDniNuevoProfesorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDniNuevoProfesorKeyTyped
+        // TODO add your handling code here:
+        
+        char teclaPresionada = evt.getKeyChar();
+        
+        if (teclaPresionada == KeyEvent.VK_ENTER) {
+            
+            if (ValidarDatos.validarDni(jTextFieldDniNuevoProfesor.getText())) {
+                
+                jComboBoxDepartamentoNuevoProfesor.requestFocus();
+            } else {
+                mensajeError("formtato incorrecto!!!");
+                jTextFieldDniNuevoProfesor.setText("");
+            }
+            
+        }
+        
+    }//GEN-LAST:event_jTextFieldDniNuevoProfesorKeyTyped
 
     /**
      * @param args the command line arguments
@@ -3458,6 +4330,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFechaInicial;
     private javax.swing.JLabel jLabelHoraFinal;
     private javax.swing.JLabel jLabelHoraInicial;
+    private javax.swing.JLabel jLabelListaCursos;
     private javax.swing.JLabel jLabelListaFotos;
     private javax.swing.JLabel jLabelListaGrupos;
     private javax.swing.JLabel jLabelListaProfesoresParticipantes;
@@ -3500,6 +4373,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelUrlFotos;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JLabel jLabelVentanaModificarEstadoSolicitud;
+    private javax.swing.JList<String> jListCursos;
     private javax.swing.JList<String> jListGrupos;
     private javax.swing.JList<String> jListProfesoresParticipantes;
     private javax.swing.JList<String> jListTransportes;
@@ -3523,6 +4397,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;

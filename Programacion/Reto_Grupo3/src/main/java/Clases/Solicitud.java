@@ -8,12 +8,13 @@ import Enums.Estado;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 /**
  * Esta clase contiene los atributos y metodos de una Solicitud
  * @author Grupo3
  * @version 1.0
  */
-public class Solicitud {
+public class Solicitud{
     
     private int idSolicitud;
     private int solicitante;
@@ -234,5 +235,13 @@ public class Solicitud {
         DateTimeFormatter fecFor = DateTimeFormatter.ofPattern("HH:mm");
         return horaFinal.format(fecFor);
     }
-   
+
+    @Override
+    public String toString() {
+        return "Solicitud{" + "idSolicitud=" + idSolicitud + ", solicitante=" + solicitante + ", nombreActividad=" + nombreActividad + ", tipoActividad=" + tipoActividad + ", departamento=" + departamento + ", prevista=" + prevista + ", transporte=" + transporte + ", fechaInicial=" + fechaInicial + ", fechaFinal=" + fechaFinal + ", horaInicial=" + horaInicial + ", horaFinal=" + horaFinal + ", alojamiento=" + alojamiento + ", comentarioAdicional=" + comentarioAdicional + ", estado=" + estado + ", consultaEstado=" + consultaEstado + ", maximoAlumnos=" + maximoAlumnos + '}';
+    }
+    
+    
+    
+    
 }

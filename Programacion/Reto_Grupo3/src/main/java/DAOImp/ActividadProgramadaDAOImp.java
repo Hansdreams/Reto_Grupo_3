@@ -21,8 +21,7 @@ import java.util.List;
  * Esta clase contiene los metodos de una interface MetodoBD T con la Clase Actividad Programa
  * @author Grupo3
  * @version 1.0
- * @see ActividadPrograma
- * @see AccesoBaseDatos
+ * @see ActividadPrograma AccesoBaseDatos
  */
 public class ActividadProgramadaDAOImp implements MetodosBD<ActividadProgramada>{
     /**

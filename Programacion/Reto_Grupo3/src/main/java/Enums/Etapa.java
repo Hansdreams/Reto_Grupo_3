@@ -5,8 +5,9 @@
 package Enums;
 
 /**
- *
- * @author DAW112
+ * Enum para las Clases Curso y Grupo
+ * @author Grupo3
+ * @version 1.0
  */
 public enum Etapa {
  

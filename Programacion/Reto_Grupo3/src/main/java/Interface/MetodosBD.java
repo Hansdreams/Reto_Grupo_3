@@ -7,8 +7,9 @@ package Interface;
 import java.util.List;
 
 /**
- *
- * @author DAW112
+ * Interface generica que se implementara para las Clases DAOImp y que contiene metodos unicos
+ * @author Grupo3
+ * @version 1.0
  */
 public interface MetodosBD<T> {
     

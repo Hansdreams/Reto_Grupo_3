@@ -17,8 +17,7 @@ import java.util.List;
  * Esta clase contiene los metodos de una interface MetodoBD T con la Clase Cursos
  * @author Grupo3
  * @version 1.0
- * @see Cursos
- * @see AccesoBaseDatos
+ * @see Cursos AccesoBaseDatos
  */
 public class CursosDAOImp implements MetodosBD<Cursos>{
     /**

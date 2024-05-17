@@ -18,8 +18,15 @@ import java.util.Properties;
  */
 public class AccesoBaseDatos {
     
-     private Connection conn = null; //atributo conexión
+    private Connection conn = null; //atributo conexión
+    
+    /*private static final String BD = "reto_prueba"; // nombre de la BD que se usa
+    private static final String USUARIO = "root";//son los datos para conectarse a la BD Mysql
+    private static final String CLAVE = "mysql";//contraseña con la que se ingresa BD Mysql
+    private static final String URL = "jdbc:mysql://localhost:3306/" + BD; //conexión al servidor de la BD*/
+    
     // constantes a definir. pueden depender de la base a usar, qué credenciales tiene la BD...
+    
     private static final String BD = "prueba2"; // nombre de la BD que se usa
     private static final String USUARIO = "g33";//son los datos para conectarse a la BD Mysql
     private static final String CLAVE = "Grupo3ubuntu.";//contraseña con la que se ingresa BD Mysql
